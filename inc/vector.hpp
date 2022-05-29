@@ -6,13 +6,14 @@
 /*   By: vincent <vincent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 15:25:56 by vbachele          #+#    #+#             */
-/*   Updated: 2022/05/29 21:57:36 by vincent          ###   ########.fr       */
+/*   Updated: 2022/05/30 00:07:42 by vincent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef VECTOR_HPP
 #define VECTOR_HPP
 #include "iostream"
+// #include "limits"
 #pragma once
 
 /*
@@ -31,7 +32,7 @@ public:
 	typedef size_t						size_type;
 	typedef value_type*					pointer;
 
-/***************** MEMBER FUNCTIONS **************/
+/***************** CANONICAL FORM **************/
 	//default/empty constructor
 	explicit Vector (const allocator_type& alloc = allocator_type());
 	//fill constructor - with n elements for the array. Each element is a copy of val.
@@ -45,6 +46,11 @@ public:
 	Vector (const Vector& x);
 	Vector& operator= (const Vector& x);
 	~Vector();
+
+/***************** MEMBER FUNCTIONS **************/
+	size_type 	size() const;
+	size_type 	capacity() const;
+	size_type	max_size() const;
 	
 private:
 	pointer				_array; // Adress of the array - We are using a pointer to allow a dynamic allocation of the memory during runtime of the program 
@@ -144,16 +150,41 @@ Vector<T, Alloc> &Vector<T, Alloc>::operator= (const Vector<T, Alloc> & x)
 	this->_size = x._size;
 	this->_capacity = x._capacity;
 	this->_alloc = x._alloc;
-	this->_array = NULL;
-	size_type i = 0;
-	while (i < this->_size)
+	this->_array = _alloc.allocate(this->_capacity); 
+	for (size_type i = 0; i < this->_size; i++)
 	{
 		_alloc.construct(&_array[i], x._array[i]);
 		std::cout << "Value of the Array: " << _array[i] << std::endl;
-		i++;
 	}
 	std::cout << "Initial Capacity is: " << this->_capacity << std::endl;
-	std::cout << "size is: " << this->_size << std::endl << std::endl;
+	std::cout << "size is: " << this->_size << std::endl;
 	return (*(this));
 }
+
+
+/*
+**==========================
+**    MEMBER FUNCTIONS
+**==========================
+*/
+
+template <typename T, typename Alloc>
+size_t	Vector<T, Alloc>::size(void) const
+{
+	return(this->_size);
+} 
+
+template <typename T, typename Alloc>
+size_t Vector<T, Alloc>::capacity(void) const
+{
+	return(this->_capacity);
+}
+
+// Return the maximum finite value representable by the numeric type T
+template <typename T, typename Alloc>
+size_t	Vector<T, Alloc>::max_size() const
+{ 
+	return (std::numeric_limits<size_type>::max());
+}
+
 #endif
