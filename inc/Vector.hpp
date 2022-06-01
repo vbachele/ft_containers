@@ -6,7 +6,7 @@
 /*   By: vbachele <vbachele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 15:25:56 by vbachele          #+#    #+#             */
-/*   Updated: 2022/06/01 16:00:17 by vbachele         ###   ########.fr       */
+/*   Updated: 2022/06/01 17:50:34 by vbachele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,23 @@ public:
 	void 		resize(size_type n, value_type val = value_type());
 	void 		set_array(pointer array); //Give you a new array
 	void 		reserve(size_type n); // request the vector capacity at least n elements
+	void		display_array(void) const;
+
+/***************** ITERATORS FUNCTIONS **************/
+    //iterator 		begin();
+	//const_iterator begin() const;
+
+/***************** MODIFIERS FUNCTIONS **************/
+	void push_back (const value_type& val);
+	void pop_back();
+	void swap (Vector& x);
+	void clear();
 
 private:
 	pointer				_array; // Adress of the array - We are using a pointer to allow a dynamic allocation of the memory during runtime of the program
 	size_type 			_size; // size of the array
 	size_type 			_capacity; //size for the memory
 	allocator_type		_alloc;
-
 };
 
 /*
@@ -93,7 +103,7 @@ Vector<T, Alloc>::Vector(size_type n, const value_type& val,
 	this->_size = n;
 	this->_capacity = n;
 	this->_alloc = alloc;
-	this->_array = _alloc.allocate(this->_capacity);;
+	this->_array = _alloc.allocate(this->_capacity);
 	std::cout << "-------------- FILL CONSTRUCTOR ---------------" << std::endl << std::endl;
 	std::cout << "Initial Capacity is: " << _capacity << std::endl;
 	std::cout << "size is: " << _size << std::endl;
@@ -230,6 +240,15 @@ void 		Vector<T, Alloc>::resize(size_type n, value_type val)
 }
 
 template <typename T, typename Alloc>
+void		Vector<T, Alloc>::display_array(void) const
+{
+	for (size_type i = 0; i < size(); i++)
+	{
+		std::cout << "value of the array : " << _array[i] << std::endl;
+	}
+}
+
+template <typename T, typename Alloc>
 void Vector<T,Alloc>::set_array(pointer array)
 {
 	this->_array = array;
@@ -253,6 +272,64 @@ void		Vector<T, Alloc>::reserve(size_type size) // allocation of a nez capacity
 		this->_alloc.deallocate(this->_array, this->_capacity);
 		set_array(n);
 		this->_capacity = size;
+	}
+}
+
+/*
+**==========================
+**   MODIFIERS FUNCTIONS
+**==========================
+*/
+
+template <typename T, typename Alloc>
+void		Vector<T, Alloc>::push_back(const value_type& val)
+{
+	if (capacity() == size())
+	{
+		if (size() == 0)
+			this->reserve(2); // I attribute the memory of 2 for the program
+		else
+		{
+			this->reserve(capacity() + 1);
+		}
+	}
+	_array[_size] = val;
+	this->_size++;
+}
+
+template <typename T, typename Alloc>
+void		Vector<T, Alloc>::pop_back()
+{
+	if (size() > 0)
+		this->_size -= 1;
+}
+
+template <typename T, typename Alloc>
+void 		Vector<T, Alloc>::swap(Vector& x)
+{
+	pointer 		start = x._array;
+	size_type 		start_size = x._size;
+	size_type 		start_capacity = x._capacity;
+	allocator_type start_allocator = x._alloc;
+
+	x._array = this->_array;
+	x._size = this->_size;
+	x._capacity = this->_capacity;
+	x._alloc = this->_alloc;
+
+	this->_array = start;
+	this->_size = start_size;
+	this->_capacity = start_capacity;
+	this->_alloc = start_allocator;
+}
+
+template <typename T, typename Alloc>
+void 		Vector<T, Alloc>::clear()
+{
+	if (size() > 0)
+	{
+		for (size_type i = size(); i > 0; i--)
+			pop_back();
 	}
 }
 
