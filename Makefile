@@ -6,7 +6,7 @@
 #    By: vbachele <vbachele@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/15 15:41:32 by vbachele          #+#    #+#              #
-#    Updated: 2022/05/26 15:25:35 by vbachele         ###   ########.fr        #
+#    Updated: 2022/06/01 14:19:47 by vbachele         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ ifeq ($(OS),Darwin)
 else
 	CXX = c++
 endif
-CXXFLAGS = -fsanitize=address -Wall -Wextra -Werror -std=c++98
+CXXFLAGS = -fsanitize=address -g -Wall -Wextra -Werror -std=c++98
 # to silence alloc: nano zone abandoned due to inability to preallocate reserved vm space.
 # put MallocNanoZone=0 before launching the ./a.out
 
