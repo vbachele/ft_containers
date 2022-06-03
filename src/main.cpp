@@ -6,7 +6,7 @@
 /*   By: vbachele <vbachele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 15:26:04 by vbachele          #+#    #+#             */
-/*   Updated: 2022/06/03 17:44:46 by vbachele         ###   ########.fr       */
+/*   Updated: 2022/06/03 17:59:39 by vbachele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ void	vector_test_iterator_functions(void)
 	std::cout << "-------------- END ---------------" << std::endl << std::endl;
 	default_vector.push_back(42);
 	  std::cout << "myvector contains:";
-  	//for (Vector<int>::iterator it = default_vector.begin(); it != default_vector.end(); ++it)
-    	//std::cout << ' ' << it;
+  	for (Vector<int>::iterator it = 	default_vector.begin() ; it != 	default_vector.end(); ++it)
+    	std::cout << ' ' << it;
   	std::cout << '\n';
 }
 void	vector_test_modifiers_functions(void)

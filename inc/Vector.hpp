@@ -6,7 +6,7 @@
 /*   By: vbachele <vbachele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 15:25:56 by vbachele          #+#    #+#             */
-/*   Updated: 2022/06/03 17:32:46 by vbachele         ###   ########.fr       */
+/*   Updated: 2022/06/03 17:58:50 by vbachele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -367,11 +367,11 @@ typename Vector<T, Alloc>::iterator	Vector<T,Alloc>::begin()
 	return (iterator(this->_array));
 }
 
-// template <typename T, typename Alloc>
-// const_iterator Vector<T, Alloc>::begin() const
-// {
-// 	return (const_iterator(this->_array));
-// }
+template <typename T, typename Alloc>
+typename Vector<T, Alloc>::const_iterator	Vector<T,Alloc>::begin() const
+{
+	return (const_iterator(this->_array));
+}
 
 template <typename T, typename Alloc>
 typename Vector<T, Alloc>::iterator	Vector<T,Alloc>::end()
@@ -380,11 +380,11 @@ typename Vector<T, Alloc>::iterator	Vector<T,Alloc>::end()
 	return (iterator(this->_array + this->_size));
 }
 
-// template <typename T, typename Alloc>
-// const_iterator Vector<T, Alloc>::begin() const
-// {
-// 	return (const_iterator(&this->_array[_size]));
-// }
+template <typename T, typename Alloc>
+typename Vector<T, Alloc>::const_iterator Vector<T,Alloc>::end() const
+{
+	return (const_iterator(&this->_array[_size]));
+}
 
 
 /*

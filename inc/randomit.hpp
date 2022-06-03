@@ -6,7 +6,7 @@
 /*   By: vbachele <vbachele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 14:43:42 by vbachele          #+#    #+#             */
-/*   Updated: 2022/06/03 17:51:48 by vbachele         ###   ########.fr       */
+/*   Updated: 2022/06/03 17:55:31 by vbachele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,11 @@ public:
 		return (*this);
 	}
 
-	// bool &operator!=(const vector_iterator &other) const
-	// {
-	// 	bool b = this->_ptr != other._ptr; // If diff b = 1
-	// 	return (b);
-	// }
+	bool operator!=(const vector_iterator &other) const
+	{
+		bool b = this->_ptr != other._ptr; // If diff b = 1
+		return (b);
+	}
 
 };
 
@@ -73,11 +73,10 @@ std::ostream &operator<<(std::ostream &o, vector_iterator<Iterator> &rhs)
 }
 
 template <typename It1, typename It2>
-bool &operator!=(const vector_iterator<It1> &a, const vector_iterator<It2> &b)
+bool operator!=(const vector_iterator<It1> &a, const vector_iterator<It2> &b)
 {
 		bool res = a.get_ptr() != b.get_ptr(); // If diff b = 1
 		return (res);
 }
-
 
 #endif
