@@ -6,7 +6,7 @@
 /*   By: vbachele <vbachele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 15:25:56 by vbachele          #+#    #+#             */
-/*   Updated: 2022/06/01 17:50:34 by vbachele         ###   ########.fr       */
+/*   Updated: 2022/06/03 17:32:46 by vbachele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,10 @@
 #define VECTOR_HPP
 #include "iostream"
 #include "limits"
+#include "randomit.hpp"
 #pragma once
+
+//class vector_iterator;
 
 /*
 **==========================
@@ -27,10 +30,13 @@ class Vector
 {
 public:
 /***************** TYPEDEF **************/
-	typedef T							value_type;
-	typedef	Alloc						allocator_type;
-	typedef size_t						size_type;
-	typedef value_type*					pointer;
+	typedef T										value_type;
+	typedef	Alloc									allocator_type;
+	typedef size_t									size_type;
+	typedef value_type*								pointer;
+	typedef vector_iterator<value_type>			iterator;
+	typedef vector_iterator<value_type const>		const_iterator;
+
 
 /***************** CANONICAL FORM **************/
 	/*** Default empty constructor ***/
@@ -61,14 +67,29 @@ public:
 	void		display_array(void) const;
 
 /***************** ITERATORS FUNCTIONS **************/
-    //iterator 		begin();
-	//const_iterator begin() const;
+    iterator 		begin();
+	const_iterator 	begin() const;
+	iterator		end();
+	const_iterator		end() const;
 
 /***************** MODIFIERS FUNCTIONS **************/
 	void push_back (const value_type& val);
 	void pop_back();
 	void swap (Vector& x);
 	void clear();
+
+/***************** NON MEMBER FUNCTIONS OVERLOAD **************/
+// bool operator== (const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs);
+
+// bool operator!= (const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs);
+
+// bool operator<  (const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs);
+
+// bool operator<= (const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs);
+
+// bool operator>  (const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs);
+
+// bool operator>= (const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs);
 
 private:
 	pointer				_array; // Adress of the array - We are using a pointer to allow a dynamic allocation of the memory during runtime of the program
@@ -153,7 +174,7 @@ Vector<T, Alloc>::~Vector()
 template <typename T, typename Alloc>
 Vector<T, Alloc> &Vector<T, Alloc>::operator= (const Vector<T, Alloc> & x)
 {
-	std::cout << "-------------- OPERATOR == ---------------" << std::endl << std::endl;
+	std::cout << "-------------- OPERATOR = ---------------" << std::endl << std::endl;
 	for (size_type i = 0; i < _size; i++)
 		_alloc.destroy(&_array[i]);
 	this->_size = x._size;
@@ -332,6 +353,79 @@ void 		Vector<T, Alloc>::clear()
 			pop_back();
 	}
 }
+
+/*
+**==========================
+**   ITERATOR FUNCTIONS
+**==========================
+*/
+
+template <typename T, typename Alloc>
+typename Vector<T, Alloc>::iterator	Vector<T,Alloc>::begin()
+{
+	// I return the pointer pointer at the first element of the array
+	return (iterator(this->_array));
+}
+
+// template <typename T, typename Alloc>
+// const_iterator Vector<T, Alloc>::begin() const
+// {
+// 	return (const_iterator(this->_array));
+// }
+
+template <typename T, typename Alloc>
+typename Vector<T, Alloc>::iterator	Vector<T,Alloc>::end()
+{
+	// I return the pointer pointer at the first element of the array
+	return (iterator(this->_array + this->_size));
+}
+
+// template <typename T, typename Alloc>
+// const_iterator Vector<T, Alloc>::begin() const
+// {
+// 	return (const_iterator(&this->_array[_size]));
+// }
+
+
+/*
+**==========================
+** NON MEMBER FUNCTIONS OVERLOAD
+**==========================
+*/
+
+// // template <class T, class Alloc>
+// //   bool operator== (const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs)
+// // {
+
+// // }
+
+// template <class T, class Alloc>
+// bool operator!= (const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs)
+// {
+// 	if (lhs == rhs)
+// 		return (false);
+// 	return (true);
+// }
+// // template <class T, class Alloc>
+// //   bool operator<  (const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs);
+
+// template <class T, class Alloc>
+// bool operator<= (const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs)
+// {
+// 	return (!(rhs < lhs));
+// }
+
+// template <class T, class Alloc>
+// bool operator>  (const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs)
+// {
+// 	return (rhs < lhs);
+// }
+
+// template <class T, class Alloc>
+// bool operator>= (const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs)
+// {
+// 	return (!(rhs > lhs));
+// }
 
 #endif
 

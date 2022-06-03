@@ -6,7 +6,7 @@
 #    By: vbachele <vbachele@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/15 15:41:32 by vbachele          #+#    #+#              #
-#    Updated: 2022/06/01 14:19:47 by vbachele         ###   ########.fr        #
+#    Updated: 2022/06/03 14:04:41 by vbachele         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,6 +14,7 @@ NAME = ft_containers
 
 SRC =				\
 	main.cpp	\
+	Vector_Test.cpp \
 
 OS = $(shell uname -s)
 ifeq ($(OS),Darwin)

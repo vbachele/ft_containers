@@ -6,42 +6,47 @@
 /*   By: vbachele <vbachele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 15:26:04 by vbachele          #+#    #+#             */
-/*   Updated: 2022/06/01 17:51:11 by vbachele         ###   ########.fr       */
+/*   Updated: 2022/06/03 17:44:46 by vbachele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Vector.hpp"
+#include "randomit.hpp"
 
-void	vector_Test(void)
+// void	vector_test_relational_operator_functions()
+// {
+// 	Vector <int> default_vector;
+// 	Vector <int> fill_vector(4, 500);
+// 	Vector <int> copy_vector(fill_vector);
+// 	default_vector = fill_vector;
+// 	if (copy_vector > fill_vector)
+// 		std::cout << "copy_vector is lesser than fill_vector" << std::endl;
+// }
+
+void	vector_test_iterator_functions(void)
 {
-	/***************** Test Constructor **************/
-	std::cout << "------------------------ VECTOR TEST --------------------------" << std::endl << std::endl;
-	std::cout << "------------------------ CONSTRUCTOR TESTS -------------------------" << std::endl << std::endl;
+	std::cout << " JE FAIS UN ENORME TEST DES ITERATORS" << std::endl;
 	Vector <int> default_vector;
 	Vector <int> fill_vector(4, 500);
 	Vector <int> copy_vector(fill_vector);
 	default_vector = fill_vector;
-	std::cout << std::endl;
-	std::cout << "-------------- MEMBER FUNCTIONS ---------------" << std::endl << std::endl;
-	std::cout << "-------------- 	SIZE ---------------" << std::endl << std::endl;
-	std::cout << "Size = " << default_vector.size() << std::endl;
-	std::cout << "-------------- 	CAPACITY ---------------" << std::endl << std::endl;
-	std::cout << "Capacity = " << default_vector.capacity() << std::endl;
-	std::cout << "-------------- 	MAX SIZE ---------------" << std::endl << std::endl;
-	std::cout << "Max_Size = " << default_vector.max_size() << std::endl;
-	std::cout << "--------------	 EMPTY ---------------" << std::endl << std::endl;
-	std::cout << "is_empty = " << default_vector.empty() << std::endl;
-	std::cout << "--------------	 RESERVE ---------------" << std::endl << std::endl;
-	default_vector.reserve(10);
-	std::cout << "is_empty = " << default_vector.empty() << std::endl;
-	std::cout << "Size = " << default_vector.size() << std::endl;
-	std::cout << "Capacity = " << default_vector.capacity() << std::endl;
-	std::cout << "--------------	 RESIZE ---------------" << std::endl << std::endl;
-	std::cout << "Initial size " << default_vector.size() << std::endl;
-	default_vector.resize(2, 6);
-	std::cout << "size -2 --> size should be 2 : new size = " << default_vector.size() << std::endl;
-	default_vector.resize(6, 6);
-	std::cout << "size + 2 --> size should be 6 : new size = " << default_vector.size() << std::endl;
+	std::cout << "-------------- ITERATOR FUNCTIONS ---------------" << std::endl << std::endl;
+	std::cout << "-------------- BEGIN ---------------" << std::endl << std::endl;
+	Vector<int>::iterator it = default_vector.begin();
+	std::cout << it << std::endl;
+	std::cout << "-------------- END ---------------" << std::endl << std::endl;
+	default_vector.push_back(42);
+	  std::cout << "myvector contains:";
+  	//for (Vector<int>::iterator it = default_vector.begin(); it != default_vector.end(); ++it)
+    	//std::cout << ' ' << it;
+  	std::cout << '\n';
+}
+void	vector_test_modifiers_functions(void)
+{
+	Vector <int> default_vector;
+	Vector <int> fill_vector(4, 500);
+	Vector <int> copy_vector(fill_vector);
+	default_vector = fill_vector;
 	std::cout << "-------------- MODIFIERS FUNCTIONS ---------------" << std::endl << std::endl;
 	std::cout << "--------------	 PUSH_BACK ---------------" << std::endl << std::endl;
 	default_vector.push_back(10);
@@ -68,7 +73,55 @@ void	vector_Test(void)
 	fill_vector.display_array();
 }
 
+void	vector_test_member_functions(void)
+{
+	Vector <int> default_vector;
+	Vector <int> fill_vector(4, 500);
+	Vector <int> copy_vector(fill_vector);
+	default_vector = fill_vector;
+	std::cout << std::endl;
+	std::cout << "-------------- MEMBER FUNCTIONS ---------------" << std::endl << std::endl;
+	std::cout << "-------------- 	SIZE ---------------" << std::endl << std::endl;
+	std::cout << "Size = " << default_vector.size() << std::endl;
+	std::cout << "-------------- 	CAPACITY ---------------" << std::endl << std::endl;
+	std::cout << "Capacity = " << default_vector.capacity() << std::endl;
+	std::cout << "-------------- 	MAX SIZE ---------------" << std::endl << std::endl;
+	std::cout << "Max_Size = " << default_vector.max_size() << std::endl;
+	std::cout << "--------------	 EMPTY ---------------" << std::endl << std::endl;
+	std::cout << "is_empty = " << default_vector.empty() << std::endl;
+	std::cout << "--------------	 RESERVE ---------------" << std::endl << std::endl;
+	default_vector.reserve(10);
+	std::cout << "is_empty = " << default_vector.empty() << std::endl;
+	std::cout << "Size = " << default_vector.size() << std::endl;
+	std::cout << "Capacity = " << default_vector.capacity() << std::endl;
+	std::cout << "--------------	 RESIZE ---------------" << std::endl << std::endl;
+	std::cout << "Initial size " << default_vector.size() << std::endl;
+	default_vector.resize(2, 6);
+	std::cout << "size -2 --> size should be 2 : new size = " << default_vector.size() << std::endl;
+	default_vector.resize(6, 6);
+	std::cout << "size + 2 --> size should be 6 : new size = " << default_vector.size() << std::endl;
+}
+
+void	vector_constructor_test(void)
+{
+	std::cout << "------------------------ VECTOR TEST --------------------------" << std::endl << std::endl;
+	std::cout << "------------------------ CONSTRUCTOR TESTS -------------------------" << std::endl << std::endl;
+	Vector <int> default_vector;
+	Vector <int> fill_vector(4, 500);
+	Vector <int> copy_vector(fill_vector);
+	default_vector = fill_vector;
+	std::cout << std::endl;
+}
+void	vector_test(void)
+{
+	//vector_constructor_test();
+	//vector_test_member_functions();
+	//vector_test_modifiers_functions();
+	vector_test_iterator_functions();
+	//vector_test_relational_operator_functions();
+}
+
 int main(void)
 {
-	vector_Test();
+	vector_test();
 }
