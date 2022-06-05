@@ -6,7 +6,7 @@
 /*   By: vincent <vincent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 15:25:56 by vbachele          #+#    #+#             */
-/*   Updated: 2022/06/05 18:15:02 by vincent          ###   ########.fr       */
+/*   Updated: 2022/06/06 00:04:47 by vincent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 #include <memory>
 #pragma once
 
-//class vector_iterator;
 
 /*
 **==========================
@@ -40,11 +39,10 @@ public:
 	typedef value_type&								reference;
 	typedef const value_type&						const_reference;
 	//typedef typename allocator::size_type			size_type;
-	//typedef typename allocator::pointer				pointer;
+	//typedef typename allocator::pointer			pointer;
 	//typedef typename allocator::const_pointer		const_pointer;
 	typedef vector_iterator<value_type>				iterator;
 	typedef vector_iterator<value_type const>		const_iterator;
-
 
 /***************** CANONICAL FORM **************/
 	/*** Default empty constructor ***/
@@ -64,15 +62,15 @@ public:
 	~Vector();
 
 /***************** MEMBER FUNCTIONS **************/
-	size_type 	size() const;
-	void 		set_size(size_type size);
-	size_type 	capacity() const;
-	size_type	max_size() const;
-	bool		empty() const;
-	void 		resize(size_type n, value_type val = value_type());
-	void 		set_array(pointer array); //Give you a new array
-	void 		reserve(size_type n); // request the vector capacity at least n elements
-	void		display_array(void) const;
+	size_type 			size() const;
+	void 				set_size(size_type size);
+	size_type 			capacity() const;
+	size_type			max_size() const;
+	bool				empty() const;
+	void 				resize(size_type n, value_type val = value_type());
+	void 				set_array(pointer array); //Give you a new array
+	void 				reserve(size_type n); // request the vector capacity at least n elements
+	void				display_array(void) const;
 
 /***************** ITERATORS FUNCTIONS **************/
     iterator 			begin();
@@ -81,15 +79,39 @@ public:
 	const_iterator		end() const;
 
 /***************** MODIFIERS FUNCTIONS **************/
-	void				push_back (const value_type& val);
+	void				push_back(const value_type& val);
 	void				pop_back();
 	void				swap (Vector& x);
 	void 				clear();
+	iterator 			insert (iterator position, const value_type& val); 
+    void 				insert (iterator position, size_type n, const value_type& val);	
+    void 				insert (iterator position, iterator first, iterator last);
+  	void 				assign (iterator first, iterator last);	
+	void 				assign (size_type n, const value_type& val);
+	iterator 			erase (iterator position);
+	iterator 			erase (iterator first, iterator last);
 
 /***************** ELEMENT ACCESS FUNCTIONS **************/
 
 	reference operator[] (size_type n) {return *(this->_array + n);}
 	const_reference operator[] (size_type n) const 	{return *(this->_array + n);}
+	// return a reference at the n position
+	reference at (size_type n)
+	{
+		if (this->size() <= n)
+			throw std::out_of_range("out of range");
+		return *(this->_array + n); 
+	} 
+	const_reference at (size_type n) const
+	{
+		if (this->size() <= n)
+			throw std::out_of_range("out of range");
+		return *(this->_array + n);
+	}
+	reference back() {return (this->_array[this->size() - 1]);}
+	const_reference back() const {return (this->_array[this->size() - 1]);}
+	reference front() {return (this->_array[0]);}
+	const_reference front() const{ return (this->_array[0]);}
 	
 /***************** NON MEMBER FUNCTIONS OVERLOAD **************/
 //bool operator==(const Vector &lhs, const Vector&rhs);
@@ -309,6 +331,8 @@ void		Vector<T, Alloc>::reserve(size_type size) // allocation of a nez capacity
 	}
 }
 
+
+
 /*
 **==========================
 **   MODIFIERS FUNCTIONS
@@ -344,7 +368,7 @@ void 		Vector<T, Alloc>::swap(Vector& x)
 	pointer 		start = x._array;
 	size_type 		start_size = x._size;
 	size_type 		start_capacity = x._capacity;
-	allocator_type start_allocator = x._alloc;
+	allocator_type 	start_allocator = x._alloc;
 
 	x._array = this->_array;
 	x._size = this->_size;
@@ -360,11 +384,77 @@ void 		Vector<T, Alloc>::swap(Vector& x)
 template <typename T, typename Alloc>
 void 		Vector<T, Alloc>::clear()
 {
-	if (size() > 0)
+	this->_size = 0;
+}
+
+// with insert, we reallocate the memory, assign new content to the vector and replacing the current and modifying the memory
+// template <typename T, typename Alloc>
+// iterator 			vector<T, Alloc>::assign(iterator position, const value_type& val); 
+// {
+	
+// }
+
+// template <typename T, typename Alloc>
+// void 				vector<T, Alloc>::insert(iterator position, size_type n, const value_type& val)
+// {
+	
+// }
+
+// template <class InputIterator>
+// void 				vector<T, Alloc>::insert(iterator position, InputIterator first, InputIterator last)
+// {
+	
+// }
+
+template <typename T, typename Alloc >
+void 	Vector<T, Alloc>::assign(iterator first, iterator last)
+{
+	this->clear();
+	while (first != last)
 	{
-		for (size_type i = size(); i > 0; i--)
-			pop_back();
+		this->push_back(*first);
+		++first;
 	}
+}
+
+template <typename T, typename Alloc >
+void 	Vector<T, Alloc>::assign(size_type n, const value_type& val)
+{
+	this->clear();
+	for (size_type i = 0; i < n; i++)
+		this->push_back(val);
+}
+
+//Remove from the vector the element at "position", that means we have to reallocate the size
+template <typename T, typename Alloc >
+typename 	Vector<T, Alloc>::iterator Vector<T, Alloc>::erase(iterator position)
+{
+	iterator temp(position);
+	iterator it_end = this->end() - 1;
+	while (position < it_end)
+	{
+		*position = *(position + 1);
+		position++;
+	}
+	this->_size--;
+	return (temp);
+}
+
+//Remove from the vector the element between last(not included) and first(included), that means we have to reallocate the size
+//We allocate the new value after last until the end of the array
+template <typename T, typename Alloc >
+typename 	Vector<T, Alloc>::iterator Vector<T, Alloc>::erase(iterator first, iterator last)
+{
+	iterator temp(last);
+	iterator it_end = this->end();
+	while (last < it_end)
+	{
+		*first = *last;
+		++first;
+		++last++;
+	}
+	this->_size -= (last - first);
+	return (temp);
 }
 
 /*
@@ -404,6 +494,8 @@ typename Vector<T, Alloc>::const_iterator Vector<T,Alloc>::end() const
 ** ELEMENT ACCESS FUNCTIONS
 **==========================
 */
+
+
 
 // template <typename T, typename Alloc>
 // reference Vector<T, Alloc>::operator[] (size_type n)

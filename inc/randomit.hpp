@@ -6,7 +6,7 @@
 /*   By: vincent <vincent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 14:43:42 by vbachele          #+#    #+#             */
-/*   Updated: 2022/06/05 19:15:55 by vincent          ###   ########.fr       */
+/*   Updated: 2022/06/06 00:11:06 by vincent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,13 +96,13 @@ public:
 	}
 
 	// difference _type is the value of the pointer
-	vector_iterator &operator+(difference_type n) const
+	vector_iterator operator+(difference_type n) const
 	{
 		vector_iterator res = this->_ptr + n;
 		return (res);
 	}
 
-	vector_iterator &operator-(difference_type n) const
+	vector_iterator operator-(difference_type n) const
 	{
 		vector_iterator res = this->_ptr - n;
 		return (res);
@@ -110,13 +110,13 @@ public:
 
 	difference_type operator-(const vector_iterator &rhs) const // take 2 operators and do the difference between iterators
 	{
-		difference_type res = this->_ptr - rhs->_ptr;
+		difference_type res = this->_ptr - rhs._ptr;
 		return(res);
 	}
 
 	difference_type operator+(const vector_iterator &rhs) const // take 2 operators and do the addition between the 2iterators
 	{
-		difference_type res = this->_ptr + rhs->_ptr;
+		difference_type res = this->_ptr + rhs._ptr;
 		return(res);
 	}
 	
@@ -139,25 +139,25 @@ public:
 
 	bool operator<(const vector_iterator &other) const
 	{
-		bool b = this->_ptr < other->_ptr;
+		bool b = this->_ptr < other._ptr;
 		return (b);
 	}
 
 	bool operator>(const vector_iterator &other) const
 	{
-		bool b = this->_ptr > other->_ptr;
+		bool b = this->_ptr > other._ptr;
 		return (b);
 	}
 
 	bool operator>=(const vector_iterator &other) const
 	{
-		bool b = this->_ptr >= other->_ptr;
+		bool b = this->_ptr >= other._ptr;
 		return (b);
 	}
 
 	bool operator<=(const vector_iterator &other) const
 	{
-		bool b = this->_ptr <= other->_ptr;
+		bool b = this->_ptr <= other._ptr;
 		return (b);
 	}
 	

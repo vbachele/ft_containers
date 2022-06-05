@@ -6,7 +6,7 @@
 /*   By: vincent <vincent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 15:26:04 by vbachele          #+#    #+#             */
-/*   Updated: 2022/06/05 18:12:42 by vincent          ###   ########.fr       */
+/*   Updated: 2022/06/06 00:11:17 by vincent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@
 
 void	vector_test_element_access_functions(void)
 {
-	std::cout << "-------------- ELEMENT ACCESS FUNCTIONS ---------------" << std::endl;
 	Vector <int> default_vector;
 	Vector <int> fill_vector(4, 500);
 	Vector <int> copy_vector(fill_vector);
@@ -35,6 +34,16 @@ void	vector_test_element_access_functions(void)
 	std::cout << "-------------- OPERATOR[] ---------------" << std::endl << std::endl;
 	std::cout << "The member [5] of the array is: ";
 	std::cout << fill_vector[4] << std::endl;
+	std::cout << "-------------- AT ---------------" << std::endl << std::endl;
+	std::cout << "my vector contains:";
+  	for (unsigned i = 0; i< fill_vector.size(); i++)
+    	std::cout << ' ' << fill_vector.at(i);
+  	std::cout << std::endl;
+	std::cout << "-------------- FRONT ---------------" << std::endl << std::endl;
+	std::cout << "myvector.front() is now " << fill_vector.front() << std::endl;
+	std::cout << "-------------- BACK ---------------" << std::endl << std::endl;
+	fill_vector.push_back(16);
+	std::cout << "myvector.back() is now " << fill_vector.back() << std::endl;
 }
 
 void	vector_test_iterator_functions(void)
@@ -75,8 +84,6 @@ void	vector_test_modifiers_functions(void)
 	default_vector.display_array();
 	std::cout << std::endl;
 	fill_vector.display_array();
-	std::cout << "--------------	 SWAP ---------------" << std::endl << std::endl;
-	std::cout << "I'm swapping 2 vector" << std::endl;
 	std::cout << "--------------	 CLEAR ---------------" << std::endl << std::endl;
 	std::cout << "I'm clearing all the vector" << std::endl;
 	fill_vector.clear();
@@ -84,9 +91,20 @@ void	vector_test_modifiers_functions(void)
 	fill_vector.push_back(25);
 	fill_vector.push_back(600);
 	fill_vector.display_array();
+	std::cout << "--------------	 ASSIGN ---------------" << std::endl << std::endl;
+	std::cout << "I'm assigning all the vector" << std::endl;
+	fill_vector.assign(10, 10);
+	fill_vector.display_array();
+	std::cout << "--------------	 ERASE ---------------" << std::endl << std::endl;
+	std::cout << "I'm erasing the 5th element the vector" << std::endl;
+	fill_vector.erase(fill_vector.begin() + 5);
+	fill_vector.display_array();
+	std::cout << "I'm erasing the 5th to the 10th element the vector" << std::endl;
+	fill_vector.erase(fill_vector.begin() + 5, fill_vector.begin() + 10 );
+	fill_vector.display_array();
 }
 
-void	vector_test_member_functions(void)
+void	vector_test_capacity_functions(void)
 {
 	Vector <int> default_vector;
 	Vector <int> fill_vector(4, 500);
@@ -128,10 +146,10 @@ void	vector_constructor_test(void)
 void	vector_test(void)
 {
 	//vector_constructor_test();
-	//vector_test_member_functions();
-	//vector_test_modifiers_functions();
+	//vector_test_capacity_functions();
+	vector_test_modifiers_functions();
 	//vector_test_iterator_functions();
-	vector_test_element_access_functions();
+	//vector_test_element_access_functions();
 	//vector_test_relational_operator_functions();
 }
 
