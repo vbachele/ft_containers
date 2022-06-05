@@ -6,7 +6,7 @@
 /*   By: vincent <vincent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 14:43:42 by vbachele          #+#    #+#             */
-/*   Updated: 2022/06/05 18:47:47 by vincent          ###   ########.fr       */
+/*   Updated: 2022/06/05 19:15:55 by vincent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ class	vector_iterator
 {
 public:
 	typedef T							value_type; //here it is the pointer
-	typedef	value_type					*pointer; //here is the reference, it is the same as &reference
-	typedef value_type 					&reference;
-	typedef std::ptrdiff_t 				difference_type; //std::ptrdiff_t is used to do the difference between iterators of the same array and ptrdiff can't be negative
+	typedef	value_type*					pointer; //here is the reference, it is the same as &reference
+	typedef value_type&					reference;
+	typedef std::ptrdiff_t 				difference_type; //std::ptrdiff_t is used to do the difference between iterators of the same array and ptrdiff canbe negative
 public:
 	vector_iterator()
 	{
@@ -95,7 +95,7 @@ public:
 		return *this;
 	}
 
-	// difference is
+	// difference _type is the value of the pointer
 	vector_iterator &operator+(difference_type n) const
 	{
 		vector_iterator res = this->_ptr + n;
@@ -107,7 +107,30 @@ public:
 		vector_iterator res = this->_ptr - n;
 		return (res);
 	}
+
+	difference_type operator-(const vector_iterator &rhs) const // take 2 operators and do the difference between iterators
+	{
+		difference_type res = this->_ptr - rhs->_ptr;
+		return(res);
+	}
+
+	difference_type operator+(const vector_iterator &rhs) const // take 2 operators and do the addition between the 2iterators
+	{
+		difference_type res = this->_ptr + rhs->_ptr;
+		return(res);
+	}
 	
+	//renvoie la valeur pointé par l'iterator
+	pointer operator->()
+	{
+		return(this->_ptr);
+	} 
+
+	//renvoie l'addresse du pointer de l'iterator
+	reference operator*()
+	{
+		return(*this->_ptr);
+	} 
 	bool operator!=(const vector_iterator &other) const
 	{
 		bool b = this->_ptr != other._ptr; // If diff b = 1
@@ -138,7 +161,6 @@ public:
 		return (b);
 	}
 	
-	
 };
 
 
@@ -149,11 +171,5 @@ std::ostream &operator<<(std::ostream &o, vector_iterator<Iterator> &rhs)
     return o;
 }
 
-// template <typename It1, typename It2>
-// bool operator!=(const vector_iterator<It1> &a, const vector_iterator<It2> &b)
-// {
-// 		bool res = a.get_ptr() != b.get_ptr(); // If diff b = 1
-// 		return (res);
-// }
 
 #endif
