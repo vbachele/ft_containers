@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   randomit.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbachele <vbachele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vincent <vincent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 14:43:42 by vbachele          #+#    #+#             */
-/*   Updated: 2022/06/03 17:55:31 by vbachele         ###   ########.fr       */
+/*   Updated: 2022/06/05 18:47:47 by vincent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ public:
 	typedef T							value_type; //here it is the pointer
 	typedef	value_type					*pointer; //here is the reference, it is the same as &reference
 	typedef value_type 					&reference;
+	typedef std::ptrdiff_t 				difference_type; //std::ptrdiff_t is used to do the difference between iterators of the same array and ptrdiff can't be negative
 public:
 	vector_iterator()
 	{
@@ -50,18 +51,94 @@ public:
 		return (*this);
 	}
 
-	vector_iterator &operator++()
+	vector_iterator &operator++() // prefix incrementation operator
 	{
 		this->_ptr++;
 		return (*this);
 	}
 
+	vector_iterator operator++(int) // postfix incrementation operator
+	{
+		vector_iterator temp = *this;
+		++this->_ptr;
+		return (temp);
+	}
+
+	vector_iterator &operator--() // prefix incrementation operator
+	{
+		this->_ptr--;
+		return (*this);
+	}
+
+	vector_iterator operator--(int) // postfix incrementation operator
+	{
+		vector_iterator temp = *this;
+		--this->_ptr;
+		return (temp);
+	}
+
+	// Return a reference to the element at position n in the vector
+	value_type &operator[] (int n) 
+	{
+		return *(this->_ptr + n);
+	}
+
+	vector_iterator &operator-=(value_type n)
+	{
+		this->_ptr -= n;
+		return *this;
+	}
+
+	vector_iterator &operator+=(value_type n)
+	{
+		this->_ptr += n;
+		return *this;
+	}
+
+	// difference is
+	vector_iterator &operator+(difference_type n) const
+	{
+		vector_iterator res = this->_ptr + n;
+		return (res);
+	}
+
+	vector_iterator &operator-(difference_type n) const
+	{
+		vector_iterator res = this->_ptr - n;
+		return (res);
+	}
+	
 	bool operator!=(const vector_iterator &other) const
 	{
 		bool b = this->_ptr != other._ptr; // If diff b = 1
 		return (b);
 	}
 
+	bool operator<(const vector_iterator &other) const
+	{
+		bool b = this->_ptr < other->_ptr;
+		return (b);
+	}
+
+	bool operator>(const vector_iterator &other) const
+	{
+		bool b = this->_ptr > other->_ptr;
+		return (b);
+	}
+
+	bool operator>=(const vector_iterator &other) const
+	{
+		bool b = this->_ptr >= other->_ptr;
+		return (b);
+	}
+
+	bool operator<=(const vector_iterator &other) const
+	{
+		bool b = this->_ptr <= other->_ptr;
+		return (b);
+	}
+	
+	
 };
 
 
@@ -72,11 +149,11 @@ std::ostream &operator<<(std::ostream &o, vector_iterator<Iterator> &rhs)
     return o;
 }
 
-template <typename It1, typename It2>
-bool operator!=(const vector_iterator<It1> &a, const vector_iterator<It2> &b)
-{
-		bool res = a.get_ptr() != b.get_ptr(); // If diff b = 1
-		return (res);
-}
+// template <typename It1, typename It2>
+// bool operator!=(const vector_iterator<It1> &a, const vector_iterator<It2> &b)
+// {
+// 		bool res = a.get_ptr() != b.get_ptr(); // If diff b = 1
+// 		return (res);
+// }
 
 #endif

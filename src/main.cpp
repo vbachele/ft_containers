@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbachele <vbachele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vincent <vincent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 15:26:04 by vbachele          #+#    #+#             */
-/*   Updated: 2022/06/03 17:59:39 by vbachele         ###   ########.fr       */
+/*   Updated: 2022/06/05 18:12:42 by vincent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,22 @@
 // 		std::cout << "copy_vector is lesser than fill_vector" << std::endl;
 // }
 
+void	vector_test_element_access_functions(void)
+{
+	std::cout << "-------------- ELEMENT ACCESS FUNCTIONS ---------------" << std::endl;
+	Vector <int> default_vector;
+	Vector <int> fill_vector(4, 500);
+	Vector <int> copy_vector(fill_vector);
+	default_vector = fill_vector;
+	fill_vector.push_back(42);
+	std::cout << "-------------- ELEMENT ACCESS FUNCTIONS ---------------" << std::endl;
+	std::cout << "-------------- OPERATOR[] ---------------" << std::endl << std::endl;
+	std::cout << "The member [5] of the array is: ";
+	std::cout << fill_vector[4] << std::endl;
+}
+
 void	vector_test_iterator_functions(void)
 {
-	std::cout << " JE FAIS UN ENORME TEST DES ITERATORS" << std::endl;
 	Vector <int> default_vector;
 	Vector <int> fill_vector(4, 500);
 	Vector <int> copy_vector(fill_vector);
@@ -117,7 +130,8 @@ void	vector_test(void)
 	//vector_constructor_test();
 	//vector_test_member_functions();
 	//vector_test_modifiers_functions();
-	vector_test_iterator_functions();
+	//vector_test_iterator_functions();
+	vector_test_element_access_functions();
 	//vector_test_relational_operator_functions();
 }
 

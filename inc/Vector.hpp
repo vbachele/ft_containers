@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Vector.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbachele <vbachele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vincent <vincent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 15:25:56 by vbachele          #+#    #+#             */
-/*   Updated: 2022/06/03 17:58:50 by vbachele         ###   ########.fr       */
+/*   Updated: 2022/06/05 18:15:02 by vincent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "iostream"
 #include "limits"
 #include "randomit.hpp"
+#include <memory>
 #pragma once
 
 //class vector_iterator;
@@ -34,7 +35,14 @@ public:
 	typedef	Alloc									allocator_type;
 	typedef size_t									size_type;
 	typedef value_type*								pointer;
-	typedef vector_iterator<value_type>			iterator;
+	//typename is mandatory for the compiler allocator::reference because reference is in the scop of allocator
+	//Allocator::reference is reference to an element
+	typedef value_type&								reference;
+	typedef const value_type&						const_reference;
+	//typedef typename allocator::size_type			size_type;
+	//typedef typename allocator::pointer				pointer;
+	//typedef typename allocator::const_pointer		const_pointer;
+	typedef vector_iterator<value_type>				iterator;
 	typedef vector_iterator<value_type const>		const_iterator;
 
 
@@ -67,19 +75,24 @@ public:
 	void		display_array(void) const;
 
 /***************** ITERATORS FUNCTIONS **************/
-    iterator 		begin();
-	const_iterator 	begin() const;
-	iterator		end();
+    iterator 			begin();
+	const_iterator 		begin() const;
+	iterator			end();
 	const_iterator		end() const;
 
 /***************** MODIFIERS FUNCTIONS **************/
-	void push_back (const value_type& val);
-	void pop_back();
-	void swap (Vector& x);
-	void clear();
+	void				push_back (const value_type& val);
+	void				pop_back();
+	void				swap (Vector& x);
+	void 				clear();
 
+/***************** ELEMENT ACCESS FUNCTIONS **************/
+
+	reference operator[] (size_type n) {return *(this->_array + n);}
+	const_reference operator[] (size_type n) const 	{return *(this->_array + n);}
+	
 /***************** NON MEMBER FUNCTIONS OVERLOAD **************/
-// bool operator== (const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs);
+//bool operator==(const Vector &lhs, const Vector&rhs);
 
 // bool operator!= (const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs);
 
@@ -386,6 +399,23 @@ typename Vector<T, Alloc>::const_iterator Vector<T,Alloc>::end() const
 	return (const_iterator(&this->_array[_size]));
 }
 
+/*
+**==========================
+** ELEMENT ACCESS FUNCTIONS
+**==========================
+*/
+
+// template <typename T, typename Alloc>
+// reference Vector<T, Alloc>::operator[] (size_type n)
+// {
+// 	return *(this->_ptr + n);
+// }
+
+// template <typename T, typename Alloc>
+// const_reference Vector<T, Alloc>::operator[] (size_type n) const
+// {
+// 		return *(this->_ptr + n);
+// }
 
 /*
 **==========================
@@ -393,11 +423,11 @@ typename Vector<T, Alloc>::const_iterator Vector<T,Alloc>::end() const
 **==========================
 */
 
-// // template <class T, class Alloc>
-// //   bool operator== (const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs)
-// // {
+// template <class T, class Alloc>
+// bool operator== (const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs)
+// {
 
-// // }
+// }
 
 // template <class T, class Alloc>
 // bool operator!= (const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs)
@@ -406,8 +436,8 @@ typename Vector<T, Alloc>::const_iterator Vector<T,Alloc>::end() const
 // 		return (false);
 // 	return (true);
 // }
-// // template <class T, class Alloc>
-// //   bool operator<  (const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs);
+// template <class T, class Alloc>
+//   bool operator<  (const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs);
 
 // template <class T, class Alloc>
 // bool operator<= (const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs)
