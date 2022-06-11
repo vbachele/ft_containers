@@ -6,14 +6,14 @@
 /*   By: vbachele <vbachele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 15:26:04 by vbachele          #+#    #+#             */
-/*   Updated: 2022/06/11 16:22:00 by vbachele         ###   ########.fr       */
+/*   Updated: 2022/06/11 16:34:47 by vbachele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Vector.hpp"
 #include "randomit.hpp"
 
-void	vector_test_relational_operator_functions()
+void	vector_test_non_members_function_overload()
 {
 	Vector<int> foo (3,100);   // three ints with a value of 100
  	Vector<int> bar (2,200);   // two ints with a value of 200
@@ -27,6 +27,7 @@ void	vector_test_relational_operator_functions()
 	std::cout << "test 2 : is equal" << std::endl;
 	if (foo_2 == bar_2)
 		std::cout << "foo is equal to bar" << std::endl;
+
 	std::cout << "-------------- OPERATOR <= && OPERATOR <= ---------------" << std::endl << std::endl;
 	std::cout << "test 3 : is inferior <";
 	Vector<int> foo_3 (3,100);   // three ints with a value of 100
@@ -38,10 +39,11 @@ void	vector_test_relational_operator_functions()
  	Vector<int> bar_4 (4,200);   // two ints with a value of 200
 	if (foo_4 <= bar_4)
 		std::cout << "foo is equal to bar" << std::endl;
+
 	std::cout << "-------------- OPERATOR >= && OPERATOR >= ---------------" << std::endl << std::endl;
 	std::cout << "test 5 : is superior >";
 	Vector<int> foo_5 (5,300);   // three ints with a value of 100
- 	Vector<int> bar_5 (5,200);   // two ints with a value of 200
+ 	Vector<int> bar_5 (5,100);   // two ints with a value of 200
 	if (foo_5 > bar_5)
 		std::cout << "foo is inferior to bar" << std::endl << std::endl;
 	std::cout << "test 6 : is equal >=";
@@ -49,6 +51,12 @@ void	vector_test_relational_operator_functions()
  	Vector<int> bar_6 (6,200);   // two ints with a value of 200
 	if (foo_6 >= bar_6)
 		std::cout << "foo is equal to bar" << std::endl;
+	std::cout << "-------------- SWAP ---------------" << std::endl << std::endl;
+	std::cout << "BEFORE SWAPPING" << std::endl;
+	foo_6.display_array();
+	foo_6.swap(bar_5);
+	std::cout << "AFTER SWAPPING" << std::endl;
+	foo_6.display_array();
 }
 
 void	vector_test_element_access_functions(void)
@@ -197,7 +205,7 @@ void	vector_test(void)
 	//vector_test_modifiers_functions();
 	//vector_test_iterator_functions();
 	//vector_test_element_access_functions();
-	vector_test_relational_operator_functions();
+	vector_test_non_members_function_overload();
 }
 
 int main(void)
