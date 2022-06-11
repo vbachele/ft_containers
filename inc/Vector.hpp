@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Vector.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vincent <vincent@student.42.fr>            +#+  +:+       +#+        */
+/*   By: vbachele <vbachele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 15:25:56 by vbachele          #+#    #+#             */
-/*   Updated: 2022/06/06 00:04:47 by vincent          ###   ########.fr       */
+/*   Updated: 2022/06/11 16:21:03 by vbachele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,7 @@ public:
 							const allocator_type& alloc = allocator_type());
 
 	/*** range constructor ***/
-	// template <class InputIterator>
-    //      Vector (InputIterator first, InputIterator last,
-    //              const allocator_type& alloc = allocator_type());
-
+    Vector (iterator first, iterator last, const allocator_type& alloc = allocator_type());
 	/*** copy constructor ***/
 	Vector (const Vector& x);
 	Vector& operator= (const Vector& x);
@@ -83,10 +80,10 @@ public:
 	void				pop_back();
 	void				swap (Vector& x);
 	void 				clear();
-	iterator 			insert (iterator position, const value_type& val); 
-    void 				insert (iterator position, size_type n, const value_type& val);	
+	iterator 			insert (iterator position, const value_type& val);
+    void 				insert (iterator position, size_type n, const value_type& val);
     void 				insert (iterator position, iterator first, iterator last);
-  	void 				assign (iterator first, iterator last);	
+  	void 				assign (iterator first, iterator last);
 	void 				assign (size_type n, const value_type& val);
 	iterator 			erase (iterator position);
 	iterator 			erase (iterator first, iterator last);
@@ -100,8 +97,8 @@ public:
 	{
 		if (this->size() <= n)
 			throw std::out_of_range("out of range");
-		return *(this->_array + n); 
-	} 
+		return *(this->_array + n);
+	}
 	const_reference at (size_type n) const
 	{
 		if (this->size() <= n)
@@ -112,19 +109,19 @@ public:
 	const_reference back() const {return (this->_array[this->size() - 1]);}
 	reference front() {return (this->_array[0]);}
 	const_reference front() const{ return (this->_array[0]);}
-	
-/***************** NON MEMBER FUNCTIONS OVERLOAD **************/
-//bool operator==(const Vector &lhs, const Vector&rhs);
 
-// bool operator!= (const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs);
+	/***************** NON MEMBER FUNCTIONS OVERLOAD **************/
+	//bool operator==(const Vector &lhs, const Vector&rhs);
 
-// bool operator<  (const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs);
+	// bool operator!=(const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs);
 
-// bool operator<= (const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs);
+	// bool operator< (const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs);
 
-// bool operator>  (const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs);
+	// bool operator<=(const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs);
 
-// bool operator>= (const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs);
+	// bool operator> (const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs);
+
+	// bool operator>= (const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs);
 
 private:
 	pointer				_array; // Adress of the array - We are using a pointer to allow a dynamic allocation of the memory during runtime of the program
@@ -146,10 +143,10 @@ Vector<T, Alloc>::Vector(const allocator_type& alloc)
 	this->_capacity = 0;
 	this->_alloc = alloc;
 	this->_array = NULL;
-	std::cout << "-------------- DEFAULT CONSTRUCTOR ---------------" << std::endl << std::endl;
-	std::cout << "Constructor is called" << std::endl;
-	std::cout << "Initial Capacity is: " << _capacity << std::endl;
-	std::cout << "size is: " << _size << std::endl << std::endl;
+	// std::cout << "-------------- DEFAULT CONSTRUCTOR ---------------" << std::endl << std::endl;
+	// std::cout << "Constructor is called" << std::endl;
+	// std::cout << "Initial Capacity is: " << _capacity << std::endl;
+	// std::cout << "size is: " << _size << std::endl << std::endl;
 }
 
 template <typename T, typename Alloc>
@@ -160,13 +157,13 @@ Vector<T, Alloc>::Vector(size_type n, const value_type& val,
 	this->_capacity = n;
 	this->_alloc = alloc;
 	this->_array = _alloc.allocate(this->_capacity);
-	std::cout << "-------------- FILL CONSTRUCTOR ---------------" << std::endl << std::endl;
-	std::cout << "Initial Capacity is: " << _capacity << std::endl;
-	std::cout << "size is: " << _size << std::endl;
+	//std::cout << "-------------- FILL CONSTRUCTOR ---------------" << std::endl << std::endl;
+	//std::cout << "Initial Capacity is: " << _capacity << std::endl;
+	//std::cout << "size is: " << _size << std::endl;
 	for (size_type i = 0; i < n; i++)
 	{
 		this->_array[i] = val;
-		std::cout << "Value of the Array: " << this->_array[i] << std::endl;
+		//std::cout << "Value of the Array: " << this->_array[i] << std::endl;
 	}
 	std::cout << std::endl;
 }
@@ -174,8 +171,8 @@ Vector<T, Alloc>::Vector(size_type n, const value_type& val,
 template <typename T, typename Alloc>
 Vector <T, Alloc>::Vector(const Vector &x)
 {
-	std::cout << "-------------- COPY CONSTRUCTOR ---------------" << std::endl << std::endl;
-	std::cout << "Copy Constructor is called" << std::endl;
+	//std::cout << "-------------- COPY CONSTRUCTOR ---------------" << std::endl << std::endl;
+	//std::cout << "Copy Constructor is called" << std::endl;
 	this->_size = x._size;
 	this->_capacity = x._capacity;
 	this->_alloc = x._alloc;
@@ -184,32 +181,42 @@ Vector <T, Alloc>::Vector(const Vector &x)
 	for (size_type i = 0; i < this->_size; i++)
 	{
 		_alloc.construct(&_array[i], x._array[i]);
-		std::cout << "Value of the Array: " << _array[i] << std::endl;
+		//std::cout << "Value of the Array: " << _array[i] << std::endl;
 	}
-	std::cout << "Initial Capacity is: " << _capacity << std::endl;
-	std::cout << "size is: " << _size << std::endl << std::endl;
+	//std::cout << "Initial Capacity is: " << _capacity << std::endl;
+	//std::cout << "size is: " << _size << std::endl << std::endl;
 	return ;
+}
+
+template <typename T, typename Alloc>
+Vector<T, Alloc>::Vector(iterator first, iterator last, const allocator_type& alloc)
+{
+	this->_size = last - first;
+	this->_capacity = last - first;
+	this->_alloc = alloc;
+	this->_array = _alloc.allocate(this->_capacity);
+	this->assign(first, last); // we use assign here to assign the value
 }
 
 template <typename T, typename Alloc>
 Vector<T, Alloc>::~Vector()
 {
-	std::cout << "-------------- DESTRUCTOR ---------------" << std::endl << std::endl;
+	//std::cout << "-------------- DESTRUCTOR ---------------" << std::endl << std::endl;
 	size_type i = 0;
 	while (i < this->_size)
 	{
-		std::cout << "I delete an member of my array" << std::endl;
+		//std::cout << "I delete an member of my array" << std::endl;
 		this->_alloc.destroy(&this->_array[i]);
 		i++;
 	}
 	this->_alloc.deallocate(this->_array, this->_capacity);
-	std::cout << "Destructor is called" << std::endl;
+	//std::cout << "Destructor is called" << std::endl;
 }
 
 template <typename T, typename Alloc>
 Vector<T, Alloc> &Vector<T, Alloc>::operator= (const Vector<T, Alloc> & x)
 {
-	std::cout << "-------------- OPERATOR = ---------------" << std::endl << std::endl;
+	//std::cout << "-------------- OPERATOR = ---------------" << std::endl << std::endl;
 	for (size_type i = 0; i < _size; i++)
 		_alloc.destroy(&_array[i]);
 	this->_size = x._size;
@@ -219,10 +226,10 @@ Vector<T, Alloc> &Vector<T, Alloc>::operator= (const Vector<T, Alloc> & x)
 	for (size_type i = 0; i < this->_size; i++)
 	{
 		_alloc.construct(&_array[i], x._array[i]);
-		std::cout << "Value of the Array: " << _array[i] << std::endl;
+		//std::cout << "Value of the Array: " << _array[i] << std::endl;
 	}
-	std::cout << "Initial Capacity is: " << this->_capacity << std::endl;
-	std::cout << "size is: " << this->_size << std::endl;
+	//std::cout << "Initial Capacity is: " << this->_capacity << std::endl;
+	//std::cout << "size is: " << this->_size << std::endl;
 	return (*(this));
 }
 
@@ -387,24 +394,49 @@ void 		Vector<T, Alloc>::clear()
 	this->_size = 0;
 }
 
-// with insert, we reallocate the memory, assign new content to the vector and replacing the current and modifying the memory
-// template <typename T, typename Alloc>
-// iterator 			vector<T, Alloc>::assign(iterator position, const value_type& val); 
-// {
-	
-// }
+template <typename T, typename Alloc>
+typename  Vector<T, Alloc>::iterator Vector<T,Alloc>::insert(iterator position, const value_type& val)
+{
+	size_type n = (position - this->begin());
+	this->insert(position, 1, val);
+	return (iterator(&this->_array[n])); // point to the first element newly inserted
+}
 
-// template <typename T, typename Alloc>
-// void 				vector<T, Alloc>::insert(iterator position, size_type n, const value_type& val)
-// {
-	
-// }
+template <typename T, typename Alloc>
+void 				Vector<T, Alloc>::insert(iterator position, size_type n, const value_type& val)
+{
+	// temp to assign the store the value
+	Vector<T, Alloc> temp(position, this->end());
+	this->_size -= (this->end() - position); // just keeping the good size
+	for (size_type i = 0; i < n ; i++)
+		this->push_back(val); // inserting the value on front
+	iterator it_begin = temp.begin();
+	iterator it_end = temp.end();
+	while (it_begin != it_end)
+	{
+		this->push_back(*it_begin);
+		++it_begin;
+	}
+}
 
-// template <class InputIterator>
-// void 				vector<T, Alloc>::insert(iterator position, InputIterator first, InputIterator last)
-// {
-	
-// }
+template <typename T, typename Alloc>
+void 				Vector<T, Alloc>::insert(iterator position, iterator first, iterator last)
+{
+	Vector<T, Alloc> temp(position, this->end());
+	this->_size -= (this->end() - position);
+	while (first != last)
+	{
+		this->push_back(*first);
+		first++;
+	} // inserting the value on front
+	iterator it_begin = temp.begin();
+	iterator it_end = temp.end();
+	while (it_begin != it_end)
+	{
+		this->push_back(*it_begin);
+		++it_begin;
+	}
+}
 
 template <typename T, typename Alloc >
 void 	Vector<T, Alloc>::assign(iterator first, iterator last)
@@ -491,63 +523,76 @@ typename Vector<T, Alloc>::const_iterator Vector<T,Alloc>::end() const
 
 /*
 **==========================
-** ELEMENT ACCESS FUNCTIONS
-**==========================
-*/
-
-
-
-// template <typename T, typename Alloc>
-// reference Vector<T, Alloc>::operator[] (size_type n)
-// {
-// 	return *(this->_ptr + n);
-// }
-
-// template <typename T, typename Alloc>
-// const_reference Vector<T, Alloc>::operator[] (size_type n) const
-// {
-// 		return *(this->_ptr + n);
-// }
-
-/*
-**==========================
 ** NON MEMBER FUNCTIONS OVERLOAD
 **==========================
 */
 
-// template <class T, class Alloc>
-// bool operator== (const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs)
-// {
+template <class T, class Alloc>
+bool operator==(const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs)
+{
+	typename Vector<T, Alloc>::const_iterator begin_lhs = lhs.begin();
+	typename Vector<T, Alloc>::const_iterator begin_rhs = rhs.begin();
+	typename Vector<T, Alloc>::const_iterator end_lhs = lhs.end();
+	typename Vector<T, Alloc>::const_iterator end_rhs = rhs.end();
 
-// }
+	// we compare each value of iterators
+	while ((begin_lhs != end_lhs) && (begin_rhs != end_rhs))
+	{
+		if (*begin_rhs != *begin_lhs)
+			return (false);
+		++begin_lhs;
+		++begin_rhs;
+	}
+	if ((begin_lhs != end_lhs) && (begin_rhs != end_rhs))
+		return (false);
+	return true;
+}
 
-// template <class T, class Alloc>
-// bool operator!= (const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs)
-// {
-// 	if (lhs == rhs)
-// 		return (false);
-// 	return (true);
-// }
-// template <class T, class Alloc>
-//   bool operator<  (const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs);
+template <class T, class Alloc>
+bool operator!= (const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs)
+{
+	if (lhs == rhs)
+		return (false);
+	return (true);
+}
 
-// template <class T, class Alloc>
-// bool operator<= (const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs)
-// {
-// 	return (!(rhs < lhs));
-// }
+template<typename T, typename Alloc>
+bool operator<(const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs)
+{
+	typename Vector<T, Alloc>::const_iterator first_1 = lhs.begin();
+	typename Vector<T, Alloc>::const_iterator last_1 = lhs.end();
+	typename Vector<T, Alloc>::const_iterator first_2 = rhs.begin();
+	typename Vector<T, Alloc>::const_iterator last_2 = rhs.end();
 
-// template <class T, class Alloc>
-// bool operator>  (const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs)
-// {
-// 	return (rhs < lhs);
-// }
+	while (first_1 != last_1)
+	{
+		if (first_2 == last_2 || *first_2 < *first_1)
+			return (false);
+		else if (*first_1 < *first_2)
+			return (true);
+		++first_1;
+		++first_2;
+	}
+	return (first_2 != last_2);
+}
 
-// template <class T, class Alloc>
-// bool operator>= (const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs)
-// {
-// 	return (!(rhs > lhs));
-// }
+template <class T, class Alloc>
+bool operator<= (const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs)
+{
+	return (!(rhs < lhs));
+}
+
+template <class T, class Alloc>
+bool operator>  (const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs)
+{
+	return (rhs < lhs); // we just check if rhs < lhs is false
+}
+
+template <class T, class Alloc>
+bool operator>= (const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs)
+{
+	return (!(rhs > lhs)); // we just check if rhs < lhs is true
+}
 
 #endif
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   randomit.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vincent <vincent@student.42.fr>            +#+  +:+       +#+        */
+/*   By: vbachele <vbachele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 14:43:42 by vbachele          #+#    #+#             */
-/*   Updated: 2022/06/06 00:11:06 by vincent          ###   ########.fr       */
+/*   Updated: 2022/06/11 16:16:46 by vbachele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ public:
 public:
 	vector_iterator()
 	{
-		std::cout << "THIS IS A TEST" << std::endl;
 		this->_ptr = NULL;
 	} // iterator sans rien
 	vector_iterator(value_type *ptr) : _ptr(ptr) {} // iterator with a pointer
@@ -78,7 +77,7 @@ public:
 	}
 
 	// Return a reference to the element at position n in the vector
-	value_type &operator[] (int n) 
+	value_type &operator[] (int n)
 	{
 		return *(this->_ptr + n);
 	}
@@ -119,18 +118,18 @@ public:
 		difference_type res = this->_ptr + rhs._ptr;
 		return(res);
 	}
-	
+
 	//renvoie la valeur pointé par l'iterator
 	pointer operator->()
 	{
 		return(this->_ptr);
-	} 
+	}
 
 	//renvoie l'addresse du pointer de l'iterator
 	reference operator*()
 	{
 		return(*this->_ptr);
-	} 
+	}
 	bool operator!=(const vector_iterator &other) const
 	{
 		bool b = this->_ptr != other._ptr; // If diff b = 1
@@ -160,7 +159,12 @@ public:
 		bool b = this->_ptr <= other._ptr;
 		return (b);
 	}
-	
+
+	bool operator==(const vector_iterator &other) const
+	{
+		return (this->_ptr == other.get_ptr());
+	}
+
 };
 
 

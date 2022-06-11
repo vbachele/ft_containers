@@ -3,25 +3,53 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vincent <vincent@student.42.fr>            +#+  +:+       +#+        */
+/*   By: vbachele <vbachele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 15:26:04 by vbachele          #+#    #+#             */
-/*   Updated: 2022/06/06 00:11:17 by vincent          ###   ########.fr       */
+/*   Updated: 2022/06/11 16:22:00 by vbachele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Vector.hpp"
 #include "randomit.hpp"
 
-// void	vector_test_relational_operator_functions()
-// {
-// 	Vector <int> default_vector;
-// 	Vector <int> fill_vector(4, 500);
-// 	Vector <int> copy_vector(fill_vector);
-// 	default_vector = fill_vector;
-// 	if (copy_vector > fill_vector)
-// 		std::cout << "copy_vector is lesser than fill_vector" << std::endl;
-// }
+void	vector_test_relational_operator_functions()
+{
+	Vector<int> foo (3,100);   // three ints with a value of 100
+ 	Vector<int> bar (2,200);   // two ints with a value of 200
+
+	std::cout << "-------------- OPERATOR == && OPERATOR != ---------------" << std::endl << std::endl;
+	std::cout << "test 1 : is not equal" << std::endl;
+	if (foo != bar)
+		std::cout << "foo is not equal to bar";
+	Vector<int> foo_2 (2,100);   // three ints with a value of 100
+ 	Vector<int> bar_2 (2,100);   // two ints with a value of 200
+	std::cout << "test 2 : is equal" << std::endl;
+	if (foo_2 == bar_2)
+		std::cout << "foo is equal to bar" << std::endl;
+	std::cout << "-------------- OPERATOR <= && OPERATOR <= ---------------" << std::endl << std::endl;
+	std::cout << "test 3 : is inferior <";
+	Vector<int> foo_3 (3,100);   // three ints with a value of 100
+ 	Vector<int> bar_3 (3,200);   // two ints with a value of 200
+	if (foo_3 < bar_3)
+		std::cout << "foo is inferior to bar" << std::endl;
+	std::cout << "test 4 : is inferior <=";
+	Vector<int> foo_4 (4,200);   // three ints with a value of 100
+ 	Vector<int> bar_4 (4,200);   // two ints with a value of 200
+	if (foo_4 <= bar_4)
+		std::cout << "foo is equal to bar" << std::endl;
+	std::cout << "-------------- OPERATOR >= && OPERATOR >= ---------------" << std::endl << std::endl;
+	std::cout << "test 5 : is superior >";
+	Vector<int> foo_5 (5,300);   // three ints with a value of 100
+ 	Vector<int> bar_5 (5,200);   // two ints with a value of 200
+	if (foo_5 > bar_5)
+		std::cout << "foo is inferior to bar" << std::endl << std::endl;
+	std::cout << "test 6 : is equal >=";
+	Vector<int> foo_6 (6,200);   // three ints with a value of 100
+ 	Vector<int> bar_6 (6,200);   // two ints with a value of 200
+	if (foo_6 >= bar_6)
+		std::cout << "foo is equal to bar" << std::endl;
+}
 
 void	vector_test_element_access_functions(void)
 {
@@ -95,6 +123,25 @@ void	vector_test_modifiers_functions(void)
 	std::cout << "I'm assigning all the vector" << std::endl;
 	fill_vector.assign(10, 10);
 	fill_vector.display_array();
+	std::cout << "I'm assigning with iterators the vector" << std::endl;
+	Vector<int>::iterator it;
+  	it = fill_vector.begin()+1;
+	fill_vector.assign(it,fill_vector.end()-1);
+	fill_vector.display_array();
+	std::cout << "--------------	 INSERT ---------------" << std::endl << std::endl;
+	std::cout << "I'm filling with 3 new elements the vector" << std::endl;
+	it = fill_vector.begin();
+	fill_vector.insert(it, 3, 34);
+	fill_vector.display_array();
+	std::cout << "I'm filling with a single element at pos 2 the vector" << std::endl;
+	it = fill_vector.begin() + 1;
+	fill_vector.insert(it, 20);
+	it = fill_vector.begin();
+	fill_vector.display_array();
+	std::cout << "I'm filling with a first and last iterator the vector" << std::endl;
+	Vector<int> anothervector(2, 400);
+	fill_vector.insert(it, anothervector.begin(), anothervector.end());
+	fill_vector.display_array();
 	std::cout << "--------------	 ERASE ---------------" << std::endl << std::endl;
 	std::cout << "I'm erasing the 5th element the vector" << std::endl;
 	fill_vector.erase(fill_vector.begin() + 5);
@@ -147,10 +194,10 @@ void	vector_test(void)
 {
 	//vector_constructor_test();
 	//vector_test_capacity_functions();
-	vector_test_modifiers_functions();
+	//vector_test_modifiers_functions();
 	//vector_test_iterator_functions();
 	//vector_test_element_access_functions();
-	//vector_test_relational_operator_functions();
+	vector_test_relational_operator_functions();
 }
 
 int main(void)
