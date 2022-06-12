@@ -3,52 +3,66 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbachele <vbachele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vincent <vincent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 15:26:04 by vbachele          #+#    #+#             */
-/*   Updated: 2022/06/11 16:34:47 by vbachele         ###   ########.fr       */
+/*   Updated: 2022/06/12 18:00:45 by vincent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Vector.hpp"
 #include "randomit.hpp"
+#include <vector>
+
+void	vector_test_reverse_iterator()
+{
+	ft::Vector<int> fill_vector(4, 500);
+	fill_vector.push_back(42);
+	std::cout << "-------------- REVERSE ITERATOR FUNCTION ---------------" << std::endl;
+	std::cout << "-------------- RBEGIN ---------------" << std::endl << std::endl;
+	ft::Vector<int>::reverse_iterator it = fill_vector.rbegin();
+	std::cout << *it << std::endl;
+	std::cout << "-------------- REND ---------------" << std::endl << std::endl;
+	ft::Vector<int>::reverse_iterator it2 = fill_vector.rend() - 1;
+	std::cout << *it2 << std::endl;
+}
 
 void	vector_test_non_members_function_overload()
 {
-	Vector<int> foo (3,100);   // three ints with a value of 100
- 	Vector<int> bar (2,200);   // two ints with a value of 200
+	ft::Vector<int> foo (3,100);   // three ints with a value of 100
+ 	ft::Vector<int> bar (2,200);   // two ints with a value of 200
 
 	std::cout << "-------------- OPERATOR == && OPERATOR != ---------------" << std::endl << std::endl;
 	std::cout << "test 1 : is not equal" << std::endl;
 	if (foo != bar)
 		std::cout << "foo is not equal to bar";
-	Vector<int> foo_2 (2,100);   // three ints with a value of 100
- 	Vector<int> bar_2 (2,100);   // two ints with a value of 200
+	ft::Vector<int> foo_2 (2,100);   // three ints with a value of 100
+ 	ft::Vector<int> bar_2 (2,100);   // two ints with a value of 200
 	std::cout << "test 2 : is equal" << std::endl;
 	if (foo_2 == bar_2)
 		std::cout << "foo is equal to bar" << std::endl;
 
 	std::cout << "-------------- OPERATOR <= && OPERATOR <= ---------------" << std::endl << std::endl;
 	std::cout << "test 3 : is inferior <";
-	Vector<int> foo_3 (3,100);   // three ints with a value of 100
- 	Vector<int> bar_3 (3,200);   // two ints with a value of 200
+	ft::Vector<int> foo_3 (3,100);   // three ints with a value of 100
+ 	ft::Vector<int> bar_3 (3,200);   // two ints with a value of 200
 	if (foo_3 < bar_3)
 		std::cout << "foo is inferior to bar" << std::endl;
 	std::cout << "test 4 : is inferior <=";
-	Vector<int> foo_4 (4,200);   // three ints with a value of 100
- 	Vector<int> bar_4 (4,200);   // two ints with a value of 200
+	ft::Vector<int> foo_4 (4,200);   // three ints with a value of 100
+ 	ft::Vector<int> bar_4 (4,200);   // two ints with a value of 200
 	if (foo_4 <= bar_4)
 		std::cout << "foo is equal to bar" << std::endl;
 
 	std::cout << "-------------- OPERATOR >= && OPERATOR >= ---------------" << std::endl << std::endl;
 	std::cout << "test 5 : is superior >";
-	Vector<int> foo_5 (5,300);   // three ints with a value of 100
- 	Vector<int> bar_5 (5,100);   // two ints with a value of 200
+	ft::Vector<int> foo_5 (5,300);   // three ints with a value of 100
+ 	ft::Vector<int> bar_5 (5,200);   // two ints with a value of 200
 	if (foo_5 > bar_5)
-		std::cout << "foo is inferior to bar" << std::endl << std::endl;
+		std::cout << "foo is superior to bar" << std::endl << std::endl;
 	std::cout << "test 6 : is equal >=";
-	Vector<int> foo_6 (6,200);   // three ints with a value of 100
- 	Vector<int> bar_6 (6,200);   // two ints with a value of 200
+	ft::Vector<int> foo_6 (6,200);   // three ints with a value of 100
+ 	ft::Vector<int> bar_6 (6,200);   // two ints with a value of 200
 	if (foo_6 >= bar_6)
 		std::cout << "foo is equal to bar" << std::endl;
 	std::cout << "-------------- SWAP ---------------" << std::endl << std::endl;
@@ -61,9 +75,9 @@ void	vector_test_non_members_function_overload()
 
 void	vector_test_element_access_functions(void)
 {
-	Vector <int> default_vector;
-	Vector <int> fill_vector(4, 500);
-	Vector <int> copy_vector(fill_vector);
+	ft::Vector <int> default_vector;
+	ft::Vector <int> fill_vector(4, 500);
+	ft::Vector <int> copy_vector(fill_vector);
 	default_vector = fill_vector;
 	fill_vector.push_back(42);
 	std::cout << "-------------- ELEMENT ACCESS FUNCTIONS ---------------" << std::endl;
@@ -84,26 +98,26 @@ void	vector_test_element_access_functions(void)
 
 void	vector_test_iterator_functions(void)
 {
-	Vector <int> default_vector;
-	Vector <int> fill_vector(4, 500);
-	Vector <int> copy_vector(fill_vector);
+	ft::Vector <int> default_vector;
+	ft::Vector <int> fill_vector(4, 500);
+	ft::Vector <int> copy_vector(fill_vector);
 	default_vector = fill_vector;
 	std::cout << "-------------- ITERATOR FUNCTIONS ---------------" << std::endl << std::endl;
 	std::cout << "-------------- BEGIN ---------------" << std::endl << std::endl;
-	Vector<int>::iterator it = default_vector.begin();
+	ft::Vector<int>::iterator it = default_vector.begin();
 	std::cout << it << std::endl;
 	std::cout << "-------------- END ---------------" << std::endl << std::endl;
 	default_vector.push_back(42);
 	  std::cout << "myvector contains:";
-  	for (Vector<int>::iterator it = 	default_vector.begin() ; it != 	default_vector.end(); ++it)
+  	for (ft::Vector<int>::iterator it = 	default_vector.begin() ; it != 	default_vector.end(); ++it)
     	std::cout << ' ' << it;
   	std::cout << '\n';
 }
 void	vector_test_modifiers_functions(void)
 {
-	Vector <int> default_vector;
-	Vector <int> fill_vector(4, 500);
-	Vector <int> copy_vector(fill_vector);
+	ft::Vector <int> default_vector;
+	ft::Vector <int> fill_vector(4, 500);
+	ft::Vector <int> copy_vector(fill_vector);
 	default_vector = fill_vector;
 	std::cout << "-------------- MODIFIERS FUNCTIONS ---------------" << std::endl << std::endl;
 	std::cout << "--------------	 PUSH_BACK ---------------" << std::endl << std::endl;
@@ -132,7 +146,7 @@ void	vector_test_modifiers_functions(void)
 	fill_vector.assign(10, 10);
 	fill_vector.display_array();
 	std::cout << "I'm assigning with iterators the vector" << std::endl;
-	Vector<int>::iterator it;
+	ft::Vector<int>::iterator it;
   	it = fill_vector.begin()+1;
 	fill_vector.assign(it,fill_vector.end()-1);
 	fill_vector.display_array();
@@ -147,7 +161,7 @@ void	vector_test_modifiers_functions(void)
 	it = fill_vector.begin();
 	fill_vector.display_array();
 	std::cout << "I'm filling with a first and last iterator the vector" << std::endl;
-	Vector<int> anothervector(2, 400);
+	ft::Vector<int> anothervector(2, 400);
 	fill_vector.insert(it, anothervector.begin(), anothervector.end());
 	fill_vector.display_array();
 	std::cout << "--------------	 ERASE ---------------" << std::endl << std::endl;
@@ -161,9 +175,9 @@ void	vector_test_modifiers_functions(void)
 
 void	vector_test_capacity_functions(void)
 {
-	Vector <int> default_vector;
-	Vector <int> fill_vector(4, 500);
-	Vector <int> copy_vector(fill_vector);
+	ft::Vector <int> default_vector;
+	ft::Vector <int> fill_vector(4, 500);
+	ft::Vector <int> copy_vector(fill_vector);
 	default_vector = fill_vector;
 	std::cout << std::endl;
 	std::cout << "-------------- MEMBER FUNCTIONS ---------------" << std::endl << std::endl;
@@ -192,9 +206,9 @@ void	vector_constructor_test(void)
 {
 	std::cout << "------------------------ VECTOR TEST --------------------------" << std::endl << std::endl;
 	std::cout << "------------------------ CONSTRUCTOR TESTS -------------------------" << std::endl << std::endl;
-	Vector <int> default_vector;
-	Vector <int> fill_vector(4, 500);
-	Vector <int> copy_vector(fill_vector);
+	ft::Vector <int> default_vector;
+	ft::Vector <int> fill_vector(4, 500);
+	ft::Vector <int> copy_vector(fill_vector);
 	default_vector = fill_vector;
 	std::cout << std::endl;
 }
@@ -205,7 +219,8 @@ void	vector_test(void)
 	//vector_test_modifiers_functions();
 	//vector_test_iterator_functions();
 	//vector_test_element_access_functions();
-	vector_test_non_members_function_overload();
+	//vector_test_non_members_function_overload();
+	vector_test_reverse_iterator();
 }
 
 int main(void)
