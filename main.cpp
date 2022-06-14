@@ -6,7 +6,7 @@
 /*   By: vbachele <vbachele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 15:26:04 by vbachele          #+#    #+#             */
-/*   Updated: 2022/06/14 15:21:08 by vbachele         ###   ########.fr       */
+/*   Updated: 2022/06/14 18:21:01 by vbachele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -264,15 +264,84 @@ void	vector_test(void)
 **==========================
 */
 
+void	stack_test_members_functions()
+{
+	STD::vector<int> vector(10, 50);
+	STD::vector<int> vector2(0, 0);
+	STD::stack<int> first;
+	//STD::stack<int> second (vector);
+	STD::stack<int,STD::vector<int> > third;  // empty stack using vector
+  	STD::stack<int,STD::vector<int> > fourth (vector);
+  	STD::stack<int,STD::vector<int> > fifth (vector2);
+	std::cout << "------------------------ 			STACK MEMBERS FUNCTIONS TESTS 		-------------------------" << std::endl << std::endl;
+	std::cout << "------------------------ SIZE TEST -------------------------" << std::endl << std::endl;
+	std::cout << "size is of the 1st stack: " << fourth.size() << std::endl;
+	std::cout << "size is of the 2nd stack: " << fifth.size() << std::endl;
+	std::cout << "------------------------ EMPTY TEST -------------------------" << std::endl << std::endl;
+	std::cout << "1st stacksize is empty (0) == no, (1) == yes ===> " << fourth.empty() << std::endl;
+	std::cout << "2nd stacksize is empty (0) == no, (1) == yes ===> " << fifth.empty() << std::endl;
+	std::cout << "------------------------ PUSH TEST -------------------------" << std::endl << std::endl;
+	std::cout << "ADDING 42 at the top of the stack" << std::endl;
+	fourth.push(42);
+	std::cout << "------------------------ TOP TEST -------------------------" << std::endl << std::endl;
+	std::cout << "The top element of the stack is " << fourth.top() << std::endl;
+	std::cout << "------------------------ POP TEST -------------------------" << std::endl << std::endl;
+	fourth.pop();
+	std::cout << "I remove the last element of the stack, the new element at the top of the stack: " << fourth.top() << std::endl;
+
+}
+
+void	stack_test_relational_operators()
+{
+	std::cout << "------------------------ 			STACK RELATIONAL OPERATOR TESTS 		-------------------------" << std::endl << std::endl;
+	STD::vector<int> vector(10, 50);
+	STD::vector<int> vector2(0, 0);
+	STD::stack<int> first;
+	//STD::stack<int> second (vector);
+  	STD::stack<int,STD::vector<int> > fourth (vector);
+  	STD::stack<int,STD::vector<int> > fifth (vector2);
+	std::cout << "------------------------ OPERATOR == TEST -------------------------" << std::endl << std::endl;
+	if (fourth == fifth)
+		std::cout << "LHS && RHS are EQUAL"  << std::endl;
+	else
+		std::cout << "LHS && RHS are not EQUAL"  << std::endl;
+	std::cout << "------------------------ OPERATOR != TEST -------------------------" << std::endl << std::endl;
+	if (fourth != fifth)
+		std::cout << "LHS && RHS are NOT EQUAL"  << std::endl;
+	else
+		std::cout << "LHS && RHS are EQUAL"  << std::endl;
+	std::cout << "------------------------ OPERATOR < TEST -------------------------" << std::endl << std::endl;
+	if (fourth < fifth)
+		std::cout << "LHS < RHS"  << std::endl;
+	else
+		std::cout << "LHS > RHS"  << std::endl;
+	std::cout << "------------------------ OPERATOR <= TEST -------------------------" << std::endl << std::endl;
+	if (fourth <= fifth)
+		std::cout << "LHS <= RHS"  << std::endl;
+	else
+		std::cout << "LHS >= RHS"  << std::endl;
+	std::cout << "------------------------ OPERATOR > TEST -------------------------" << std::endl << std::endl;
+	if (fourth > fifth)
+		std::cout << "LHS > RHS"  << std::endl;
+	else
+		std::cout << "LHS < RHS"  << std::endl;
+	std::cout << "------------------------ OPERATOR >= TEST -------------------------" << std::endl << std::endl;
+	if (fourth >= fifth)
+		std::cout << "LHS >= RHS"  << std::endl;
+	else
+		std::cout << "LHS <= RHS"  << std::endl;
+}
 
 void	stack_test()
 {
-
+	std::cout << "------------------------ STACK TEST --------------------------" << std::endl << std::endl;
+	stack_test_members_functions();
+	stack_test_relational_operators();
 }
 
 
 int 	main(void)
 {
-	vector_test();
+	//vector_test();
 	stack_test();
 }
