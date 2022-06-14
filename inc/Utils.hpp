@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   Utils.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vincent <vincent@student.42.fr>            +#+  +:+       +#+        */
+/*   By: vbachele <vbachele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 14:26:38 by vincent           #+#    #+#             */
-/*   Updated: 2022/06/12 17:41:14 by vincent          ###   ########.fr       */
+/*   Updated: 2022/06/14 14:30:43 by vbachele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef UTILS_HPP
 #define UTILS_HPP
-#include "Vector.hpp"
+#include "../inc/Vector.hpp"
 
 namespace ft
 {
@@ -34,7 +34,7 @@ namespace ft
 
 	/*** We define the iterator trait here ***/
 	template <class Iterator>
-	class iterator_traits 
+	class iterator_traits
 	{
 	public:
 		typedef typename Iterator::iterator_category iterator_category;
@@ -46,7 +46,7 @@ namespace ft
 
 	/*** The second iterator trait is for the case you have a pointer ***/
 	template <class T>
-	class iterator_traits<T *> 
+	class iterator_traits<T *>
 	{
 	public:
 		typedef std::random_access_iterator_tag 	iterator_category;
