@@ -6,7 +6,7 @@
 /*   By: vbachele <vbachele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 15:25:56 by vbachele          #+#    #+#             */
-/*   Updated: 2022/06/14 14:51:03 by vbachele         ###   ########.fr       */
+/*   Updated: 2022/06/15 17:10:44 by vbachele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #define vector_HPP
 #include "iostream"
 #include "limits"
-#include "randomit.hpp"
+#include "Iterators.hpp"
 #include <memory>
 #include "Utils.hpp"
 #pragma once
@@ -41,9 +41,6 @@ namespace ft
 		//Allocator::reference is reference to an element
 		typedef value_type&								reference;
 		typedef const value_type&						const_reference;
-		//typedef typename allocator::size_type			size_type;
-		//typedef typename allocator::pointer			pointer;
-		//typedef typename allocator::const_pointer		const_pointer;
 		typedef vector_iterator<value_type>				iterator;
 		typedef vector_iterator<value_type const>		const_iterator;
 		typedef ft::reverse_iterator<iterator>				reverse_iterator;

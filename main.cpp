@@ -6,7 +6,7 @@
 /*   By: vbachele <vbachele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 15:26:04 by vbachele          #+#    #+#             */
-/*   Updated: 2022/06/14 18:21:01 by vbachele         ###   ########.fr       */
+/*   Updated: 2022/06/15 17:54:14 by vbachele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@
 #define PRINTCONTAINER() std::cout << "STD::vector\n\n" << std::endl;
 #include "../inc/Vector.hpp"
 #include "../inc/Stack.hpp"
-#include "../inc/randomit.hpp"
+#include "../inc/Iterators.hpp"
+#include "../inc/Map.hpp"
 #endif
 
 
@@ -144,6 +145,7 @@ void	vector_test_iterator_functions(void)
    // 	std::cout << ' ' << *it;
   	std::cout << '\n';
 }
+
 void	vector_test_modifiers_functions(void)
 {
 	STD::vector <int> default_vector;
@@ -339,9 +341,21 @@ void	stack_test()
 	stack_test_relational_operators();
 }
 
+/*
+**==========================
+**     MAP TEST
+**==========================
+*/
+
+void	map_test()
+{
+	STD::map<int, char> Vincent;
+	STD::map<int, char> Robin(Vincent);
+}
 
 int 	main(void)
 {
 	//vector_test();
-	stack_test();
+	//stack_test();
+	map_test();
 }

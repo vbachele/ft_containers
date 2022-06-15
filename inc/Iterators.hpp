@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   randomit.hpp                                       :+:      :+:    :+:   */
+/*   Iterators.hpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vbachele <vbachele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 14:43:42 by vbachele          #+#    #+#             */
-/*   Updated: 2022/06/14 14:30:32 by vbachele         ###   ########.fr       */
+/*   Updated: 2022/06/15 18:01:15 by vbachele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 #include "iterator"
 #include "../inc/Utils.hpp"
 #pragma once
+
 namespace ft
 {
 	template <typename T>
@@ -232,7 +233,6 @@ namespace ft
    	 return o;
 	}
 }
-
 namespace ft
 {
 	template <typename Iterator>
@@ -437,4 +437,62 @@ namespace ft
 	}
 }
 
+namespace ft
+{
+template <typename T, typename node_pointer>
+class	map_iterator
+{
+public:
+	typedef	T								value_type;
+	typedef value_type*						pointer;
+	typedef value_type&						reference;
+	typedef std::ptrdiff_t 					difference_type;
+    typedef std::bidirectional_iterator_tag iterator_category; // Kind of iterator category for map
+
+
+protected:
+    node_pointer _ptr;
+
+public:
+/*
+**==========================
+**     CANONICAL FUNCTIONS
+**==========================
+*/
+	map_iterator() : _ptr(NULL) {}
+	map_iterator (node_pointer ptr) : _ptr(ptr) {}
+	map_iterator(map_iterator const &obj) : _ptr(obj._ptr) {}
+	map_iterator &operator=(map_iterator const &rhs)
+	{
+		if (this != &rhs)
+			this->_ptr = rhs._ptr;
+		return (*(this));
+	}
+
+	virtual ~map_iterator() {}
+/*
+**==========================
+**     OPERATORS FUNCTION
+**==========================
+*/
+
+	node_pointer get_node()
+	{
+		return (this->_ptr);
+	}
+
+	node_pointer get_node() const
+	{
+		return (this->_ptr);
+	}
+
+};
+
+template <typename One, typename Two>
+std::ostream &operator<<(std::ostream &o, map_iterator<One, Two> const &rhs)
+{
+    o << *rhs.get_node();
+	return o;
+}
+}
 #endif
