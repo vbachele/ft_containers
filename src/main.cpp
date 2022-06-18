@@ -6,7 +6,7 @@
 /*   By: vincent <vincent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 15:26:04 by vbachele          #+#    #+#             */
-/*   Updated: 2022/06/12 18:00:45 by vincent          ###   ########.fr       */
+/*   Updated: 2022/06/12 18:01:49 by vincent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,7 @@ void	vector_test_iterator_functions(void)
     	std::cout << ' ' << it;
   	std::cout << '\n';
 }
+
 void	vector_test_modifiers_functions(void)
 {
 	ft::Vector <int> default_vector;
@@ -212,6 +213,7 @@ void	vector_constructor_test(void)
 	default_vector = fill_vector;
 	std::cout << std::endl;
 }
+
 void	vector_test(void)
 {
 	//vector_constructor_test();
