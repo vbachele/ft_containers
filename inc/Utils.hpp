@@ -6,16 +6,119 @@
 /*   By: vincent <vincent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 14:26:38 by vincent           #+#    #+#             */
-/*   Updated: 2022/06/12 17:41:14 by vincent          ###   ########.fr       */
+/*   Updated: 2022/06/19 19:10:55 by vincent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef UTILS_HPP
 #define UTILS_HPP
-#include "Vector.hpp"
+#include "../inc/Vector.hpp"
+
 
 namespace ft
 {
+
+/*
+**==========================
+**  IS INTEGRAL FUNCTIONS   
+**==========================
+*/
+	template <class T, T v>
+    class integral_constant
+    {
+    public:
+        const static T value = v;
+        typedef T value_type;
+        typedef integral_constant<T, v> type;
+        const value_type operator()() const { return value; }
+    };
+	
+	typedef integral_constant<bool, true> true_type;
+    typedef integral_constant<bool, false> false_type;
+
+	template <class T>
+    struct is_integral : public false_type
+    {
+    };
+
+    template <class T>
+    struct is_integral<const T> : public is_integral<T>
+    {
+    };
+	
+    template <class T>
+    struct is_integral<volatile const T> : public is_integral<T>
+    {
+    };
+    template <class T>
+    struct is_integral<volatile T> : public is_integral<T>
+    {
+    };
+	
+	template <>
+    struct is_integral<unsigned char> : public true_type
+    {
+    };
+	
+    template <>
+    struct is_integral<unsigned short> : public true_type
+    {
+    };
+
+    template <>
+    struct is_integral<unsigned int> : public true_type
+    {
+    };
+	
+    template <>
+    struct is_integral<unsigned long> : public true_type
+    {
+    };
+	
+    template <>
+    struct is_integral<signed char> : public true_type
+    {
+    };
+    template <>
+    struct is_integral<short> : public true_type
+    {
+    };
+	
+    template <>
+    struct is_integral<int> : public true_type
+    {
+    };
+
+    template <>
+    struct is_integral<long int> : public true_type
+    {
+    };
+	
+    template <>
+    struct is_integral<long long int> : public true_type
+    {
+    };
+
+    template <>
+    struct is_integral<unsigned long long int> : public true_type
+    {
+    };
+	
+    template <>
+    struct is_integral<char> : public true_type
+    {
+    };
+
+    template <>
+    struct is_integral<bool> : public true_type
+    {
+    };
+
+/*
+**==========================
+**  lexicographical FUNCTIONS   
+**==========================
+*/
 	template <class InputIterator1, class InputIterator2>
 	bool lexicographical_compare (InputIterator1 first1, InputIterator1 last1,
 									InputIterator2 first2, InputIterator2 last2)
@@ -32,9 +135,15 @@ namespace ft
 		return (first2 != last2);
 	}
 
+/*
+**==========================
+**  ITERATOR TRAITS   
+**==========================
+*/
+
 	/*** We define the iterator trait here ***/
 	template <class Iterator>
-	class iterator_traits 
+	class iterator_traits
 	{
 	public:
 		typedef typename Iterator::iterator_category iterator_category;
@@ -46,7 +155,7 @@ namespace ft
 
 	/*** The second iterator trait is for the case you have a pointer ***/
 	template <class T>
-	class iterator_traits<T *> 
+	class iterator_traits<T *>
 	{
 	public:
 		typedef std::random_access_iterator_tag 	iterator_category;
@@ -66,5 +175,17 @@ namespace ft
 		typedef const T 						&reference;
 		typedef std::random_access_iterator_tag iterator_category;
 	};
+
+/*
+**==========================
+**  ENABLE_IF FUNCTION  
+**==========================
+*/
+	
+	template<bool B, class T = void>
+	struct enable_if {};
+	
+	template<class T>
+	struct enable_if<true, T> { typedef T type; };
 }
 #endif
