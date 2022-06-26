@@ -6,7 +6,7 @@
 /*   By: vbachele <vbachele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 14:43:42 by vbachele          #+#    #+#             */
-/*   Updated: 2022/06/26 15:51:59 by vbachele         ###   ########.fr       */
+/*   Updated: 2022/06/26 17:58:42 by vbachele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -503,7 +503,7 @@ public:
 
 	reference operator*() const
 	{
-		return (this->_ptr->value);
+		return (this->_ptr->value_type);
 	}
 
 	pointer operator->() const

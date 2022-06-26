@@ -6,7 +6,7 @@
 /*   By: vbachele <vbachele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 15:26:04 by vbachele          #+#    #+#             */
-/*   Updated: 2022/06/26 17:26:29 by vbachele         ###   ########.fr       */
+/*   Updated: 2022/06/26 18:00:08 by vbachele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -317,12 +317,6 @@ void	stack_test_relational_operators()
 	if (fourth < fifth)
 		std::cout << "LHS < RHS"  << std::endl;
 	else
-		std::cout << "LHS > RHS"  << std::endl;
-	std::cout << "------------------------ OPERATOR <= TEST -------------------------" << std::endl << std::endl;
-	if (fourth <= fifth)
-		std::cout << "LHS <= RHS"  << std::endl;
-	else
-		std::cout << "LHS >= RHS"  << std::endl;
 	std::cout << "------------------------ OPERATOR > TEST -------------------------" << std::endl << std::endl;
 	if (fourth > fifth)
 		std::cout << "LHS > RHS"  << std::endl;
@@ -357,7 +351,14 @@ void	map_test()
 {
 	STD::map<int, int> Vincent;
 	STD::map<int, int> Robin(Vincent);
-	Vincent.insert(STD::pair<char,int>('z',200) );
+	STD::map<char,int> mymap;
+	//mymap.insert ( STD::pair<char,int>('a',100) );
+  	//mymap.insert ( STD::pair<char,int>('z',200) );
+
+  	STD::pair<STD::map<char,int>::iterator,bool> ret;
+  	ret = mymap.insert ( STD::pair<char,int>('z',500) );
+   std::cout << "element 'z' already existed";
+    std::cout << " with a value of " << ret.first->second << '\n';
 }
 
 int 	main(void)
@@ -365,5 +366,5 @@ int 	main(void)
 	//vector_test();
 	//stack_test();
 	//utils_test();
-	map_test();
+	//map_test();
 }

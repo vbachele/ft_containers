@@ -6,7 +6,7 @@
 /*   By: vbachele <vbachele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 13:39:13 by vbachele          #+#    #+#             */
-/*   Updated: 2022/06/26 17:46:43 by vbachele         ###   ########.fr       */
+/*   Updated: 2022/06/26 17:55:10 by vbachele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,9 +171,13 @@ public :
 	iterator insert(iterator position, const value_type &val)
 	{
 		(void)position;
-		insert_node_from_root(v
-        typedef typename allocator_type::reference reference;
-        typedef typename allocator_type::const_reference const_reference;::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type first, InputIterator last)
+		insert_node_from_root(val, this->_root);
+		return iterator(recursive_find_key(val.first, this->_root));
+	}
+
+	// //insert range - A CHANGER POUR STD
+	// template <class InputIterator>
+	// void insert(typename std::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type first, InputIterator last)
 	// {
 	// 	while (first != last)
 	// 	{
