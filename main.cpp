@@ -6,7 +6,7 @@
 /*   By: vbachele <vbachele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 15:26:04 by vbachele          #+#    #+#             */
-/*   Updated: 2022/06/26 16:57:37 by vbachele         ###   ########.fr       */
+/*   Updated: 2022/06/26 17:26:29 by vbachele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -357,7 +357,7 @@ void	map_test()
 {
 	STD::map<int, int> Vincent;
 	STD::map<int, int> Robin(Vincent);
-	Vincent.insert(STD::pair<int, int>(1, 50));
+	Vincent.insert(STD::pair<char,int>('z',200) );
 }
 
 int 	main(void)

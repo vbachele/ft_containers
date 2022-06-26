@@ -6,7 +6,7 @@
 /*   By: vbachele <vbachele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 14:26:38 by vincent           #+#    #+#             */
-/*   Updated: 2022/06/26 16:44:29 by vbachele         ###   ########.fr       */
+/*   Updated: 2022/06/26 17:05:50 by vbachele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -208,7 +208,8 @@ namespace ft
         // We find the first and second from src
         pair(pair<U, V> const &src) : first(src.first), second(src.second) {};
         pair(first_type const &x, second_type const &y) : first(x), second(y) {};
-        pair &operator=(const pair &other)
+
+        pair &operator=(pair const &other)
         {
             if (this != &other)
             {

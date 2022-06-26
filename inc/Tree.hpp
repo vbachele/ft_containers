@@ -6,7 +6,7 @@
 /*   By: vbachele <vbachele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 16:10:07 by vbachele          #+#    #+#             */
-/*   Updated: 2022/06/25 19:38:34 by vbachele         ###   ########.fr       */
+/*   Updated: 2022/06/26 17:17:21 by vbachele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,19 +20,12 @@ template <class T>
 struct BSTNode
 {
 	T				value_type;
-	struct BSTNode	*parent;
 	struct BSTNode 	*left;
 	struct BSTNode 	*right;
+	struct BSTNode	*parent;
 	bool			last;
 
-	BSTNode(T v, BSTNode *p, BSTNode *l, BSTNode *r, bool e)
-	{
-		value_type = v;
-		parent = p;
-		left = l;
-		right = r;
-		e = false;
-	}
+	BSTNode(T v, BSTNode *l, BSTNode *r, BSTNode *p, bool e = false) : value_type(v), left(l), right(r), parent(p), last(e) {}
 	~BSTNode() {};
 };
 }

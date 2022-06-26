@@ -6,7 +6,7 @@
 /*   By: vbachele <vbachele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 13:39:13 by vbachele          #+#    #+#             */
-/*   Updated: 2022/06/26 17:01:57 by vbachele         ###   ########.fr       */
+/*   Updated: 2022/06/26 17:46:43 by vbachele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,8 @@ public:
 	typedef T												mapped_type;
 	// value_type is constitued of both key and value after passing by pair
 	typedef ft::pair<const key_type, mapped_type> 			value_type;
-	typedef Alloc											allocator_type;
-	typedef size_t											size_type;
-	typedef std::ptrdiff_t 									difference_type;
 	typedef Compare											key_compare;
 	typedef BSTNode<value_type> 							node_type;
-	// typedef	value_type&								reference;
-	// typedef const value_type&						cont_reference;
-	// typedef value_type*								pointer;
-	// typedef const value_type*						const_pointer;
 
 	class Binary_function
     {
@@ -57,13 +50,22 @@ public:
     };
 
 	/***************** iterator typedef **************/
-	typedef map_iterator<value_type, node_type *>			iterator;
-	typedef const map_iterator<value_type, node_type *> 	const_iterator;
-	typedef ft::reverse_iterator<iterator>					reverse_iterator;
-	typedef const ft::reverse_iterator<const_iterator>		const_reverse_iterator;
+		typedef Alloc allocator_type;
+        //typedef Allocator node_allocator;
+        typedef typename allocator_type::template rebind<node_type>::other node_allocator; //Class whose member other is a typedef of allocator for type Type.
+        typedef typename allocator_type::reference reference;
+        typedef typename allocator_type::const_reference const_reference;
+        typedef typename allocator_type::pointer pointer;
+        typedef typename allocator_type::const_pointer const_pointer;
+        typedef typename allocator_type::size_type size_type;
+        typedef typename allocator_type::difference_type difference_type;
+        typedef map_iterator<value_type, node_type *> iterator;
+        typedef map_iterator<const value_type, node_type *> const_iterator;
+        typedef ft::reverse_iterator<iterator> reverse_iterator;
+        typedef ft::reverse_iterator<const_iterator> const_reverse_iterator;
 
 protected :
-	allocator_type	_alloc;
+	node_allocator	_alloc;
 	size_type		_size;
 	key_compare		_key_compare;
 	node_type		*_root;
@@ -93,11 +95,18 @@ public :
 **  MEMBER FUNCTIONS
 **==========================
 */
+	pair<iterator, bool> insert(const value_type &val)
+	{
+		size_t backup = this->get_size();
+		insert_node_from_root(val, this->_root);
+		return (pair<iterator, bool>(recursive_find_key(val.first, this->_root), backup != this->_size));
+	}
 	/*** Creating/allocating and return a new node ***/
 	node_type *add_node(value_type const &val, node_type *parent)
 	{
-		node_type *temp = _alloc.allocate(1); // allocation pour un nouveau noeud
-		this->_alloc.construct(temp, node_type(val, NULL, NULL, parent, false)); // construit le noeud avec la key/value et le parent
+		node_type *temp = _alloc.allocate(1);// allocation pour un nouveau noeud
+		// construit le noeud avec la key/value et le parent
+		this->_alloc.construct(temp, node_type(val, NULL, NULL, parent, false));
 		this->_size++;
 		return (temp);
 	}
@@ -150,25 +159,21 @@ public :
         return (this->_size);
     }
 
-	//Insert single element
-	pair<iterator, bool> insert(const value_type &val)
-	{
-		size_t backup = this->get_size();
-		insert_node_from_root(val, this->_root);
-		return (pair<iterator, bool>(recursive_find_key(val.first, this->_root), backup != this->_size));
-	}
+	// //Insert single element
+	// pair<iterator, bool> insert(const value_type &val)
+	// {
+	// 	size_t backup = this->get_size();
+	// 	insert_node_from_root(val, this->_root);
+	// 	return (pair<iterator, bool>(recursive_find_key(val.first, this->_root), backup != this->_size));
+	// }
 
 	//insert with hint
 	iterator insert(iterator position, const value_type &val)
 	{
 		(void)position;
-		insert_node_from_root(val, this->_root);
-		return iterator(recursive_find_key(val.first, this->_root));
-	}
-
-	// //insert range - A CHANGER POUR STD
-	// template <class InputIterator>
-	// void insert(typename std::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type first, InputIterator last)
+		insert_node_from_root(v
+        typedef typename allocator_type::reference reference;
+        typedef typename allocator_type::const_reference const_reference;::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type first, InputIterator last)
 	// {
 	// 	while (first != last)
 	// 	{
@@ -182,9 +187,9 @@ public :
 		if (!current || current->last) // if last node or we are in the last node in tree
 			return (NULL);
 		// Compare 2 keys if key < 1st value current node, we search again with the left node
-		if (this->_key_compare(key, current->value.first))
+		if (this->_key_compare(key, current->value_type.first))
 			return recursive_find_key(key, current->left);
-		else if (this->_key_compare(current->value.first, key)) // Compare 2 keys if key > 1st value current node, we search again with the right node
+		else if (this->_key_compare(current->value_type.first, key)) // Compare 2 keys if key > 1st value current node, we search again with the right node
 			return recursive_find_key(key, current->right);
 		else // we found the key
 			return (current);
