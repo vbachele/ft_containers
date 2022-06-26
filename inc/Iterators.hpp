@@ -6,7 +6,7 @@
 /*   By: vbachele <vbachele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 14:43:42 by vbachele          #+#    #+#             */
-/*   Updated: 2022/06/15 18:01:15 by vbachele         ###   ########.fr       */
+/*   Updated: 2022/06/26 15:51:59 by vbachele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -475,6 +475,41 @@ public:
 **     OPERATORS FUNCTION
 **==========================
 */
+	map_iterator &operator++(void)
+	{
+		increase();
+		return(*this);
+	}
+
+	map_iterator operator++(int)
+	{
+		map_iterator it = *this;
+		++(*this);
+		return(it);
+	}
+
+	map_iterator &operator--(void)
+	{
+		decrease();
+		return(*this);
+	}
+
+	map_iterator operator--(int)
+	{
+		map_iterator it = *this;
+		--(*this);
+		return(*this);
+	}
+
+	reference operator*() const
+	{
+		return (this->_ptr->value);
+	}
+
+	pointer operator->() const
+	{
+		return &(operator*());
+	}
 
 	node_pointer get_node()
 	{
@@ -486,6 +521,67 @@ public:
 		return (this->_ptr);
 	}
 
+	operator map_iterator<const T, node_pointer>() const
+	{
+		return map_iterator<const T, node_pointer>(this->_ptr);
+	}
+
+	template <typename it2>
+	bool operator==(const map_iterator<it2, node_pointer> &b) const
+	{
+		return (this->_ptr == b.get_node());
+	}
+
+	template <typename it2>
+	bool operator!=(const map_iterator<it2, node_pointer> &b) const
+	{
+		return (this->_ptr != b.get_node());
+	}
+	private :
+
+	void	increase()
+	{
+		// if I have a node in the right
+		if (this->_ptr->right)
+		{
+			// I keep the right node
+			this->_ptr = this->_ptr->right;
+			//I'm going to the subtree
+			while(this->_ptr->left)
+				this->_ptr = this->_ptr->left;
+		}
+		else
+		{
+			 //sinon, je remonte dans les parents pour retrouver le plus grand directement suivant
+			node_pointer temp = this->_ptr;
+			this->_ptr = this->_ptr->parent;
+			while (this->_ptr->left != temp)
+			{
+				temp = this->_ptr;
+				this->_ptr = this->_ptr->parent;
+			}
+		}
+	}
+
+	void	decrease()
+	{
+		if (this->_ptr->left)
+		{
+			this->ptr = this->ptr->left;
+			while(this->_ptr->right)
+				this->_ptr = this->_ptr->right;
+		}
+		else
+		{
+			node_pointer temp = this->_ptr;
+			this->_ptr = this->_ptr->parent;
+			while (this->_ptr->right != temp)
+			{
+				temp = this->_ptr;
+				this->_ptr = this->_ptr->parent;
+			}
+		}
+	}
 };
 
 template <typename One, typename Two>

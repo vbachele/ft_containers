@@ -6,7 +6,7 @@
 /*   By: vbachele <vbachele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 15:26:04 by vbachele          #+#    #+#             */
-/*   Updated: 2022/06/25 20:13:19 by vbachele         ###   ########.fr       */
+/*   Updated: 2022/06/26 16:57:37 by vbachele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -347,18 +347,23 @@ void	stack_test()
 **     MAP TEST
 **==========================
 */
-enum E : int {};
+
+void	utils_test()
+{
+
+}
 
 void	map_test()
 {
-	STD::map<int, char> Vincent;
-	STD::map<int, char> Robin(Vincent);
-	Vincent.insert(50, 32);
+	STD::map<int, int> Vincent;
+	STD::map<int, int> Robin(Vincent);
+	Vincent.insert(STD::pair<int, int>(1, 50));
 }
 
 int 	main(void)
 {
 	//vector_test();
 	//stack_test();
+	//utils_test();
 	map_test();
 }

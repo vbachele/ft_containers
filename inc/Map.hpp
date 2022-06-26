@@ -6,7 +6,7 @@
 /*   By: vbachele <vbachele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 13:39:13 by vbachele          #+#    #+#             */
-/*   Updated: 2022/06/25 20:17:33 by vbachele         ###   ########.fr       */
+/*   Updated: 2022/06/26 17:01:57 by vbachele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,21 @@
 #include "iostream"
 #include "./Tree.hpp"
 #include "./Iterators.hpp"
+
 namespace ft
 {
 template < class Key,                                     // map::key_type
            class T,                                       // map::mapped_type
            class Compare = std::less<Key>,                     // map::key_compare
-           class Alloc = std::allocator<ft::pair<const Key,T> > >   // map::allocator_type
+           class Alloc = std::allocator<ft::pair<const Key, T> > >   // map::allocator_type
 class map
 {
 public:
 	/***************** TYPEDEF **************/
+	typedef Key 											key_type;
 	typedef T												mapped_type;
-	typedef ft::pair<Key,mapped_type> 						value_type;
+	// value_type is constitued of both key and value after passing by pair
+	typedef ft::pair<const key_type, mapped_type> 			value_type;
 	typedef Alloc											allocator_type;
 	typedef size_t											size_type;
 	typedef std::ptrdiff_t 									difference_type;
@@ -76,10 +79,10 @@ public :
 		: _alloc(alloc), _size(0),  _key_compare(comp) {
 			std::cout << "WORKING" << std::endl;
 		}
-	// template <class InputIterator>
-	// map (InputIterator first, InputIterator last,
-	// 	const key_compare& comp = key_compare(),
-	// 	const allocator_type& alloc = allocator_type());
+	template <class InputIterator>
+	map (InputIterator first, InputIterator last,
+		const key_compare& comp = key_compare(),
+		const allocator_type& alloc = allocator_type());
 	map (const map& x) : _alloc(x._alloc), _size(x._size), _key_compare(x._key_compare) {}
 	virtual ~map()
 	{
@@ -94,7 +97,7 @@ public :
 	node_type *add_node(value_type const &val, node_type *parent)
 	{
 		node_type *temp = _alloc.allocate(1); // allocation pour un nouveau noeud
-		this->_alloc.construct(temp, node_type(val, NULL, NULL, parent, false)); // construit le noeud avec la key et le parent
+		this->_alloc.construct(temp, node_type(val, NULL, NULL, parent, false)); // construit le noeud avec la key/value et le parent
 		this->_size++;
 		return (temp);
 	}
@@ -104,7 +107,7 @@ public :
 	{
 		if (!current) // if the current node is null
 			return add_node(val, parent);
-		if (current->last)
+		if (current->last) // if we are in the last node
 		{
 			node_type *to_insert = add_node(val, parent);
 			current->parent = to_insert;
@@ -112,6 +115,11 @@ public :
 			current = to_insert;
 			return current;
 		}
+		if (_key_compare(val.first, current->value_type.first))
+			current->left = insert_node(val, current->left, current);
+		else if (_key_compare(current->value_type.first, val.first))
+			current->right = insert_node(val, current->right, current);
+		return current;
 	}
 
 	node_type *insert_node_from_root(const value_type &val, node_type *current, node_type *parent = NULL)
@@ -122,7 +130,7 @@ public :
 			node_type *last = add_node(value_type(key_type(), mapped_type()), this->_root);
 			this->_size--;
 			this->_root->right = last;
-			last->last = true;
+			last->last = true; // we indicate it it is the last node
 			return (this->_root);
 		}
 		if (this->_root->last) //Si root est le seul element
@@ -150,17 +158,36 @@ public :
 		return (pair<iterator, bool>(recursive_find_key(val.first, this->_root), backup != this->_size));
 	}
 
-	static void display(node_type *root)
-    {
-        if (root == NULL)
-        {
-            std::cout << "NULL" << std::endl;
-        }
-        else
-        {
-            std::cout << root->value_type << std::endl;
-            display(root->left);
-		}
+	//insert with hint
+	iterator insert(iterator position, const value_type &val)
+	{
+		(void)position;
+		insert_node_from_root(val, this->_root);
+		return iterator(recursive_find_key(val.first, this->_root));
+	}
+
+	// //insert range - A CHANGER POUR STD
+	// template <class InputIterator>
+	// void insert(typename std::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type first, InputIterator last)
+	// {
+	// 	while (first != last)
+	// 	{
+	// 		insert(*first);
+	// 		first++;
+	// 	}
+	// }
+
+	node_type *recursive_find_key(const key_type &key, node_type *current) const
+	{
+		if (!current || current->last) // if last node or we are in the last node in tree
+			return (NULL);
+		// Compare 2 keys if key < 1st value current node, we search again with the left node
+		if (this->_key_compare(key, current->value.first))
+			return recursive_find_key(key, current->left);
+		else if (this->_key_compare(current->value.first, key)) // Compare 2 keys if key > 1st value current node, we search again with the right node
+			return recursive_find_key(key, current->right);
+		else // we found the key
+			return (current);
 	}
 };
 }
