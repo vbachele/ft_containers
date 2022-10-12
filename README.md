@@ -16,6 +16,8 @@ FT_CONTAINERS is a project from the 42 school in c++ with the goal:
 
 ### Vector links
 - [All vector functions](https://cplusplus.com/reference/vector/vector/)
+- [Deallocate memory](https://en.cppreference.com/w/cpp/memory/allocator/deallocate)
+- [allocate memory](https://cplusplus.com/reference/memory/allocator/allocate/)
 
 ## VECTOR
 
