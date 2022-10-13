@@ -49,7 +49,6 @@ You have to create constructor, that means you need to:
 	- Be sure you allocate the memory from the memory allocated you are copying
 
 #### Capacity functions
-
 - **Max_size**
 	- For the function max_size, i let you check this [documentation](https://en.cppreference.com/w/cpp/types/numeric_limits/max)
 - **reserve**
@@ -65,3 +64,19 @@ You have to create constructor, that means you need to:
 	- If n > You capacity, you have to use the reserve function
 	- If n < your size, you have to destroy memory
 	- If n > your size, you have to allocate memory
+
+#### Element Access
+Nothing particular for this one, just return the value, these functions will allow you to test your program
+
+#### Modifiers functions
+There are functions where you don't need the iterators. Be sure, you have done at least capacity and element access to begin.
+- **assign**
+	- Don't forget to destroy the memory of your old content.
+	- Construct your new array to give the value and memory.
+- **swap**
+	- To save time, use directly the function swap from the std. [Man here](https://cplusplus.com/reference/vector/vector/swap/)
+- **clear**
+	- Don't forget to destroy the memory also.
+	- Put size to 0
+- **push_back**
+	- Use the reserve function, don't recode everything!
