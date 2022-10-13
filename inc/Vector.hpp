@@ -42,23 +42,41 @@ namespace ft
 	/*** operator= ***/
 		vector& operator=(const vector& x);
 
-		
 	/*
 	**==========================
-	**     OTHER FUNCTIONS
+	**    CAPACITY FUNCTIONS
 	**==========================
 	*/
+		size_type 	size() const;
+		size_type	set_size(size_type n) const;
+		size_type 	max_size() const;
+		void		destroy_array(size_type n);
+		void		allocate_array(size_type n, value_type val);
+		void 		resize (size_type n, value_type val = value_type());
+		size_type 	capacity() const;
+		bool 		empty() const;
+		void 		reserve (size_type n);
 
 	private:
 		allocator_type	_alloc;
 		size_type		_size; // size of the container
 		size_type		_capacity; // size of the memory
 		pointer			_array; // pointer to the array
+
+	/*
+	**==========================
+	**		MODIFIERS dUNCTIONS
+	**==========================
+	*/
+
+		//template <class InputIterator>  void assign (InputIterator first, InputIterator last);
+		void assign (size_type n, const value_type& val);
+
 	};
 
 /*
 **==========================
-** FUNCTIONS DEFINITION
+** MEMBERS FUNCTIONS
 **==========================
 */
 
@@ -124,9 +142,102 @@ namespace ft
 
 	/*
 	**==========================
-	**     OTHER FUNCTIONS
+	**     CAPACITY FUNCTIONS
 	**==========================
 	*/
+	template < class T, class Alloc >
+	size_t vector <T, Alloc>::size() const
+	{
+		return(this->_size);
+	}
+
+	template < class T, class Alloc >
+	size_t vector <T, Alloc>::set_size(size_type n) const
+	{
+		this->_size = n;
+	}
+
+	template < class T, class Alloc >
+	size_t vector <T, Alloc>::max_size() const
+	{
+		return (std::numeric_limits<size_type>::max());
+	}
+
+	template <class T, class Alloc >
+	void vector<T, Alloc>::destroy_array(size_type n)
+	{
+		for (size_type i = n; i > this->_size; i--)
+			this->_alloc.destroy(&this->_array[i]);
+	}
+
+	template<class T, class Alloc >
+	void vector<T, Alloc>::allocate_array(size_type n, value_type val)
+	{
+		for (size_type i = this->_size; i < n; i++)
+			this->_alloc.construct(&this->_array[i], val);
+	}
+
+	template < class T, class Alloc >
+	void vector<T, Alloc>::resize(size_type n, value_type val)
+	{
+		if (n > capacity())
+			reserve(n);
+		if (n < this->_size)
+		{
+			destroy_array(n);
+			this->_size = n;
+		}
+		if (n > this->_size)
+		{
+			allocate_array(n, val);
+			this->_size = n;
+		}
+	}
+
+	template < class T, class Alloc >
+	size_t vector <T, Alloc>::capacity() const
+	{
+		return (this->_capacity);
+	}
+
+	template <class T, class Alloc >
+	bool vector<T, Alloc>::empty() const
+	{
+		if (this->size() == 0)
+			return(1);
+		return (0);
+	}
+
+	template <class T, class Alloc >
+	void vector <T, Alloc>::reserve(size_type size)
+	{
+		if (size > this->capacity())
+		{
+			pointer n = this->_alloc.allocate(size);
+			for (size_type i = 0; i < this->size(); i++)
+			{
+				this->_alloc.construct(&n[i], this->_array[i]);
+				this->_alloc.destroy(&this->_array[i]);
+			}
+			this->_alloc.deallocate(this->_array, this->_capacity);
+			this->_array = n;
+			this->_capacity = size;
+		}
+	}
+
+/*
+**==========================
+**	MODIFIERS FUNCTIONS
+**==========================
+*/
+	template <class T, class Alloc>
+	void vector<T, Alloc>::assign(size_type n, const value_type& val)
+	{
+		
+	}
+
+
+
 }
 
 #endif

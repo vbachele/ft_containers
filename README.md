@@ -18,6 +18,8 @@ FT_CONTAINERS is a project from the 42 school in c++ with the goal:
 - [All vector functions](https://cplusplus.com/reference/vector/vector/)
 - [Deallocate memory](https://en.cppreference.com/w/cpp/memory/allocator/deallocate)
 - [allocate memory](https://cplusplus.com/reference/memory/allocator/allocate/)
+- [How works max size](https://stackoverflow.com/questions/3813124/c-vector-max-size)
+-
 
 ## VECTOR
 
@@ -45,3 +47,21 @@ You have to create constructor, that means you need to:
 - **Create the assign content functions**
 	- Be sure you free the memory from the vector which will be copied.
 	- Be sure you allocate the memory from the memory allocated you are copying
+
+#### Capacity functions
+
+- **Max_size**
+	- For the function max_size, i let you check this [documentation](https://en.cppreference.com/w/cpp/types/numeric_limits/max)
+- **reserve**
+	- You need to check if you current capacity if lesser than the number sent into the function. [Man of reserve](https://cplusplus.com/reference/vector/vector/reserve/)
+	- If (n > capacity)
+		You have to:
+		- Create a new array
+		- Allocate the new size
+		- Construct your new array and deallocate your old one at the same time
+		- Then you replace the new value.
+- **resize**
+[man of resize](https://cplusplus.com/reference/vector/vector/resize/)
+	- If n > You capacity, you have to use the reserve function
+	- If n < your size, you have to destroy memory
+	- If n > your size, you have to allocate memory
