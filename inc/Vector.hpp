@@ -5,6 +5,7 @@
 #include <iostream>
 #include <cstdlib>
 #include "limits"
+#include "Iterators.hpp"
 #pragma once
 
 namespace ft
@@ -18,12 +19,17 @@ namespace ft
 	class vector {
 	public:
 	/*** typedef (giving new names) ***/
-		typedef T						value_type;
-		typedef Alloc					allocator_type;
-		typedef size_t					size_type;
-		typedef value_type*				pointer;
-		typedef value_type&				reference;
-		typedef const value_type&		const_reference;
+		typedef T										value_type;
+		typedef Alloc									allocator_type;
+		typedef size_t									size_type;
+		typedef value_type*								pointer;
+		typedef value_type&								reference;
+		typedef const value_type&						const_reference;
+		typedef vector_iterator<value_type>				iterator;
+		typedef vector_iterator<value_type>				const_iterator;
+		//typedef ft::reverse_iterator<iterator>			reverse_iterator;
+		//typedef ft::reverse_iterator<const_iterator>	const_reverse_iterator;
+
 
 	/*
 	**==========================
@@ -57,6 +63,16 @@ namespace ft
 		size_type 	capacity() const;
 		bool 		empty() const;
 		void 		reserve (size_type n);
+
+	/*
+	**==========================
+	**   ITERATORS FUNCTIONS
+	**==========================
+	*/
+		iterator begin();
+		const_iterator begin() const;
+		iterator end();
+		const_iterator end() const;
 
 	/*
 	**==========================
@@ -262,6 +278,35 @@ namespace ft
 			this->_array = n;
 			this->_capacity = size;
 		}
+	}
+
+/*
+**==========================
+**	ITERATORS FUNCTIONS
+**==========================
+*/
+	template <class T, class Alloc >
+	typename vector<T,Alloc>::iterator vector<T,Alloc>::begin()
+	{
+		return(iterator(&this->_array[0]));
+	}
+
+	template <class T, class Alloc >
+	typename vector<T,Alloc>::const_iterator vector<T,Alloc>::begin() const
+	{
+		return(const_iterator(&this->_array[0]));
+	}
+
+	template <class T, class Alloc >
+	typename vector<T,Alloc>::iterator vector<T,Alloc>::end()
+	{
+		return(iterator(&this->_array[this->_size - 1]));
+	}
+
+	template <class T, class Alloc >
+	typename vector<T, Alloc>::const_iterator vector<T,Alloc>::end() const
+	{
+		return(const_iterator(&this->_array[this->_size - 1]));
 	}
 
 /*

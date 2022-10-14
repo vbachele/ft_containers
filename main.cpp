@@ -11,6 +11,7 @@
 #define CONTAINER ft
 #define PRINTCONTAINER() std::cout << "STD::vector\n\n" << std::endl;
 #include "inc/Vector.hpp"
+#include "inc/Iterators.hpp"
 #endif
 
 void	display_vector(STD::vector<int> &T)
@@ -20,6 +21,26 @@ void	display_vector(STD::vector<int> &T)
        std::cout << T.at(i) << "; ";
     }
 	std::cout << std::endl;
+}
+
+void	vector_test_iterator_functions(void)
+{
+	STD::vector <int> default_vector;
+	STD::vector <int> fill_vector(4, 500);
+	STD::vector <int> copy_vector(fill_vector);
+	default_vector = fill_vector;
+	std::cout << "-------------- ITERATOR FUNCTIONS ---------------" << std::endl << std::endl;
+	std::cout << "-------------- BEGIN ---------------" << std::endl << std::endl;
+	STD::vector<int>::iterator it = default_vector.begin();
+	std::cout << *it << std::endl;
+	std::cout << "-------------- END ---------------" << std::endl << std::endl;
+	default_vector.push_back(42);
+	STD::vector<int>::iterator it_end = default_vector.end();
+	std::cout << *it_end << std::endl;
+	std::cout << "myvector contains:";
+  	for (STD::vector<int>::iterator it = default_vector.begin(); it != default_vector.end(); ++it)
+   		std::cout << ' ' << *it;
+  	std::cout << '\n';
 }
 
 void	vector_test_element_access_functions(void)
@@ -156,6 +177,7 @@ void	vector_test(void)
 	vector_test_capacity_functions();
 	vector_test_modifiers_functions();
 	vector_test_element_access_functions();
+	vector_test_iterator_functions();
 }
 
 int main(void)
