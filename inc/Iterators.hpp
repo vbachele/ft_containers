@@ -36,6 +36,8 @@ namespace ft
 			this->_ptr = x._ptr;
 		}
 
+		~vector_iterator() {}
+
 		pointer	get_ptr() const
 		{
 			return (this->_ptr);

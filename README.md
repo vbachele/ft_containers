@@ -19,8 +19,9 @@ FT_CONTAINERS is a project from the 42 school in c++ with the goal:
 - [Deallocate memory](https://en.cppreference.com/w/cpp/memory/allocator/deallocate)
 - [allocate memory](https://cplusplus.com/reference/memory/allocator/allocate/)
 - [How works max size](https://stackoverflow.com/questions/3813124/c-vector-max-size)
+- [Introduction to Iterator](https://www.geeksforgeeks.org/introduction-iterators-c/)
 - [what are iterator and how to create it](https://www.internalpointers.com/post/writing-custom-iterators-modern-cpp)
- 
+
 ## VECTOR
 
 ### How to do vector?
@@ -47,6 +48,12 @@ You have to create constructor, that means you need to:
 - **Create the assign content functions**
 	- Be sure you free the memory from the vector which will be copied.
 	- Be sure you allocate the memory from the memory allocated you are copying
+
+#### Iterators
+This is the tricky part for vector. An iterator is an object which points to an element of your container. read the Iterator part to know more about it.
+- Because I did a vector_iterator class, I created a typedef iterator and const_iterator which link and create an object vector_iterator directly link to my .hpp file.
+- **begin and end**
+	- Create two functions which send an iterator which point to the beginning and the end of your function.
 
 #### Capacity functions
 - **Max_size**
@@ -80,3 +87,18 @@ There are functions where you don't need the iterators. Be sure, you have done a
 	- Put size to 0
 - **push_back**
 	- Use the reserve function, don't recode everything!
+
+## Iterators
+Iterators are the tricky part of this project. For my part I created a Iterator.hpp file for vector and for map.
+To undestand how create your first own iterator, use this really insteresting [tutorial](https://www.internalpointers.com/post/writing-custom-iterators-modern-cpp)
+
+### Vector Iterators
+You will need to create the vector_iterator class and the reverse_iterator class.
+
+#### Vector_iterator
+vector_iterator will be used for almost all your function, it will allow to do operators (++, --, ==, += etc...).
+1. Create your typedef as the tutorial mentionned just above it explains a lot of things.
+2. Create your constructor and destructor.
+3. Create all your operators functions, you will need it when you will use your iterator.
+
+#### Reverse_iterator
