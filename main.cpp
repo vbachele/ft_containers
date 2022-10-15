@@ -12,6 +12,7 @@
 #define PRINTCONTAINER() std::cout << "STD::vector\n\n" << std::endl;
 #include "inc/Vector.hpp"
 #include "inc/Iterators.hpp"
+#include "inc/Utils.hpp"
 #endif
 
 void	display_vector(STD::vector<int> &T)
@@ -21,6 +22,19 @@ void	display_vector(STD::vector<int> &T)
        std::cout << T.at(i) << "; ";
     }
 	std::cout << std::endl;
+}
+
+void	vector_test_reverse_iterator()
+{
+	STD::vector<int> fill_vector(4, 500);
+	fill_vector.push_back(42);
+	std::cout << "-------------- REVERSE ITERATOR FUNCTION ---------------" << std::endl;
+	std::cout << "-------------- RBEGIN ---------------" << std::endl << std::endl;
+	STD::vector<int>::reverse_iterator it = fill_vector.rbegin();
+	std::cout << *it << std::endl;
+	std::cout << "-------------- REND ---------------" << std::endl << std::endl;
+	STD::vector<int>::reverse_iterator it2 = fill_vector.rend() - 1;
+	std::cout << *it2 << std::endl;
 }
 
 void	vector_test_iterator_functions(void)
@@ -178,6 +192,7 @@ void	vector_test(void)
 	vector_test_modifiers_functions();
 	vector_test_element_access_functions();
 	vector_test_iterator_functions();
+	vector_test_reverse_iterator();
 }
 
 int main(void)

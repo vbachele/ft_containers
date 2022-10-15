@@ -27,8 +27,8 @@ namespace ft
 		typedef const value_type&						const_reference;
 		typedef vector_iterator<value_type>				iterator;
 		typedef vector_iterator<value_type>				const_iterator;
-		//typedef ft::reverse_iterator<iterator>			reverse_iterator;
-		//typedef ft::reverse_iterator<const_iterator>	const_reverse_iterator;
+		typedef ft::reverse_iterator<iterator>			reverse_iterator;
+		typedef ft::reverse_iterator<const_iterator>	const_reverse_iterator;
 
 
 	/*
@@ -73,6 +73,10 @@ namespace ft
 		const_iterator begin() const;
 		iterator end();
 		const_iterator end() const;
+		reverse_iterator rbegin();
+		const_reverse_iterator rbegin() const;
+		reverse_iterator rend();
+		const_reverse_iterator rend() const;
 
 	/*
 	**==========================
@@ -308,6 +312,31 @@ namespace ft
 	{
 		return(const_iterator(&this->_array[this->_size - 1]));
 	}
+
+	template <class T, class Alloc >
+	typename vector<T,Alloc>::reverse_iterator vector<T,Alloc>::rbegin()
+	{
+		return(iterator(&this->_array[this->size() - 1]));
+	}
+
+	template <class T, class Alloc >
+	typename vector<T,Alloc>::const_reverse_iterator vector<T,Alloc>::rbegin() const
+	{
+		return(iterator(&this->_array[this->size() - 1]));
+	}
+
+	template <class T, class Alloc >
+	typename vector<T,Alloc>::reverse_iterator vector<T,Alloc>::rend()
+	{
+		return(iterator(&this->_array[0]));
+	}
+
+	template <class T, class Alloc >
+	typename vector<T,Alloc>::const_reverse_iterator vector<T,Alloc>::rend() const
+	{
+		return(iterator(&this->_array[0]));
+	}
+
 
 /*
 **==========================
