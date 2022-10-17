@@ -30,17 +30,17 @@ namespace ft
 		typedef ft::reverse_iterator<iterator>			reverse_iterator;
 		typedef ft::reverse_iterator<const_iterator>	const_reverse_iterator;
 
-
 	/*
 	**==========================
-	**     MEMBERS FUNCTIONS
+	** MEMBERS CLASS DECLARATIONS
 	**==========================
 	*/
 	/*** Constructors ***/
 		explicit vector (const allocator_type& alloc = allocator_type());
-		explicit vector (size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type());
-		//template <class InputIterator> vector (InputIterator first, InputIterator last,
-			//const allocator_type& alloc = allocator_type());
+		explicit vector (size_type n, const value_type& val = value_type(),
+		const allocator_type& alloc = allocator_type());
+		vector (iterator first, iterator last,
+								const allocator_type& alloc = allocator_type());
 		vector (const vector& x);
 
 	/*** destructor ***/
@@ -48,10 +48,9 @@ namespace ft
 
 	/*** operator= ***/
 		vector& operator=(const vector& x);
-
 	/*
 	**==========================
-	**    CAPACITY FUNCTIONS
+	**    CAPACITY DECLARATIONS
 	**==========================
 	*/
 		size_type 	size() const;
@@ -66,7 +65,7 @@ namespace ft
 
 	/*
 	**==========================
-	**   ITERATORS FUNCTIONS
+	**   ITERATORS DECLARATIONS
 	**==========================
 	*/
 		iterator begin();
@@ -80,23 +79,24 @@ namespace ft
 
 	/*
 	**==========================
-	**	MODIFIERS FUNCTIONS
+	**	MODIFIERS DECLARATIONS
 	**==========================
 	*/
-		//template <class InputIterator>  void assign (InputIterator first, InputIterator last);
+		void assign (iterator first, iterator last);
 		void assign (size_type n, const value_type& val);
 		void push_back (const value_type& val);
 		void pop_back();
-		//iterator insert (iterator position, const value_type& val);
-		//void insert (iterator position, size_type n, const value_type& val);
-		//template <class InputIterator>    void insert (iterator position, InputIterator first, InputIterator last);
-		//iterator erase (iterator position);iterator erase (iterator first, iterator last);
+		iterator insert (iterator position, const value_type& val);
+		void insert (iterator position, size_type n, const value_type& val);
+		void insert (iterator position, iterator first, iterator last);
+		iterator erase (iterator position);
+		iterator erase (iterator first, iterator last);
 		void swap (vector& x);
 		void clear();
 
 	/*
 	**==========================
-	**	ELEMENT ACCESS
+	**	ELEMENT ACCESS DECLARATIONS
 	**==========================
 	*/
 		reference 			at (size_type n);
@@ -113,11 +113,13 @@ namespace ft
 		reference back() {return (this->_array[this->size() -1]);};
 		const_reference back() const {return (this->_array[this->size() -1]);};
 	/*
-	**==========================
-	** NON-MEMBER FUNCTION OVERLOAD
-	**==========================
+	**==========================================
+	** NON-MEMBER FUNCTION OVERLOAD DECLARATIONS
+	**==========================================
 	*/
 		void swap (vector& x, vector& y);
+		void shift_left (size_type pos, size_type n);
+
 	private:
 		allocator_type	_alloc;
 		size_type		_size; // size of the container
@@ -148,7 +150,7 @@ namespace ft
 		this->_alloc = alloc;
 		this->_capacity = n;
 		this->_array = _alloc.allocate(this->_capacity); // allocation for memory of the capacity for the array
-		for (size_type i = 0; i < this->_size ; i++)
+		for (size_type i = 0; i < n ; i++)
 			this->_array[i] = val;
 	}
 
@@ -162,10 +164,17 @@ namespace ft
 		for (size_type i = 0; i < this->_size ; i++)
 			_alloc.construct(&_array[i], x._array[i]);
 	}
-	// template <class InputIterator> vector (InputIterator first, InputIterator last,
-	// 		const allocator_type& alloc = allocator_type());
-	// template < class T, class Alloc >
-	// vector
+
+	template <class T, class Alloc>
+	vector<T, Alloc>::vector(iterator first, iterator last,
+			const allocator_type& alloc)
+	{
+		this->_size = last - first;
+		this->_capacity = last - first;
+		this->_alloc = alloc;
+		this->_array = _alloc.allocate(this->_capacity);
+		this->assign(first, last);
+	}
 
 	/*** destructor ***/
 	template < class T, class Alloc >
@@ -186,8 +195,8 @@ namespace ft
 		this->_alloc = x._alloc;
 		this->_capacity = x._capacity;
 		this->_array = _alloc.allocate(this->_capacity);
-		for (size_type i = 0; i < this->_size ; i++)
-			this->_array[i] = x._array[i];
+		for (size_type i = 0; i < this->_size; i++)
+			_alloc.construct(&_array[i], x._array[i]);
 		return (*(this));
 	}
 
@@ -292,49 +301,49 @@ namespace ft
 	template <class T, class Alloc >
 	typename vector<T,Alloc>::iterator vector<T,Alloc>::begin()
 	{
-		return(iterator(&this->_array[0]));
+		return(iterator(this->_array));
 	}
 
 	template <class T, class Alloc >
 	typename vector<T,Alloc>::const_iterator vector<T,Alloc>::begin() const
 	{
-		return(const_iterator(&this->_array[0]));
+		return(const_iterator(this->_array));
 	}
 
 	template <class T, class Alloc >
 	typename vector<T,Alloc>::iterator vector<T,Alloc>::end()
 	{
-		return(iterator(&this->_array[this->_size - 1]));
+		return(iterator(this->_array + this->_size));
 	}
 
 	template <class T, class Alloc >
 	typename vector<T, Alloc>::const_iterator vector<T,Alloc>::end() const
 	{
-		return(const_iterator(&this->_array[this->_size - 1]));
+		return(const_iterator(this->_array + this->_size));
 	}
 
 	template <class T, class Alloc >
 	typename vector<T,Alloc>::reverse_iterator vector<T,Alloc>::rbegin()
 	{
-		return(iterator(&this->_array[this->size() - 1]));
+		return(reverse_iterator(end()));
 	}
 
 	template <class T, class Alloc >
 	typename vector<T,Alloc>::const_reverse_iterator vector<T,Alloc>::rbegin() const
 	{
-		return(iterator(&this->_array[this->size() - 1]));
+		return(const_reverse_iterator(end()));
 	}
 
 	template <class T, class Alloc >
 	typename vector<T,Alloc>::reverse_iterator vector<T,Alloc>::rend()
 	{
-		return(iterator(&this->_array[0]));
+		return(iterator(begin()));
 	}
 
 	template <class T, class Alloc >
 	typename vector<T,Alloc>::const_reverse_iterator vector<T,Alloc>::rend() const
 	{
-		return(iterator(&this->_array[0]));
+		return(const_reverse_iterator(begin()));
 	}
 
 
@@ -343,7 +352,19 @@ namespace ft
 **	MODIFIERS FUNCTIONS
 **==========================
 */
+// here we assign the value between first to last, the new size will be the difference between the 2
 
+	template <class T, class Alloc>
+	void vector<T, Alloc>::assign (iterator first, iterator last)
+	{
+		size_type n = last - first;
+		reserve(n);
+		for (size_type i = 0; i < n; i++, first++) {
+			_alloc.destroy(_array + i);
+			_alloc.construct(_array + i, *first);
+		}
+		_size = n;
+	}
 	template <class T, class Alloc>
 	void vector<T, Alloc>::assign(size_type n, const value_type& val)
 	{
@@ -357,12 +378,91 @@ namespace ft
 	}
 
 	template <class T, class Alloc>
+	void vector<T, Alloc>::insert(iterator position, size_type n,
+												const value_type& val)
+	{
+		vector<T, Alloc> temp(position, this->end()); // temp to store the data of the end of the temp
+		this->_size -= this->end() - position; // keeping the size before value n;
+		for (size_type i = 0; i < n; i++)
+			this->push_back(val);
+		iterator begin = temp.begin();
+		iterator end = temp.end();
+		while (begin != end)
+		{
+			this->push_back(*begin);
+			++begin;
+		}
+	}
+
+	template <class T, class Alloc>
+	typename vector<T,Alloc>::iterator
+			vector<T, Alloc>::insert(iterator position, const value_type& val)
+	{
+		size_type n = position - this->begin();
+		//reserve(this->_size + n);
+		this->insert(position, 1, val);
+		return(iterator(&this->_array[n]));
+	}
+
+	template <class T, class Alloc>
+	void vector<T, Alloc>::insert(iterator position, iterator first, iterator last)
+	{
+		vector<T, Alloc> temp(position, this->end()); // what we want to save
+		this->_size -= (this->end() - position); // our new size ending at position
+		while (first != last)
+		{
+			this->push_back(*first);
+			first++;
+		} // inserting the value on front at the position
+		iterator it_begin = temp.begin();
+		iterator it_end = temp.end();
+		while (it_begin != it_end)
+		{
+			this->push_back(*it_begin);
+			++it_begin;
+		} // Adding the rest of the value
+
+	}
+
+	template <typename T, typename Alloc>
+	typename vector<T, Alloc>::iterator vector<T, Alloc>::erase(iterator position)
+	{
+		size_type pos = position - this->begin();
+		this->_alloc.destroy(&this->_array[pos]);
+		shift_left(pos, 1);
+		this->_size -= 1;
+		return iterator(_array + pos);
+	}
+
+	template <typename T, typename Alloc>
+	typename vector<T, Alloc>::iterator vector<T, Alloc>::erase(iterator first,
+											iterator last)
+	{
+		size_type diff = last - first;
+		size_type i = first - begin();
+		size_type n = last - begin();
+		while (*first != *last) // we destroy the memory allocated between first and last
+		{
+			_alloc.destroy(&(*first));
+			++first;
+		}
+		shift_left(n, i - n);
+		this->_size -= diff;
+		return iterator(this->_array + n); // we return at the iterator which points on last
+	}
+
+	template <class T, class Alloc>
 	void vector<T, Alloc>::push_back(const value_type& val)
 	{
-		if (this->_size == 0)
-			this->_size = 2;
-		if (this->_size == this->_capacity)
-			reserve(this->_size + 1);
+		if (capacity() == size())
+		{
+			if (size() == 0)
+				this->reserve(2); // I attribute the memory of 2 for the program
+			else
+			{
+				this->reserve(capacity() + 1);
+			}
+		}
 		this->_array[this->_size] = val;
 		this->_size += 1;
 	}
@@ -370,20 +470,17 @@ namespace ft
 	template <class T, class Alloc>
 	void vector<T, Alloc>::pop_back()
 	{
-		if (!this->empty())
-		{
-			this->_alloc.destroy(&this->_array[this->size()]);
-			this->_size -= 1;
-		}
+		this->_alloc.destroy(&this->_array[this->size()]);
+		this->_size -= 1;
 	}
 
 	template <class T, class Alloc>
 	void vector<T, Alloc>::swap(vector &x)
 	{
+		std::swap(this->_array, x._array);
 		std::swap(this->_size, x._size);
 		std::swap(this->_capacity, x._capacity);
 		std::swap(this->_alloc, x._alloc);
-		std::swap(this->_array, x._array);
 	}
 
 	template <class T, class Alloc>
@@ -393,7 +490,7 @@ namespace ft
 				for (size_t i = 0; i < _size; i++)
 					_alloc.destroy(_array + i);
 			}
-		//destroy_array(this->_size);
+		destroy_array(this->_size);
 		this->_size = 0;
 	}
 
@@ -432,11 +529,13 @@ namespace ft
 		y = tmp;
 	}
 
-	// template <class T, class Alloc>
-	// bool operator== (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
-	// {
-	// 	return ()
-	// }
+	template <class T, class Alloc>
+	void vector<T, Alloc>::shift_left(size_type pos, size_type n) {
+		for (; pos < _size && pos + n < _capacity; pos++) {
+			_alloc.construct(_array + pos, _array[pos + n]);
+			_alloc.destroy(_array + pos + n);
+		}
+	}
 
 }
 

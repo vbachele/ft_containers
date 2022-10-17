@@ -76,20 +76,20 @@ namespace ft
 		vector_iterator operator++(int) // postfix incrementation
 		{
 			vector_iterator tmp = *this;
-			++(*this);
-			return tmp;
+			++this->_ptr;
+			return (tmp);
 		}
 
 		vector_iterator& operator--()
 		{
 			this->_ptr--;
-			return *this;
+			return (*this);
 		}
 
 		vector_iterator operator--(int)
 		{
 			vector_iterator tmp = *this;
-			++(*this);
+			--this->_ptr;
 			return tmp;
 		}
 
@@ -97,19 +97,19 @@ namespace ft
 		{
 			if (this != &other)
 				this->_ptr = other._ptr;
-			return *this;
+			return (*this);
 		}
 
 		vector_iterator& operator+=(value_type n)
 		{
 			this->_ptr += n;
-			return *this;
+			return (*this);
 		}
 
 		vector_iterator& operator-=(value_type n)
 		{
 			this->_ptr += n;
-			return *(this);
+			return *this;
 		}
 
 		vector_iterator& operator[](value_type n) //access to the element n
@@ -235,23 +235,11 @@ namespace ft
 			return(*it);
 		}
 
-		// reverse_iterator operator+ (difference_type n) const
-		// {
-		// 	reverse_iterator res = this->_ptr - n;
-		// 	return (res);
-		// }
-
 		reverse_iterator operator+(difference_type n) const
 		{
 			reverse_iterator res = this->_ptr - n;
 			return (res);
 		}
-
-		// reverse_iterator operator-(difference_type n) const
-		// {
-		// 	reverse_iterator res = this->_ptr - n;
-		// 	return (res);
-		// }
 
 		reverse_iterator operator-(difference_type n) const
 		{
@@ -273,14 +261,14 @@ namespace ft
 
 		reverse_iterator& operator++()
 		{
-			--this->_ptr;
+			this->_ptr--;
 			return (*this);
 		}
 
 		reverse_iterator& operator++(int)
 		{
-			reverse_iterator tmp = *this
-			*this;
+			reverse_iterator tmp = *this;
+			this->_ptr--;
 			return (tmp);
 		}
 
@@ -293,7 +281,7 @@ namespace ft
 		reverse_iterator& operator--(int)
 		{
 			reverse_iterator tmp = *this;
-			++(*this);
+			++this->_ptr;
 			return (tmp);
 		}
 
