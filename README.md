@@ -102,3 +102,6 @@ vector_iterator will be used for almost all your function, it will allow to do o
 3. Create all your operators functions, you will need it when you will use your iterator.
 
 #### Reverse_iterator
+[What is iterator trait](https://www.boost.org/sgi/stl/iterator_traits.html)
+[Nested class](https://www.geeksforgeeks.org/nested-classes-in-c/#:~:text=A%20nested%20class%20is%20a,access%20rules%20shall%20be%20obeyed.)
+[How works "this"](https://www.javatpoint.com/cpp-this-pointer#:~:text=In%20C%2B%2B%20programming%2C%20this%20is,be%20used%20to%20declare%20indexers.)

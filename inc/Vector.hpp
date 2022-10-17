@@ -26,7 +26,7 @@ namespace ft
 		typedef value_type&								reference;
 		typedef const value_type&						const_reference;
 		typedef vector_iterator<value_type>				iterator;
-		typedef vector_iterator<value_type>				const_iterator;
+		typedef vector_iterator<value_type const>		const_iterator;
 		typedef ft::reverse_iterator<iterator>			reverse_iterator;
 		typedef ft::reverse_iterator<const_iterator>	const_reverse_iterator;
 
