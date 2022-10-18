@@ -105,3 +105,77 @@ vector_iterator will be used for almost all your function, it will allow to do o
 [What is iterator trait](https://www.boost.org/sgi/stl/iterator_traits.html)
 [Nested class](https://www.geeksforgeeks.org/nested-classes-in-c/#:~:text=A%20nested%20class%20is%20a,access%20rules%20shall%20be%20obeyed.)
 [How works "this"](https://www.javatpoint.com/cpp-this-pointer#:~:text=In%20C%2B%2B%20programming%2C%20this%20is,be%20used%20to%20declare%20indexers.)
+[man reverse iterator](https://en.cppreference.com/w/cpp/iterator/reverse_iterator)
+
+Here is the last difficult part about vector, doing the reverse_iterator.
+You are maybe asking yourself what is this, how it works. I will try to explain.
+**What is reverse iterator**
+Reverse_iterator is an iterator adaptor that reverses the direction of a given iterator.
+
+1. **Create a new class reverse_iterator**
+- Indeed you have to declare new variables according to the [man](https://en.cppreference.com/w/cpp/iterator/reverse_iterator).
+```c
+template<class Iterator>
+	class reverse_iterator
+	{
+	public:
+		typedef 		Iterator 												iterator_type;
+		typedef typename iterator_traits<iterator_type>::iterator_category		iterator_category;
+		typedef typename iterator_traits<iterator_type>::value_type				value_type;
+		typedef typename iterator_traits<iterator_type>::difference_type		difference_type;
+		typedef typename iterator_traits<iterator_type>::pointer				pointer;
+		typedef typename iterator_traits<iterator_type>::reference				reference;
+```
+- **explaining the code above**
+As you can see, you need to define as before your iterator, pointer etc... but it is more complicated. You need to create another class iterator trait (*you can find the class in my file utils*).
+Iterator trait ([man here](https://en.cppreference.com/w/cpp/iterator/iterator_traits)) is the type trait class that provides uniform interface.
+```c
+iterator_traits<iterator_type>::iterator_category
+// iterator_type means my iterator previously defined in vector_iterator
+// iterator_traits<iterator_type>::iterator_category // means i am gonna take the iterator_category from iterator_traits class
+```
+
+2. **Iterator_Traits class **
+- According to the man you need to create 3 class, our 1st class will take an template "iterator".
+That means we will send our vector_iterator we created before on it.
+```c
+/*** We define the iterator trait here ***/
+	template <class Iterator>
+	class iterator_traits
+	{
+	public:
+		typedef typename Iterator::iterator_category iterator_category;
+		typedef typename Iterator::value_type        value_type;
+		typedef typename Iterator::difference_type   difference_type;
+		typedef typename Iterator::pointer           pointer;
+		typedef typename Iterator::reference         reference;
+	};
+```
+- Our Iterator will take the iterator_category we previously defined in our vector_iterator.
+That what means *Iterator::iterator_category* for example in english, we are looking for iterator_category from Iterator.
+- We also need a class for pointer T*.
+```c
+/*** The second iterator trait is for the case you have a pointer ***/
+	template <class T>
+	class iterator_traits<T *>
+	{
+	public:
+		typedef std::random_access_iterator_tag 	iterator_category;
+		typedef T                         		 	value_type;
+		typedef std::ptrdiff_t                 		difference_type;
+		typedef T*									pointer;
+		typedef T&                        		 	reference;
+	};
+```
+
+3. **Create all your members functions**
+
+- Don't forget because it is reverse, when you have your operator++ for example, you have to do
+```c
+reverse_iterator& operator++()
+{
+	this->_ptr--;
+	return (*this);
+}
+```
+
