@@ -74,7 +74,7 @@ You have to create constructor, that means you need to:
 		- Construct your new array and deallocate your old one at the same time
 		- Then you replace the new value.
 - **resize**
-[man of resize](https://cplusplus.com/reference/vector/vector/resize/)
+- [man of resize](https://cplusplus.com/reference/vector/vector/resize/)
 	- If n > You capacity, you have to use the reserve function
 	- If n < your size, you have to destroy memory
 	- If n > your size, you have to allocate memory
@@ -109,10 +109,9 @@ vector_iterator will be used for almost all your function, it will allow to do o
 - **Declare your variables**
 	- Your allocator for the allocation of the memory for your vector,
 	- The size of the vector.[What is iterator trait](https://www.boost.org/sgi/stl/iterator_traits.html)
-[Nested class](https://www.geeksforgeeks.org/nested-classes-in-c/#:~:text=A%20nested%20class%20is%20a,access%20rules%20shall%20be%20obeyed.)
-[How works "this"](https://www.javatpoint.com/ cpp-this-pointer#:~:text=In%20C%2B%2B%20programming%2C%20this%20is,be%20used%20to%20declare%20indexers.)
-[man reverse iterator](https://en.cppreference.com/w/cpp/iterator/reverse_iterator)
-bject vector_iterator directly link to my .hpp file.
+- [Nested class](https://www.geeksforgeeks.org/nested-classes-in-c/#:~:text=A%20nested%20class%20is%20a,access%20rules%20shall%20be%20obeyed.)
+-[How works "this"](https://www.javatpoint.com/ cpp-this-pointer#:~:text=In%20C%2B%2B%20programming%2C%20this%20is,be%20used%20to%20declare%20indexers.)
+- [man reverse iterator](https://en.cppreference.com/w/cpp/iterator/reverse_iterator)
 
 1. Create your Iterators.hpp file
 You can find my class in the Iterators.hpp file.
@@ -135,10 +134,10 @@ std::cout << *it << std::endl; // It displays the first 500
 ```
 
 #### Reverse_iterator
-[What is iterator trait](https://www.boost.org/sgi/stl/iterator_traits.html)
-[Nested class](https://www.geeksforgeeks.org/nested-classes-in-c/#:~:text=A%20nested%20class%20is%20a,access%20rules%20shall%20be%20obeyed.)
-[How works "this"](https://www.javatpoint.com/ cpp-this-pointer#:~:text=In%20C%2B%2B%20programming%2C%20this%20is,be%20used%20to%20declare%20indexers.)
-[man reverse iterator](https://en.cppreference.com/w/cpp/iterator/reverse_iterator)
+- [What is iterator trait](https://www.boost.org/sgi/stl/iterator_traits.html)
+- [Nested class](https://www.geeksforgeeks.org/nested-classes-in-c/#:~:text=A%20nested%20class%20is%20a,access%20rules%20shall%20be%20obeyed.)
+- [How works "this"](https://www.javatpoint.com/ cpp-this-pointer#:~:text=In%20C%2B%2B%20programming%2C%20this%20is,be%20used%20to%20declare%20indexers.)
+- [man reverse iterator](https://en.cppreference.com/w/cpp/iterator/reverse_iterator)
 
 Here is the last difficult part about vector, doing the reverse_iterator.
 You are maybe asking yourself what is this, how it works. I will try to explain.
