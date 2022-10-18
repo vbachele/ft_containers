@@ -4,13 +4,14 @@ FT_CONTAINERS is a project from the 42 school in c++ with the goal:
 - Recreate the container stack
 - Recreate the container map and its iterators
 
-# 1. [VECTOR](https://github.com/vbachele/ft_containers#vector)
-##	- [**Documentations**](https://github.com/vbachele/ft_containers#useful-links)
-##	- [**Canonical form**](https://github.com/vbachele/ft_containers#canonical-form)
-##	- [**Capacity**](https://github.com/vbachele/ft_containers#capacity-functions)
-##	- [**Element access**](https://github.com/vbachele/ft_containers#element-access)
-##	- [**Modifiers**](https://github.com/vbachele/ft_containers#modifiers-functions)
-##	- [**Iterators**](https://github.com/vbachele/ft_containers#iterators)
+#	SUMMARY
+## 1. [VECTOR](https://github.com/vbachele/ft_containers#vector)
+###	- [**Documentations**](https://github.com/vbachele/ft_containers#useful-links)
+###	- [**Canonical form**](https://github.com/vbachele/ft_containers#canonical-form)
+###	- [**Capacity**](https://github.com/vbachele/ft_containers#capacity-functions)
+###	- [**Element access**](https://github.com/vbachele/ft_containers#element-access)
+###	- [**Modifiers**](https://github.com/vbachele/ft_containers#modifiers-functions)
+###	- [**Iterators**](https://github.com/vbachele/ft_containers#iterators)
 
 **In this project you will learn how to do the ft_container 42 project**
 *If you like it don't forget to put a star !*
@@ -94,6 +95,31 @@ There are functions where you don't need the iterators. Be sure, you have done a
 	- Put size to 0
 - **push_back**
 	- Use the reserve function, don't recode everything!
+- **insert**
+	- Use a temporary "tmp" vector to save the value you will change by inserting your vector.
+	- You have to insert your value at the position of your vector with push back
+	- You add the value of your tmp at the following of your vector
+Let's see it in code.
+
+```c
+template <class T, class Alloc>
+void vector<T, Alloc>::insert(iterator position, size_type n,
+							const value_type& val)
+{
+	vector<T, Alloc> temp(position, this->end()); // I store the value from the position
+	this->_size -= this->end() - position; // I reduce the size of my vector by taking only begin to position
+	for (size_type i = 0; i < n; i++)
+		this->push_back(val); // I insert the value at the position
+	iterator begin = temp.begin();
+	iterator end = temp.end();
+	while (begin != end)
+	{
+		this->push_back(*begin); // I insert what we stored the end of the vector
+		++begin;
+	}
+}
+```
+
 
 ### Iterators
 Iterators are the tricky part of this project. For my part I created a Iterator.hpp file for vector and for map.

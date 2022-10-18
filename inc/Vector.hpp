@@ -401,7 +401,6 @@ namespace ft
 			vector<T, Alloc>::insert(iterator position, const value_type& val)
 	{
 		size_type n = position - this->begin();
-		//reserve(this->_size + n);
 		this->insert(position, 1, val);
 		return(iterator(&this->_array[n]));
 	}
@@ -533,7 +532,7 @@ namespace ft
 
 	template <class T, class Alloc>
 	void vector<T, Alloc>::shift_left(size_type pos, size_type n) {
-		for (; pos < _size && pos + n < _capacity; pos++) {
+		for (; pos < _size && pos + n < _capacity; pos++) { // we don't have to overcome size && capacity
 			_alloc.construct(_array + pos, _array[pos + n]);
 			_alloc.destroy(_array + pos + n);
 		}
