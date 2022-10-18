@@ -5,7 +5,7 @@ FT_CONTAINERS is a project from the 42 school in c++ with the goal:
 - Recreate the container map and its iterators
 
 #	SUMMARY
-## 1. [VECTOR](https://github.com/vbachele/ft_containers#vector)
+## [1. VECTOR](https://github.com/vbachele/ft_containers#vector)
 ###	- [**Documentations**](https://github.com/vbachele/ft_containers#useful-links)
 ###	- [**Canonical form**](https://github.com/vbachele/ft_containers#canonical-form)
 ###	- [**Capacity**](https://github.com/vbachele/ft_containers#capacity-functions)
@@ -32,7 +32,7 @@ FT_CONTAINERS is a project from the 42 school in c++ with the goal:
 - [what are iterator and how to create it](https://www.internalpointers.com/post/writing-custom-iterators-modern-cpp)
 - [What is iterator trait](https://www.boost.org/sgi/stl/iterator_traits.html)
 - [Nested class](https://www.geeksforgeeks.org/nested-classes-in-c/#:~:text=A%20nested%20class%20is%20a,access%20rules%20shall%20be%20obeyed.)
-- [How works "this"](https://www.javatpoint.com/ cpp-this-pointer#:~:text=In%20C%2B%2B%20programming%2C%20this%20is,be%20used%20to%20declare%20indexers.)
+- [How works "this"](https://www.javatpoint.com/)cpp-this-pointer#:~:text=In%20C%2B%2B%20programming%2C%20this%20is,be%20used%20to%20declare%20indexers.)
 - [man reverse iterator](https://en.cppreference.com/w/cpp/iterator/reverse_iterator)
 
 ## VECTOR
