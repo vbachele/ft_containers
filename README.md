@@ -4,7 +4,15 @@ FT_CONTAINERS is a project from the 42 school in c++ with the goal:
 - Recreate the container stack
 - Recreate the container map and its iterators
 
-**In this project you will learn how to do the 3 stack**
+# 1. [VECTOR](https://github.com/vbachele/ft_containers#vector)
+##	- **Documentations**(https://github.com/vbachele/ft_containers#useful-links)
+##	- **Canonical form**(https://github.com/vbachele/ft_containers#canonical-form)
+##	- **Capacity**(https://github.com/vbachele/ft_containers#capacity-functions)
+##	- **Element access**(https://github.com/vbachele/ft_containers#element-access)
+##	- **Modifiers**(https://github.com/vbachele/ft_containers#modifiers-functions)
+##	- **Iterators**(https://github.com/vbachele/ft_containers#vector)
+
+**In this project you will learn how to do the ft_container 42 project**
 *If you like it don't forget to put a star !*
 
 ## Useful links
@@ -21,6 +29,10 @@ FT_CONTAINERS is a project from the 42 school in c++ with the goal:
 - [How works max size](https://stackoverflow.com/questions/3813124/c-vector-max-size)
 - [Introduction to Iterator](https://www.geeksforgeeks.org/introduction-iterators-c/)
 - [what are iterator and how to create it](https://www.internalpointers.com/post/writing-custom-iterators-modern-cpp)
+- [What is iterator trait](https://www.boost.org/sgi/stl/iterator_traits.html)
+- [Nested class](https://www.geeksforgeeks.org/nested-classes-in-c/#:~:text=A%20nested%20class%20is%20a,access%20rules%20shall%20be%20obeyed.)
+- [How works "this"](https://www.javatpoint.com/ cpp-this-pointer#:~:text=In%20C%2B%2B%20programming%2C%20this%20is,be%20used%20to%20declare%20indexers.)
+- [man reverse iterator](https://en.cppreference.com/w/cpp/iterator/reverse_iterator)
 
 ## VECTOR
 
@@ -36,7 +48,8 @@ The project is divided into 5 parts:
 
 #### Canonical Form
 You have to create constructor, that means you need to:
-- **Declare your variables**
+
+- **Declare your private variables**
 	- Your allocator for the allocation of the memory for your vector,
 	- The size of the vector.
 	- The capacity for your memory (You can have a buffer to improve performance for your machine)
@@ -48,12 +61,6 @@ You have to create constructor, that means you need to:
 - **Create the assign content functions**
 	- Be sure you free the memory from the vector which will be copied.
 	- Be sure you allocate the memory from the memory allocated you are copying
-
-#### Iterators
-This is the tricky part for vector. An iterator is an object which points to an element of your container. read the Iterator part to know more about it.
-- Because I did a vector_iterator class, I created a typedef iterator and const_iterator which link and create an object vector_iterator directly link to my .hpp file.
-- **begin and end**
-	- Create two functions which send an iterator which point to the beginning and the end of your function.
 
 #### Capacity functions
 - **Max_size**
@@ -88,23 +95,49 @@ There are functions where you don't need the iterators. Be sure, you have done a
 - **push_back**
 	- Use the reserve function, don't recode everything!
 
-## Iterators
+### Iterators
 Iterators are the tricky part of this project. For my part I created a Iterator.hpp file for vector and for map.
 To undestand how create your first own iterator, use this really insteresting [tutorial](https://www.internalpointers.com/post/writing-custom-iterators-modern-cpp)
 
-### Vector Iterators
-You will need to create the vector_iterator class and the reverse_iterator class.
-
 #### Vector_iterator
+You will need to create the vector_iterator class and the reverse_iterator class.
 vector_iterator will be used for almost all your function, it will allow to do operators (++, --, ==, += etc...).
 1. Create your typedef as the tutorial mentionned just above it explains a lot of things.
 2. Create your constructor and destructor.
 3. Create all your operators functions, you will need it when you will use your iterator.
 
+- **Declare your variables**
+	- Your allocator for the allocation of the memory for your vector,
+	- The size of the vector.[What is iterator trait](https://www.boost.org/sgi/stl/iterator_traits.html)
+[Nested class](https://www.geeksforgeeks.org/nested-classes-in-c/#:~:text=A%20nested%20class%20is%20a,access%20rules%20shall%20be%20obeyed.)
+[How works "this"](https://www.javatpoint.com/ cpp-this-pointer#:~:text=In%20C%2B%2B%20programming%2C%20this%20is,be%20used%20to%20declare%20indexers.)
+[man reverse iterator](https://en.cppreference.com/w/cpp/iterator/reverse_iterator)
+bject vector_iterator directly link to my .hpp file.
+
+1. Create your Iterators.hpp file
+You can find my class in the Iterators.hpp file.
+```c
+template <class T>
+class vector_iterator
+{
+	public :
+		typedef std::random_access_iterator_tag iterator_category; //tag of our iterator, we will be able to write, read, go the end of our vector and go from the end to the beginning
+		typedef std::ptrdiff_t					difference_type; // use to identifydistance between iterators steps
+		typedef T								value_type;
+		typedef value_type*						pointer;
+		typedef value_type&						reference;
+```
+- At the end, you will be able to do this.
+```c
+STD::vector <int> fill_vector(4, 500); // creting the vector of size = 4 filled with 500;
+STD::vector<int>::iterator it = fill_vector.begin(); // declaring my iterator at the beginning of vector
+std::cout << *it << std::endl; // It displays the first 500
+```
+
 #### Reverse_iterator
 [What is iterator trait](https://www.boost.org/sgi/stl/iterator_traits.html)
 [Nested class](https://www.geeksforgeeks.org/nested-classes-in-c/#:~:text=A%20nested%20class%20is%20a,access%20rules%20shall%20be%20obeyed.)
-[How works "this"](https://www.javatpoint.com/cpp-this-pointer#:~:text=In%20C%2B%2B%20programming%2C%20this%20is,be%20used%20to%20declare%20indexers.)
+[How works "this"](https://www.javatpoint.com/ cpp-this-pointer#:~:text=In%20C%2B%2B%20programming%2C%20this%20is,be%20used%20to%20declare%20indexers.)
 [man reverse iterator](https://en.cppreference.com/w/cpp/iterator/reverse_iterator)
 
 Here is the last difficult part about vector, doing the reverse_iterator.
@@ -116,15 +149,15 @@ Reverse_iterator is an iterator adaptor that reverses the direction of a given i
 - Indeed you have to declare new variables according to the [man](https://en.cppreference.com/w/cpp/iterator/reverse_iterator).
 ```c
 template<class Iterator>
-	class reverse_iterator
-	{
-	public:
-		typedef 		Iterator 												iterator_type;
-		typedef typename iterator_traits<iterator_type>::iterator_category		iterator_category;
-		typedef typename iterator_traits<iterator_type>::value_type				value_type;
-		typedef typename iterator_traits<iterator_type>::difference_type		difference_type;
-		typedef typename iterator_traits<iterator_type>::pointer				pointer;
-		typedef typename iterator_traits<iterator_type>::reference				reference;
+class reverse_iterator
+{
+public:
+	typedef Iterator 														iterator_type;
+	typedef typename iterator_traits<iterator_type>::iterator_category		iterator_category;
+	typedef typename iterator_traits<iterator_type>::value_type				value_type;
+	typedef typename iterator_traits<iterator_type>::difference_type		difference_type;
+	typedef typename iterator_traits<iterator_type>::pointer				pointer;
+	typedef typename iterator_traits<iterator_type>::reference				reference;
 ```
 - **explaining the code above**
 As you can see, you need to define as before your iterator, pointer etc... but it is more complicated. You need to create another class iterator trait (*you can find the class in my file utils*).
@@ -140,37 +173,37 @@ iterator_traits<iterator_type>::iterator_category
 That means we will send our vector_iterator we created before on it.
 ```c
 /*** We define the iterator trait here ***/
-	template <class Iterator>
-	class iterator_traits
-	{
-	public:
-		typedef typename Iterator::iterator_category iterator_category;
-		typedef typename Iterator::value_type        value_type;
-		typedef typename Iterator::difference_type   difference_type;
-		typedef typename Iterator::pointer           pointer;
-		typedef typename Iterator::reference         reference;
-	};
+template <class Iterator>
+class iterator_traits
+{
+public:
+	typedef typename Iterator::iterator_category iterator_category;
+	typedef typename Iterator::value_type        value_type;
+	typedef typename Iterator::difference_type   difference_type;
+	typedef typename Iterator::pointer           pointer;
+	typedef typename Iterator::reference         reference;
+};
 ```
 - Our Iterator will take the iterator_category we previously defined in our vector_iterator.
 That what means *Iterator::iterator_category* for example in english, we are looking for iterator_category from Iterator.
 - We also need a class for pointer T*.
 ```c
 /*** The second iterator trait is for the case you have a pointer ***/
-	template <class T>
-	class iterator_traits<T *>
-	{
-	public:
-		typedef std::random_access_iterator_tag 	iterator_category;
-		typedef T                         		 	value_type;
-		typedef std::ptrdiff_t                 		difference_type;
-		typedef T*									pointer;
-		typedef T&                        		 	reference;
-	};
+template <class T>
+class iterator_traits<T *>
+{
+public:
+	typedef std::random_access_iterator_tag 	iterator_category;
+	typedef T                         		 	value_type;
+	typedef std::ptrdiff_t                 		difference_type;
+	typedef T*									pointer;
+	typedef T&                        		 	reference;
+};
 ```
 
 3. **Create all your members functions**
 
-- Don't forget because it is reverse, when you have your operator++ for example, you have to do
+- Don't forget because it is reverse, when you have your operator++ for example, you have to do --
 ```c
 reverse_iterator& operator++()
 {
