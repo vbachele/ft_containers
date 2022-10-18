@@ -133,7 +133,7 @@ namespace ft
 **==========================
 */
 
-/*** Constructors ***/
+/*** Default constructors ***/
 	template < typename T, typename Alloc >
 	vector<T,Alloc>::vector(const allocator_type &alloc)
 	{
@@ -143,15 +143,17 @@ namespace ft
 		this->_array = NULL;
 	}
 
+/*** Fill constructor ***/
 	template < typename T, typename Alloc >
 	vector<T,Alloc>::vector(size_type n, const value_type& val, const allocator_type& alloc)
 	{
 		this->_size = n;
 		this->_alloc = alloc;
 		this->_capacity = n;
-		this->_array = _alloc.allocate(this->_capacity); // allocation for memory of the capacity for the array
+		this->_array = _alloc.allocate(n); // allocation for memory of the capacity for the array
 		for (size_type i = 0; i < n ; i++)
-			this->_array[i] = val;
+			this->_alloc.construct(this->_array + i, val);
+			//this->_array[i] = val;
 	}
 
 	template < class T, class Alloc >

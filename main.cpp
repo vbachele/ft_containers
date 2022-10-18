@@ -39,19 +39,16 @@ void	vector_test_reverse_iterator()
 
 void	vector_test_iterator_functions(void)
 {
-	STD::vector<int> default_vector(4, 500);
-	default_vector.push_back(42);
-	// STD::vector <int> default_vector;
-	// STD::vector <int> fill_vector(4, 500);
-	// STD::vector <int> copy_vector(fill_vector);
-	// default_vector = fill_vector;
+	STD::vector <int> default_vector;
+	STD::vector <int> fill_vector(4, 500);
+	STD::vector <int> copy_vector(fill_vector);
+	default_vector = fill_vector;
 	std::cout << "-------------- ITERATOR FUNCTIONS ---------------" << std::endl << std::endl;
 	std::cout << "-------------- BEGIN ---------------" << std::endl << std::endl;
 	display_vector(default_vector);
 	STD::vector<int>::iterator it = default_vector.begin();
 	std::cout << *it << std::endl;
 	std::cout << "-------------- END ---------------" << std::endl << std::endl;
-	//default_vector.push_back(42);
 	display_vector(default_vector);
 	STD::vector<int>::iterator it_end = default_vector.end();
 	std::cout << *it_end << std::endl;
