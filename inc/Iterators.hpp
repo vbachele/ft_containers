@@ -137,35 +137,41 @@ namespace ft
 			return vector_iterator(_ptr - n);
 		}
 
-		bool operator==(const vector_iterator &other)
+		/*
+		**==========================
+		**   BOOL OPERATORS
+		**==========================
+		*/
+
+		bool operator==(const vector_iterator &other) const
 		{
 			return(this->_ptr == other._ptr);
 		}
 
-		bool operator!=(const vector_iterator &other)
+		bool operator!=(const vector_iterator &other) const
 		{
 			return(this->_ptr != other._ptr);
 		}
 
-		bool operator>(const vector_iterator &other)
+		bool operator>(const vector_iterator &other) const
 		{
 			bool b = this->_ptr > other->_ptr;
 			return b;
 		}
 
-		bool operator>=(const vector_iterator &other)
+		bool operator>=(const vector_iterator &other) const
 		{
 			bool b = this->_ptr >= other->_ptr;
 			return b;
 		}
 
-		bool operator<(const vector_iterator &other)
+		bool operator<(const vector_iterator &other) const
 		{
 			bool b = this->_ptr < other._ptr;
 			return b;
 		}
 
-		bool operator<=(const vector_iterator &other)
+		bool operator<=(const vector_iterator &other) const
 		{
 			bool b = this->_ptr <= other._ptr;
 			return b;

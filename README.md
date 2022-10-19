@@ -120,7 +120,6 @@ void vector<T, Alloc>::insert(iterator position, size_type n,
 }
 ```
 
-
 ### Iterators
 Iterators are the tricky part of this project. For my part I created a Iterator.hpp file for vector and for map.
 To undestand how create your first own iterator, use this really insteresting [tutorial](https://www.internalpointers.com/post/writing-custom-iterators-modern-cpp)
@@ -147,7 +146,7 @@ class vector_iterator
 {
 	public :
 		typedef std::random_access_iterator_tag iterator_category; //tag of our iterator, we will be able to write, read, go the end of our vector and go from the end to the beginning
-		typedef std::ptrdiff_t					difference_type; // use to identifydistance between iterators steps
+		typedef std::ptrdiff_t					difference_type; // use to identify distance between iterators steps
 		typedef T								value_type;
 		typedef value_type*						pointer;
 		typedef value_type&						reference;
