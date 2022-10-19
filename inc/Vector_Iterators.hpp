@@ -3,6 +3,7 @@
 #include "./Vector.hpp"
 #include <algorithm>
 #include "./Utils.hpp"
+#include "./Reverse_iterators.hpp"
 
 
 
@@ -114,7 +115,7 @@ namespace ft
 
 		iterator& operator-=(difference_type n)
 		{
-			this->_ptr += n;
+			this->_ptr -= n;
 			return *this;
 		}
 

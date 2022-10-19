@@ -80,10 +80,10 @@ namespace ft
 
 		const_iterator end() const { return const_iterator(this->_array + _size); }
 
-		reverse_iterator rbegin();
-		const_reverse_iterator rbegin() const;
-		reverse_iterator rend();
-		const_reverse_iterator rend() const;
+		reverse_iterator rbegin() { return(reverse_iterator(end())); }
+		const_reverse_iterator rbegin() const { return(const_reverse_iterator(end()));}
+		reverse_iterator rend() { return reverse_iterator(this->begin()); }
+		const_reverse_iterator rend() const{ return const_reverse_iterator(this->begin()); }
 
 	/*
 	**==========================
@@ -306,60 +306,6 @@ namespace ft
 
 /*
 **==========================
-**	ITERATORS FUNCTIONS
-**==========================
-*/
-	// template <class T, class Alloc >
-	// typename vector<T,Alloc>::iterator vector<T,Alloc>::begin()
-	// {
-	// 	return(iterator(this->_array));
-	// }
-
-	// template <class T, class Alloc >
-	// typename vector<T,Alloc>::const_iterator vector<T,Alloc>::begin() const
-	// {
-	// 	return(const_iterator(this->_array));
-	// }
-
-	// template <class T, class Alloc >
-	// typename vector<T,Alloc>::iterator vector<T,Alloc>::end()
-	// {
-	// 	return(iterator(this->_array + this->_size));
-	// }
-
-	// template <class T, class Alloc >
-	// typename vector<T, Alloc>::const_iterator vector<T,Alloc>::end() const
-	// {
-	// 	return(const_iterator(this->_array + this->_size));
-	// }
-
-	template <class T, class Alloc >
-	typename vector<T,Alloc>::reverse_iterator vector<T,Alloc>::rbegin()
-	{
-		return(reverse_iterator(end()));
-	}
-
-	template <class T, class Alloc >
-	typename vector<T,Alloc>::const_reverse_iterator vector<T,Alloc>::rbegin() const
-	{
-		return(const_reverse_iterator(end()));
-	}
-
-	template <class T, class Alloc >
-	typename vector<T,Alloc>::reverse_iterator vector<T,Alloc>::rend()
-	{
-		return(iterator(begin()));
-	}
-
-	template <class T, class Alloc >
-	typename vector<T,Alloc>::const_reverse_iterator vector<T,Alloc>::rend() const
-	{
-		return(const_reverse_iterator(begin()));
-	}
-
-
-/*
-**==========================
 **	MODIFIERS FUNCTIONS
 **==========================
 */
@@ -470,15 +416,14 @@ namespace ft
 		iterator start = first;
 		iterator end = this->end();
 		size_type count = last - first;
-		if (count == 0) // if first = last
-			return last;
-		while (first + count != this->end())
-		{
+		if (count == 0) return last;
+
+		while (first + count != this->end()) {
 			*(first) = *(first + count);
 			first++;
 		}
 		while (count--) {
-					this->pop_back();
+			this->pop_back();
 		}
 		if (last == end) {
 			return this->end();

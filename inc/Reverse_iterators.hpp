@@ -3,6 +3,7 @@
 #include "./Vector.hpp"
 #include <algorithm>
 #include "./Utils.hpp"
+#include "Vector_Iterators.hpp"
 
 /*
 **==========================
@@ -12,7 +13,7 @@
 namespace ft
 {
 	template<class Iterator>
-	class reverse_iterator
+	class reverse_iterator : public Iterator
 	{
 	public:
 	// iterator _traits is the type trait class that provides uniform interface
@@ -28,9 +29,9 @@ namespace ft
 	**  CONSTRUCTOR/DESTRUCTOR
 	**==========================
 	*/
-		reverse_iterator()
+		reverse_iterator(iterator_type())
 		{
-			this->_ptr = NULL;
+			this->_ptr = iterator_type();
 		}
 
 		reverse_iterator(iterator_type it)
@@ -43,6 +44,9 @@ namespace ft
 			this->_ptr = x._ptr;
 		}
 
+		template<class U>
+		reverse_iterator(const reverse_iterator<U> &other) : _ptr(other.base()) {}
+
 		~reverse_iterator() {}
 
 		iterator_type base() const
@@ -52,45 +56,45 @@ namespace ft
 
 		reference operator*() const
 		{
-			iterator_type it = this->_ptr;
-      	  	it--;
+			Iterator it = this->_ptr;
+      	  	--it;
 			return(*it);
 		}
 
 		reverse_iterator operator+(difference_type n) const
 		{
-			reverse_iterator res = this->_ptr - n;
-			return (res);
+			return (reverse_iterator (_ptr - n));
 		}
 
-		reverse_iterator operator-(difference_type n) const
-		{
-			reverse_iterator res = this->_ptr + n;
-			return (res);
-		}
+		reverse_iterator operator-(difference_type n) const { return reverse_iterator(_ptr + n); };
+
+		// reverse_iterator operator-(difference_type n) const
+		// {
+		// 	return (reverse_iterator (_ptr + n));
+		// }
 
 		reverse_iterator& operator+= (difference_type n)
 		{
 			this->_ptr -= n;
-			return (this);
+			return (*this);
 		}
 
 		reverse_iterator& operator-= (difference_type n)
 		{
 			this->_ptr += n;
-			return (this);
+			return (*this);
 		}
 
 		reverse_iterator& operator++()
 		{
-			this->_ptr--;
+			--this->_ptr;
 			return (*this);
 		}
 
-		reverse_iterator& operator++(int)
+		reverse_iterator operator++(int)
 		{
 			reverse_iterator tmp = *this;
-			this->_ptr--;
+			++*this;
 			return (tmp);
 		}
 
@@ -100,10 +104,10 @@ namespace ft
 			return (*this);
 		}
 
-		reverse_iterator& operator--(int)
+		reverse_iterator operator--(int)
 		{
 			reverse_iterator tmp = *this;
-			++this->_ptr;
+			--this->_ptr;
 			return (tmp);
 		}
 
@@ -114,9 +118,9 @@ namespace ft
 
 		reference operator[] (difference_type n) const
 		{
-			return (this->base()[n-1]);
+			return *(*this + n);
 		}
-		private:
+		protected:
 			iterator_type _ptr;
 	};
 

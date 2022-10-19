@@ -7,7 +7,7 @@
 **  ITERATOR TRAITS
 **==========================
 */
-
+namespace ft{
 	/*** We define the iterator trait here ***/
 	template <class Iterator>
 	class iterator_traits
@@ -42,5 +42,6 @@
 		typedef const T 						&reference;
 		typedef std::random_access_iterator_tag iterator_category;
 	};
+}
 
 #endif
