@@ -26,7 +26,7 @@ NAME1 = std_test
 
 CLANG = c++
 
-C++FLAGS =  -Wall -Werror -Wextra -std=c++98
+C++FLAGS =  -Wall -Werror -Wextra -g -std=c++98
 
 RM = rm -rf
 
