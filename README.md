@@ -250,6 +250,8 @@ Honestly nothing difficult. You are passing your vector container in template so
 ### Documentation
 - [Man MAP](https://en.cppreference.com/w/cpp/container/map)
 - [Compare](https://en.cppreference.com/w/cpp/named_req/Compare)
+- [std::less](https://en.cppreference.com/w/cpp/utility/functional/less)
+- [value-compare](https://en.cppreference.com/w/cpp/container/map/value_compare)
 
 
 ## OTHER FUNCTIONS

@@ -27,10 +27,122 @@ namespace ft
 		typedef typename RBTree::const_reverse_iterator	const_reverse_iterator;
 
 	private:
-		//RBTree	_tree;
+		RBTree	_tree;
+
+/*
+**==========================
+** CLASS VALUE COMPARE
+**==========================
+*/
+	protected:
+		class value_compare
+		{
+			typedef bool 		result_type;
+			typedef value_type	first_argument_type;
+			typedef value_type	second_argument_type;
+
+
+			protected:
+				Compare _comp;
+			/*** constructor ***/
+			value_compare()
+			{
+				this->_comp = Compare;
+			}
+
+			~value_compare() {}
+
+			bool operator()( const value_type& lhs, const value_type& rhs ) const
+			{
+				comp(lhs.first, rhs.first);
+			}
+		};
 
 	public:
-	
+
+/*
+**==========================
+**   CONSTRUCTORS
+**==========================
+*/
+	/*** constructors ***/
+		map()
+		{
+			this->_tree = RBTree(key_comp(), allocator_type());
+		}
+
+		explicit map( const Compare& comp,
+              const Allocator& alloc = Allocator() )
+		{
+			this->_tree = RBTree(comp, alloc);
+		}
+
+		// template< class InputIt >
+		// map( InputIt first, InputIt last, const Compare& comp = Compare(),
+     	// 	const Allocator& alloc = Allocator() )
+		// {
+
+		// }
+
+		map( const map& other )
+		{
+			tree.insertUnique(other.begin(), other.end());
+		}
+
+	/*** destructors ***/
+		~map() {}
+
+	/*** operator= ***/
+		map& operator=( const map& other )
+		{
+			if (this != other)
+				this->_tree = other._tree;
+			return (*this);
+		}
+
+/*
+**==========================
+**     ELEMENT ACCESS
+**==========================
+*/
+	T& at( const Key& key )
+	{
+		return (this->_tree.find(key)->second);
+	}
+
+	const T& at( const Key& key ) const
+	{
+		return (this->_tree.find(key)->second);
+	}
+
+	mapped_type& operator[](const Key& key)
+	{
+		iterator ret = this->_tree.find(key);
+		if (ret != this->end())
+		{
+				mapped_type &value = this->at(key);
+				return value;
+		}
+		else
+		{
+			return (this->insert(value_type(key, mapped_type()))).first->second;
+		}
+
+/*
+**==========================
+**   OBSERVERS
+**==========================
+*/
+
+		key_compare key_comp() const
+		{
+			return this->_tree.key_comp();
+		}
+
+		map::value_compare value_comp() const
+		{
+			return value_compare();
+		}
 
 	};
 }
