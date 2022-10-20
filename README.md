@@ -6,13 +6,15 @@ FT_CONTAINERS is a project from the 42 school in c++ with the goal:
 
 #	SUMMARY
 ## [1. VECTOR](https://github.com/vbachele/ft_containers#vector)
-####	- [**Documentations**](https://github.com/vbachele/ft_containers#useful-links)
-####	- [**Canonical form**](https://github.com/vbachele/ft_containers#canonical-form)
-####	- [**Capacity**](https://github.com/vbachele/ft_containers#capacity-functions)
-####	- [**Element access**](https://github.com/vbachele/ft_containers#element-access)
-####	- [**Modifiers**](https://github.com/vbachele/ft_containers#modifiers-functions)
-####	- [**Iterators**](https://github.com/vbachele/ft_containers#iterators)
+- ####	[**Documentations**](https://github.com/vbachele/ft_containers#useful-links)
+- ####	[**Canonical form**](https://github.com/vbachele/ft_containers#canonical-form)
+- ####	[**Capacity**](https://github.com/vbachele/ft_containers#capacity-functions)
+- ####	[**Element access**](https://github.com/vbachele/ft_containers#element-access)
+- ####	[**Modifiers**](https://github.com/vbachele/ft_containers#modifiers-functions)
+- ####	[**Iterators**](https://github.com/vbachele/ft_containers#iterators)
 ## [2. STACK](https://github.com/vbachele/ft_containers#stack)
+## [3. MAP](https://github.com/vbachele/ft_containers#map)
+## [4. OTHER FUNCTIONS](https://github.com/vbachele/ft_containers#other-functions)
 
 **In this project you will learn how to do the ft_container 42 project**
 *If you like it don't forget to put a star !*
@@ -97,10 +99,10 @@ There are functions where you don't need the iterators. Be sure, you have done a
 	- Put size to 0.
 - [**push_back**](https://en.cppreference.com/w/cpp/container/vector/push_back)
 	- If capacity == 0 or > size don't forget to handle this case otherwise your have to allocate for the new 	value.
-	- Add size++; 
+	- Add size++;
 - [**insert**](https://en.cppreference.com/w/cpp/container/vector/insert)
 Insert has 3 dedicated functions.
-	- You have to: 
+	- You have to:
 		- Check if size = 0.
 		- Use your reserve function if size > capacity.
 	- You have to shift your value from 1
@@ -224,10 +226,10 @@ class iterator_traits<T *>
 {
 public:
 	typedef std::random_access_iterator_tag 	iterator_category;
-	typedef T                         		 value_type;
+	typedef T                         			 value_type;
 	typedef std::ptrdiff_t                 		difference_type;
-	typedef T*					pointer;
-	typedef T&                        		reference;
+	typedef T*									pointer;
+	typedef T&                        			reference;
 };
 ```
 
@@ -241,3 +243,23 @@ reverse_iterator operator+(difference_type n) const
 }
 ```
 ## STACK
+You have the [man here](https://en.cppreference.com/w/cpp/container/stack)
+Honestly nothing difficult. You are passing your vector container in template so that you can reuse it to do all the functions.
+
+## MAP
+
+
+## OTHER FUNCTIONS
+
+### [Equal](https://en.cppreference.com/w/cpp/algorithm/equal)
+Equal will check if 2 range of iterators are equal, if not return false, if yes return true.
+
+### [Lexicographical compare](https://en.cppreference.com/w/cpp/algorithm/lexicographical_compare)
+Lexicographical comparison is an operation with the following properties:
+
+- Two ranges are compared element by element.
+- The first mismatching element defines which range is lexicographically less or greater than the other.
+- If one range is a prefix of another, the shorter range is lexicographically less than the other.
+- If two ranges have equivalent elements and are of the same length, then the ranges are lexicographically equal.
+- An empty range is lexicographically less than any non-empty range.
+- Two empty ranges are lexicographically equal.

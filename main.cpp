@@ -11,8 +11,8 @@
 #define CONTAINER ft
 #define PRINTCONTAINER() std::cout << "STD::vector\n\n" << std::endl;
 #include "inc/Vector.hpp"
-#include "Vector_Iterators.hpp"
-#include "inc/Utils.hpp"
+#include "Vector_iterators.hpp"
+#include "inc/Stack.hpp"
 #endif
 
 void	display_vector(STD::vector<int> &T)
@@ -64,21 +64,6 @@ void	vector_test_element_access_functions(void)
 	STD::vector <int> fill_vector(4, 500);
 	STD::vector <int> copy_vector(fill_vector);
 	default_vector = fill_vector;
-	fill_vector.push_back(42);
-	std::cout << "-------------- ELEMENT ACCESS FUNCTIONS ---------------" << std::endl;
-	std::cout << "-------------- OPERATOR[] ---------------" << std::endl << std::endl;
-	std::cout << "The member [5] of the array is: ";
-	std::cout << fill_vector[4] << std::endl;
-	std::cout << "-------------- AT ---------------" << std::endl << std::endl;
-	std::cout << "my vector contains:";
-  	for (unsigned i = 0; i< fill_vector.size(); i++)
-    	std::cout << ' ' << fill_vector.at(i);
-  	std::cout << std::endl;
-	std::cout << "-------------- FRONT ---------------" << std::endl << std::endl;
-	std::cout << "myvector.front() is now " << fill_vector.front() << std::endl;
-	std::cout << "-------------- BACK ---------------" << std::endl << std::endl;
-	fill_vector.push_back(16);
-	std::cout << "myvector.back() is now " << fill_vector.back() << std::endl;
 }
 
 void	vector_test_modifiers_functions(void)
@@ -192,6 +177,76 @@ void	vector_constructor_test(void)
 	std::cout << std::endl;
 }
 
+
+void	stack_test_members_functions()
+{
+	STD::vector<int> vector(10, 50);
+	STD::vector<int> vector2(0, 0);
+	STD::stack<int> first;
+	//STD::stack<int> second (vector);
+	STD::stack<int,STD::vector<int> > third;  // empty stack using vector
+  	STD::stack<int,STD::vector<int> > fourth (vector);
+  	STD::stack<int,STD::vector<int> > fifth (vector2);
+	std::cout << "------------------------ 			STACK MEMBERS FUNCTIONS TESTS 		-------------------------" << std::endl << std::endl;
+	std::cout << "------------------------ SIZE TEST -------------------------" << std::endl << std::endl;
+	std::cout << "size is of the 1st stack: " << fourth.size() << std::endl;
+	std::cout << "size is of the 2nd stack: " << fifth.size() << std::endl;
+	std::cout << "------------------------ EMPTY TEST -------------------------" << std::endl << std::endl;
+	std::cout << "1st stacksize is empty (0) == no, (1) == yes ===> " << fourth.empty() << std::endl;
+	std::cout << "2nd stacksize is empty (0) == no, (1) == yes ===> " << fifth.empty() << std::endl;
+	std::cout << "------------------------ PUSH TEST -------------------------" << std::endl << std::endl;
+	std::cout << "ADDING 42 at the top of the stack" << std::endl;
+	fourth.push(42);
+	std::cout << "------------------------ TOP TEST -------------------------" << std::endl << std::endl;
+	std::cout << "The top element of the stack is " << fourth.top() << std::endl;
+	std::cout << "------------------------ POP TEST -------------------------" << std::endl << std::endl;
+	fourth.pop();
+	std::cout << "I remove the last element of the stack, the new element at the top of the stack: " << fourth.top() << std::endl;
+
+}
+
+void	stack_test_relational_operators()
+{
+	std::cout << "------------------------ 			STACK RELATIONAL OPERATOR TESTS 		-------------------------" << std::endl << std::endl;
+	STD::vector<int> vector(10, 50);
+	STD::vector<int> vector2(0, 0);
+	STD::stack<int> first;
+	//STD::stack<int> second (vector);
+  	STD::stack<int,STD::vector<int> > fourth (vector);
+  	STD::stack<int,STD::vector<int> > fifth (vector2);
+	std::cout << "------------------------ OPERATOR == TEST -------------------------" << std::endl << std::endl;
+	if (fourth == fifth)
+		std::cout << "LHS && RHS are EQUAL"  << std::endl;
+	else
+		std::cout << "LHS && RHS are not EQUAL"  << std::endl;
+	std::cout << "------------------------ OPERATOR != TEST -------------------------" << std::endl << std::endl;
+	if (fourth != fifth)
+		std::cout << "LHS && RHS are NOT EQUAL"  << std::endl;
+	else
+		std::cout << "LHS && RHS are EQUAL"  << std::endl;
+	std::cout << "------------------------ OPERATOR < TEST -------------------------" << std::endl << std::endl;
+	if (fourth < fifth)
+		std::cout << "LHS < RHS"  << std::endl;
+	else
+	std::cout << "------------------------ OPERATOR > TEST -------------------------" << std::endl << std::endl;
+	if (fourth > fifth)
+		std::cout << "LHS > RHS"  << std::endl;
+	else
+		std::cout << "LHS < RHS"  << std::endl;
+	std::cout << "------------------------ OPERATOR >= TEST -------------------------" << std::endl << std::endl;
+	if (fourth >= fifth)
+		std::cout << "LHS >= RHS"  << std::endl;
+	else
+		std::cout << "LHS <= RHS"  << std::endl;
+}
+
+void	stack_test()
+{
+	std::cout << "------------------------ STACK TEST --------------------------" << std::endl << std::endl;
+	stack_test_members_functions();
+	stack_test_relational_operators();
+}
+
 void	vector_test(void)
 {
 	vector_constructor_test();
@@ -205,5 +260,6 @@ void	vector_test(void)
 int main(void)
 {
 	vector_test();
+	stack_test();
 	return (0);
 }
