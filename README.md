@@ -32,7 +32,7 @@ FT_CONTAINERS is a project from the 42 school in c++ with the goal:
 - [what are iterator and how to create it](https://www.internalpointers.com/post/writing-custom-iterators-modern-cpp)
 - [What is iterator trait](https://www.boost.org/sgi/stl/iterator_traits.html)
 - [Nested class](https://www.geeksforgeeks.org/nested-classes-in-c/#:~:text=A%20nested%20class%20is%20a,access%20rules%20shall%20be%20obeyed.)
-- [How works "this"](https://www.javatpoint.com/)cpp-this-pointer#:~:text=In%20C%2B%2B%20programming%2C%20this%20is,be%20used%20to%20declare%20indexers.)
+- [How works this](https://www.javatpoint.com/)cpp-this-pointer#:~:text=In%20C%2B%2B%20programming%2C%20this%20is,be%20used%20to%20declare%20indexers.)
 - [man reverse iterator](https://en.cppreference.com/w/cpp/iterator/reverse_iterator)
 
 ## VECTOR
@@ -70,24 +70,25 @@ You have to create constructor, that means you need to:
 	- You need to check if you current capacity if lesser than the number sent into the function. [Man of reserve](https://cplusplus.com/reference/vector/vector/reserve/)
 	- If (n > capacity)
 		You have to:
-		- Create a new array
+		- Create a new tmp array
 		- Allocate the new size
-		- Construct your new array and deallocate your old one at the same time
-		- Then you replace the new value.
+		- Construct your new array and destroy your old one at the same time
+		- Then deallocate your capacity
 - **resize**
 - [man of resize](https://cplusplus.com/reference/vector/vector/resize/)
 	- If n > You capacity, you have to use the reserve function
 	- If n < your size, you have to destroy memory
-	- If n > your size, you have to allocate memory
+	- If n > your size, you have to allocate memory and the value
 
 #### Element Access
 Nothing particular for this one, just return the value, these functions will allow you to test your program
 
 #### Modifiers functions
 There are functions where you don't need the iterators. Be sure, you have done at least capacity and element access to begin.
-- **assign**
-	- Don't forget to destroy the memory of your old content.
+- [**assign**](https://en.cppreference.com/w/cpp/container/vector/assign)
+	- Don't forget to destroy the memory of your old content with clear.
 	- Construct your new array to give the value and memory.
+	- For the assign function with iterator first and last, create a function *iterator distance* to calculate 		the distance between the 2 iterators in order to fill your vector.
 - **swap**
 	- To save time, use directly the function swap from the std. [Man here](https://cplusplus.com/reference/vector/vector/swap/)
 - **clear**
