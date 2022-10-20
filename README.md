@@ -247,6 +247,9 @@ You have the [man here](https://en.cppreference.com/w/cpp/container/stack)
 Honestly nothing difficult. You are passing your vector container in template so that you can reuse it to do all the functions.
 
 ## MAP
+### Documentation
+- [Man MAP](https://en.cppreference.com/w/cpp/container/map)
+- [Compare](https://en.cppreference.com/w/cpp/named_req/Compare)
 
 
 ## OTHER FUNCTIONS
