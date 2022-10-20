@@ -12,7 +12,7 @@ FT_CONTAINERS is a project from the 42 school in c++ with the goal:
 ###	- [**Element access**](https://github.com/vbachele/ft_containers#element-access)
 ###	- [**Modifiers**](https://github.com/vbachele/ft_containers#modifiers-functions)
 ###	- [**Iterators**](https://github.com/vbachele/ft_containers#iterators)
-##[2. STACK](https://github.com/vbachele/ft_containers#stack)
+## [2. STACK](https://github.com/vbachele/ft_containers#stack)
 
 **In this project you will learn how to do the ft_container 42 project**
 *If you like it don't forget to put a star !*
