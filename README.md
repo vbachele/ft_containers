@@ -32,7 +32,7 @@ FT_CONTAINERS is a project from the 42 school in c++ with the goal:
 - [what are iterator and how to create it](https://www.internalpointers.com/post/writing-custom-iterators-modern-cpp)
 - [What is iterator trait](https://www.boost.org/sgi/stl/iterator_traits.html)
 - [Nested class](https://www.geeksforgeeks.org/nested-classes-in-c/#:~:text=A%20nested%20class%20is%20a,access%20rules%20shall%20be%20obeyed.)
-- [How works this](https://www.javatpoint.com/)cpp-this-pointer#:~:text=In%20C%2B%2B%20programming%2C%20this%20is,be%20used%20to%20declare%20indexers.)
+- [How works this](https://www.javatpoint.com/cpp-this-pointer#:~:text=In%20C%2B%2B%20programming%2C%20this%20is,be%20used%20to%20declare%20indexers.)
 - [man reverse iterator](https://en.cppreference.com/w/cpp/iterator/reverse_iterator)
 
 ## VECTOR
@@ -89,16 +89,20 @@ There are functions where you don't need the iterators. Be sure, you have done a
 	- Don't forget to destroy the memory of your old content with clear.
 	- Construct your new array to give the value and memory.
 	- For the assign function with iterator first and last, create a function *iterator distance* to calculate 		the distance between the 2 iterators in order to fill your vector.
-- **swap**
-	- To save time, use directly the function swap from the std. [Man here](https://cplusplus.com/reference/vector/vector/swap/)
-- **clear**
+- [**swap**](https://en.cppreference.com/w/cpp/algorithm/swap)
+	- To save time, use directly the function swap from the std.to change all the values [Man here](https://cplusplus.com/reference/vector/vector/swap/)
+- [**clear**](https://en.cppreference.com/w/cpp/container/vector/clear)
 	- Don't forget to destroy the memory also.
-	- Put size to 0
-- **push_back**
-	- Use the reserve function, don't recode everything!
-- **insert**
-	- Use a temporary "tmp" vector to save the value you will change by inserting your vector.
-	- You have to insert your value at the position of your vector with push back
+	- Put size to 0.
+- [**push_back**](https://en.cppreference.com/w/cpp/container/vector/push_back)
+	- If capacity == 0 or > size don't forget to handle this case otherwise your have to allocate for the new 	value.
+	- Add size++; 
+- [**insert**](https://en.cppreference.com/w/cpp/container/vector/insert)
+Insert has 3 dedicated functions.
+	- You have to: 
+		- Check if size = 0.
+		- Use your reserve function if size > capacity.
+	- You have to shift your value from 1
 	- You add the value of your tmp at the following of your vector
 Let's see it in code.
 
@@ -107,22 +111,29 @@ template <class T, class Alloc>
 void vector<T, Alloc>::insert(iterator position, size_type n,
 							const value_type& val)
 {
-	vector<T, Alloc> temp(position, this->end()); // I store the value from the position
-	this->_size -= this->end() - position; // I reduce the size of my vector by taking only begin to position
-	for (size_type i = 0; i < n; i++)
-		this->push_back(val); // I insert the value at the position
-	iterator begin = temp.begin();
-	iterator end = temp.end();
-	while (begin != end)
+	size_type index = position - this->begin();
+	if (n)
 	{
-		this->push_back(*begin); // I insert what we stored the end of the vector
-		++begin;
+		if (this->size() + n > this->capacity())
+		{
+			reserve((this->size() + n) * 1.5);
+		}
+		for (size_type i = this->_size; i > index; i--)
+		{
+			this->_alloc.construct(this->_array + i + n - 1, *(this->_array + i -1)); // you shift and contruct the value on the right to prepare the insertion on the right index of your vector.
+			this->_alloc.destroy(this->_array + i - 1);
+		}
+		for (size_type i = 0; i < n; i++)
+		{
+			this->_alloc.construct(this->_array + index + i, val); // Here I insert my new value
+			this->_size++;
+		}
 	}
 }
 ```
 
 ### Iterators
-Iterators are the tricky part of this project. For my part I created a Iterator.hpp file for vector and for map.
+Iterators are the tricky part of this project. For my part I created a Vector_Iterator.hpp file, Reverse_iterator.hpp and Iterator_traits.hpp for vector
 To undestand how create your first own iterator, use this really insteresting [tutorial](https://www.internalpointers.com/post/writing-custom-iterators-modern-cpp)
 
 #### Vector_iterator
@@ -131,13 +142,6 @@ vector_iterator will be used for almost all your function, it will allow to do o
 1. Create your typedef as the tutorial mentionned just above it explains a lot of things.
 2. Create your constructor and destructor.
 3. Create all your operators functions, you will need it when you will use your iterator.
-
-- **Declare your variables**
-	- Your allocator for the allocation of the memory for your vector,
-	- The size of the vector.[What is iterator trait](https://www.boost.org/sgi/stl/iterator_traits.html)
-- [Nested class](https://www.geeksforgeeks.org/nested-classes-in-c/#:~:text=A%20nested%20class%20is%20a,access%20rules%20shall%20be%20obeyed.)
--[How works "this"](https://www.javatpoint.com/ cpp-this-pointer#:~:text=In%20C%2B%2B%20programming%2C%20this%20is,be%20used%20to%20declare%20indexers.)
-- [man reverse iterator](https://en.cppreference.com/w/cpp/iterator/reverse_iterator)
 
 1. Create your Iterators.hpp file
 You can find my class in the Iterators.hpp file.
@@ -177,16 +181,16 @@ template<class Iterator>
 class reverse_iterator
 {
 public:
-	typedef Iterator 														iterator_type;
-	typedef typename iterator_traits<iterator_type>::iterator_category		iterator_category;
-	typedef typename iterator_traits<iterator_type>::value_type				value_type;
-	typedef typename iterator_traits<iterator_type>::difference_type		difference_type;
-	typedef typename iterator_traits<iterator_type>::pointer				pointer;
-	typedef typename iterator_traits<iterator_type>::reference				reference;
+	typedef Iterator 							iterator_type;
+	typedef typename iterator_traits<iterator_type>::iterator_category	iterator_category;
+	typedef typename iterator_traits<iterator_type>::value_type		value_type;
+	typedef typename iterator_traits<iterator_type>::difference_type	difference_type;
+	typedef typename iterator_traits<iterator_type>::pointer		pointer;
+	typedef typename iterator_traits<iterator_type>::reference		reference;
 ```
 - **explaining the code above**
-As you can see, you need to define as before your iterator, pointer etc... but it is more complicated. You need to create another class iterator trait (*you can find the class in my file utils*).
-Iterator trait ([man here](https://en.cppreference.com/w/cpp/iterator/iterator_traits)) is the type trait class that provides uniform interface.
+As you can see, you need to define as before your iterator, pointer etc... but it is more complicated. You need to create another class iterator trait (*you can find the class in my file iterator_traits*).
+Iterator trait ([man here](https://en.cppreference.com/w/cpp/iterator/iterator_traits)) is the type trait class that provides uniform interface for random_access_iterator.
 ```c
 iterator_traits<iterator_type>::iterator_category
 // iterator_type means my iterator previously defined in vector_iterator
@@ -219,21 +223,20 @@ class iterator_traits<T *>
 {
 public:
 	typedef std::random_access_iterator_tag 	iterator_category;
-	typedef T                         		 	value_type;
+	typedef T                         		 value_type;
 	typedef std::ptrdiff_t                 		difference_type;
-	typedef T*									pointer;
-	typedef T&                        		 	reference;
+	typedef T*					pointer;
+	typedef T&                        		reference;
 };
 ```
 
 3. **Create all your members functions**
 
-- Don't forget because it is reverse, when you have your operator++ for example, you have to do --
+- Don't forget because it is reverse, when you have your operator+ for example, you have to do -
 ```c
-reverse_iterator& operator++()
+reverse_iterator operator+(difference_type n) const
 {
-	this->_ptr--;
-	return (*this);
+	return (reverse_iterator (_ptr - n));
 }
 ```
-
+## STACK
