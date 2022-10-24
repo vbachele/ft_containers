@@ -252,7 +252,41 @@ Honestly nothing difficult. You are passing your vector container in template so
 - [Compare](https://en.cppreference.com/w/cpp/named_req/Compare)
 - [std::less](https://en.cppreference.com/w/cpp/utility/functional/less)
 - [value-compare](https://en.cppreference.com/w/cpp/container/map/value_compare)
+- [Understand a red black tree](https://algorithmtutor.com/Data-Structures/Tree/Red-Black-Trees/)
+- [Other introduction to red black tree](https://www.geeksforgeeks.org/red-black-tree-set-1-introduction-2/)
+- [Insertion in a red black tree](https://www.geeksforgeeks.org/red-black-tree-set-2-insert/)
+- [Deletion in a red black tree](https://www.geeksforgeeks.org/red-black-tree-set-3-delete-2/)
+- [red black tree virtualization](https://www.cs.usfca.edu/~galles/visualization/RedBlack.html)
 
+### RED BLACK TREE
+A red-black tree T is a binary search tree having following **five additional properties** (invariants).
+
+1. Every node in T is either red or black.
+2. The root node of T is black.
+3. Every NULL node is black. (NULL nodes are the leaf nodes. They do not contain any keys. When we search for a key that is not present in the tree, we reach the NULL node.)
+4. If a node is red, both of its children are black. This means no two nodes on a path can be red nodes.
+5. Every path from a root node to a NULL node has the same number of black nodes.
+
+![RBT examples](./images/3NodedRedBlacktree.jpg)
+
+#### Insert in a red black tree
+Algorithm in pseudo code:
+Let x be the newly inserted node.
+
+1. Perform standard BST insertion and make the colour of newly inserted nodes as RED.
+2. If x is the root, change the colour of x as BLACK (Black height of complete tree increases by 1).
+3. Do the following if the color of x’s parent is not BLACK and x is not the root.
+a) If x’s uncle is RED (Grandparent must have been black from property 4)
+(i) Change the colour of parent and uncle as BLACK.
+(ii) Colour of a grandparent as RED.
+(iii) Change x = x’s grandparent, repeat steps 2 and 3 for new x.
+b) If x’s uncle is BLACK, then there can be four configurations for x, x’s parent (p) and x’s grandparent (g) (This is similar to AVL Tree)
+(i) Left Left Case (p is left child of g and x is left child of p)
+(ii) Left Right Case (p is left child of g and x is the right child of p)
+(iii) Right Right Case (Mirror of case i)
+(iv) Right Left Case (Mirror of case ii)
+
+#### Delete in a red black tree
 
 ## OTHER FUNCTIONS
 

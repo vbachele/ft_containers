@@ -1,12 +1,12 @@
 #ifndef FT_CONTAINERS_TMP_RBT_HPP
 #define FT_CONTAINERS_TMP_RBT_HPP
 
-//#include "pair.hpp"
-#include "Equal.hpp"
-#include "Lexicographical_compare.hpp"
+#include "pair.hpp"
+#include "equal.hpp"
+#include "lexicographical_compare.hpp"
 #include "Traits_iterators.hpp"
-//#include "Iterator.hpp"
-#include "Reverse_iterators.hpp"
+#include "Iterator.hpp"
+#include "ReverseIterator.hpp"
 #include <memory>
 #include <iostream>
 

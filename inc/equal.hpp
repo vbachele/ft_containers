@@ -1,5 +1,5 @@
-#ifndef EQUAL_HPP
-#define EQUAL_HPP
+#ifndef FT_CONTAINERS_TMP_EQUAL_HPP
+#define FT_CONTAINERS_TMP_EQUAL_HPP
 
 #include <iostream>
 

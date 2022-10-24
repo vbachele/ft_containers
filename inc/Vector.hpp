@@ -6,9 +6,9 @@
 #include <cstdlib>
 #include "limits"
 #include "./Vector_iterators.hpp"
-#include "./Lexicographical_compare.hpp"
-#include "./Equal.hpp"
-#include "./Reverse_iterators.hpp"
+#include "./lexicographical_compare.hpp"
+#include "./equal.hpp"
+#include "./ReverseIterator.hpp"
 #pragma once
 
 namespace ft

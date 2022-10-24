@@ -1,8 +1,8 @@
-#ifndef REVERSE_ITERATORS_HPP
-# define REVERSE_ITERATORS_HPP
-#include "./Vector.hpp"
+#ifndef REVERSEITERATORS_HPP
+# define REVERSEITERATORS_HPP
+#include "Vector.hpp"
 #include <algorithm>
-#include "./Traits_iterators.hpp"
+#include "Traits_iterators.hpp"
 #include "Vector_iterators.hpp"
 
 /*
@@ -67,11 +67,6 @@ namespace ft
 		}
 
 		reverse_iterator operator-(difference_type n) const { return reverse_iterator(_ptr + n); };
-
-		// reverse_iterator operator-(difference_type n) const
-		// {
-		// 	return (reverse_iterator (_ptr + n));
-		// }
 
 		reverse_iterator& operator+= (difference_type n)
 		{
