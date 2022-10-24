@@ -1,9 +1,6 @@
-#ifndef REVERSEITERATORS_HPP
-# define REVERSEITERATORS_HPP
-#include "Vector.hpp"
-#include <algorithm>
+#ifndef REVERSE_ITERATORS_HPP
+# define REVERSE_ITERATORS_HPP
 #include "Traits_iterators.hpp"
-#include "Vector_iterators.hpp"
 
 /*
 **==========================
@@ -18,23 +15,20 @@ namespace ft
 	public:
 	// iterator _traits is the type trait class that provides uniform interface
 		typedef 		Iterator 												iterator_type;
-		typedef typename iterator_traits<iterator_type>::iterator_category		iterator_category;
-		typedef typename iterator_traits<iterator_type>::value_type				value_type;
-		typedef typename iterator_traits<iterator_type>::difference_type		difference_type;
-		typedef typename iterator_traits<iterator_type>::pointer				pointer;
-		typedef typename iterator_traits<iterator_type>::reference				reference;
+		typedef typename ft::iterator_traits<iterator_type>::iterator_category		iterator_category;
+		typedef typename ft::iterator_traits<iterator_type>::value_type				value_type;
+		typedef typename ft::iterator_traits<iterator_type>::difference_type		difference_type;
+		typedef typename ft::iterator_traits<iterator_type>::pointer				pointer;
+		typedef typename ft::iterator_traits<iterator_type>::reference				reference;
 
 	/*
 	**==========================
 	**  CONSTRUCTOR/DESTRUCTOR
 	**==========================
 	*/
-		reverse_iterator(iterator_type())
-		{
-			this->_ptr = iterator_type();
-		}
+		reverse_iterator() : _ptr(iterator_type()) {}
 
-		reverse_iterator(iterator_type it)
+		explicit reverse_iterator(iterator_type it)
 		{
 			this->_ptr = it;
 		}
@@ -55,11 +49,7 @@ namespace ft
 		}
 
 		reference operator*() const
-		{
-			Iterator it = this->_ptr;
-      	  	--it;
-			return(*it);
-		}
+		{ Iterator tmp = _ptr; return *(--tmp); };
 
 		reverse_iterator operator+(difference_type n) const
 		{
@@ -67,6 +57,7 @@ namespace ft
 		}
 
 		reverse_iterator operator-(difference_type n) const { return reverse_iterator(_ptr + n); };
+
 
 		reverse_iterator& operator+= (difference_type n)
 		{

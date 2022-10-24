@@ -1,5 +1,5 @@
-#ifndef UTILS_HPP
-#define UTILS_HPP
+#ifndef TRAITSITERATORS_HPP
+#define TRAITSITERATORS_HPP
 
 /*
 **==========================
@@ -7,6 +7,7 @@
 **==========================
 */
 namespace ft{
+	
 	/*** We define the iterator trait here ***/
 	template <class Iterator>
 	class iterator_traits
