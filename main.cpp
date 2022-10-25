@@ -11,6 +11,7 @@
 #include "./inc/Iterator.hpp"
 #include "./inc/Vector.hpp"
 #include "./inc/Map.hpp"
+#include "./inc/ReverseIterator.hpp"
 #include <ctime>
 #include <cstdlib>
 #include <memory>
@@ -24,7 +25,6 @@
 #else
 # define NS std
 #endif
-
 
 long	get_time(void)
 {
@@ -103,7 +103,7 @@ int main() {
 		foo.reserve(10);
 		printCapacity(foo);
 		foo.clear();
-		//std::cout << foo.get_allocator().max_size() << std::endl;
+		std::cout << foo.get_allocator().max_size() << std::endl;
 		try {
 			std::cout << foo.at(10)	<< std::endl;
 		} catch (...) {
@@ -350,13 +350,13 @@ int main() {
 			std::cout << it->second << std::endl;
 		}
 		for (size_t i = -3; i < 6; i++) {
-			//std::cout << foo.at(i) << std::endl;
+			std::cout << foo.at(i) << std::endl;
 		}
 	}
 	{
 		NS::map<std::string, int> foo;
 		foo.insert(NS::pair<std::string, int>("one", 1));
-		//foo.insert(NS::pair<std::string, int>("two", 2));
+		foo.insert(NS::pair<std::string, int>("two", 2));
 		foo.insert(NS::pair<std::string, int>("three", 3));
 		foo.insert(NS::pair<std::string, int>("four", 4));
 		foo.insert(NS::pair<std::string, int>("five", 5));

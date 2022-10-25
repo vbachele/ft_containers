@@ -1,13 +1,13 @@
 #ifndef TRAITSITERATORS_HPP
 #define TRAITSITERATORS_HPP
-
+#include <memory>
 /*
 **==========================
 **  ITERATOR TRAITS
 **==========================
 */
 namespace ft{
-	
+
 	/*** We define the iterator trait here ***/
 	template <class Iterator>
 	class iterator_traits

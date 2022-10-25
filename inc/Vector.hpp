@@ -57,15 +57,16 @@ namespace ft
 	**    CAPACITY DECLARATIONS
 	**==========================
 	*/
-		size_type 	size() const;
-		size_type	set_size(size_type n) const;
-		size_type 	max_size() const;
-		void		destroy_array(size_type n);
-		void		allocate_array(size_type n, value_type val);
-		void 		resize (size_type n, value_type val = value_type());
-		size_type 	capacity() const;
-		bool 		empty() const;
-		void 		reserve (size_type n);
+		size_type 		size() const;
+		//size_type	set_size(size_type n) const;
+		size_type 		max_size() const;
+		void			destroy_array(size_type n);
+		void			allocate_array(size_type n, value_type val);
+		void 			resize (size_type n, value_type val = value_type());
+		size_type 		capacity() const;
+		bool 			empty() const;
+		void 			reserve (size_type n);
+		allocator_type 	get_allocator() const { return this->_alloc; }
 
 	/*
 	**==========================
@@ -228,11 +229,12 @@ namespace ft
 		return(this->_size);
 	}
 
-	template < class T, class Alloc >
-	size_t vector <T, Alloc>::set_size(size_type n) const
-	{
-		this->_size = n;
-	}
+	// template < class T, class Alloc >
+	// size_t vector <T, Alloc>::set_size(size_type n) const
+	// {
+	// 	this->_size = n;
+
+	// }
 
 	template < class T, class Alloc >
 	size_t vector <T, Alloc>::max_size() const

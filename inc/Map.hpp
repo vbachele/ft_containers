@@ -1,5 +1,5 @@
-#ifndef MAP_HPP
-#define MAP_HPP
+#ifndef FT_CONTAINERS_TMP_MAP_HPP
+#define FT_CONTAINERS_TMP_MAP_HPP
 
 #include <memory>
 #include "ReverseIterator.hpp"
@@ -85,7 +85,7 @@ namespace ft {
 					 : _tree(RBTree(comp, alloc))
 					 { _tree.insertUnique(first, last); };
 
-			map(const map& other)
+			explicit map(const map& other)
 			:
 			_tree(RBTree(other.key_comp(), other.get_allocator())) {
 				_tree.insertUnique(other.begin(), other.end());
