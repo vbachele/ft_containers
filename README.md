@@ -286,8 +286,6 @@ b) If x’s uncle is BLACK, then there can be four configurations for x, x’s p
 (iii) Right Right Case (Mirror of case i)
 (iv) Right Left Case (Mirror of case ii)
 
-#### Delete in a red black tree
-
 ## OTHER FUNCTIONS
 
 ### [Equal](https://en.cppreference.com/w/cpp/algorithm/equal)
@@ -302,3 +300,6 @@ Lexicographical comparison is an operation with the following properties:
 - If two ranges have equivalent elements and are of the same length, then the ranges are lexicographically equal.
 - An empty range is lexicographically less than any non-empty range.
 - Two empty ranges are lexicographically equal.
+
+### [Pair](https://en.cppreference.com/w/cpp/utility/pair)
+std::pair is a class template that provides a way to store two heterogeneous objects as a single unit. A pair is a specific case of a std::tuple with two elements.
